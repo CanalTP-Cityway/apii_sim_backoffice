@@ -1,13 +1,14 @@
 ApiiSimBackoffice::Application.routes.draw do
   resources :stop_searches
 
-  resources :connections
+  resources :stops, only: [:index, :show] do
+    resources :connections
+  end
 
-  resources :stops
-
-  resources :modes
-
-  resources :mi_systems
+  resources :mi_systems, only: [:index, :show] do
+    resources :stops, only: [:index, :show]
+    resources :connections, only: [:index, :show]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
