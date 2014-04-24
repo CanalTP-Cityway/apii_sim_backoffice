@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @mi_system.name %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @mi_system.comment %>
+</p>
+
+<p>
+  <strong>Api url:</strong>
+  <%= @mi_system.api_url %>
+</p>
+
+<p>
+  <strong>Api key:</strong>
+  <%= @mi_system.api_key %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @mi_system.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @mi_system.end_date %>
+</p>
+
+<p>
+  <strong>Multiple starts and arrivals:</strong>
+  <%= @mi_system.multiple_starts_and_arrivals %>
+</p>
+
+<%= link_to 'Edit', edit_mi_system_path(@mi_system) %> |
+<%= link_to 'Back', mi_systems_path %>

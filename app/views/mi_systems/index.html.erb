@@ -1,0 +1,39 @@
+<h1>Listing mi_systems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Comment</th>
+      <th>Api url</th>
+      <th>Api key</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Multiple starts and arrivals</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mi_systems.each do |mi_system| %>
+      <tr>
+        <td><%= mi_system.name %></td>
+        <td><%= mi_system.comment %></td>
+        <td><%= mi_system.api_url %></td>
+        <td><%= mi_system.api_key %></td>
+        <td><%= mi_system.start_date %></td>
+        <td><%= mi_system.end_date %></td>
+        <td><%= mi_system.multiple_starts_and_arrivals %></td>
+        <td><%= link_to 'Show', mi_system %></td>
+        <td><%= link_to 'Edit', edit_mi_system_path(mi_system) %></td>
+        <td><%= link_to 'Destroy', mi_system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mi system', new_mi_system_path %>

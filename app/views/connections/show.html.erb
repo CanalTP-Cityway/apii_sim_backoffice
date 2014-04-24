@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stop 1:</strong>
+  <%= @connection.stop_1_id %>
+</p>
+
+<p>
+  <strong>Stop 2:</strong>
+  <%= @connection.stop_2_id %>
+</p>
+
+<p>
+  <strong>Distance:</strong>
+  <%= @connection.distance %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @connection.duration %>
+</p>
+
+<p>
+  <strong>Prm duration:</strong>
+  <%= @connection.prm_duration %>
+</p>
+
+<p>
+  <strong>Shape:</strong>
+  <%= @connection.shape %>
+</p>
+
+<%= link_to 'Edit', edit_connection_path(@connection) %> |
+<%= link_to 'Back', connections_path %>

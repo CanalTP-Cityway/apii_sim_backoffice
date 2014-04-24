@@ -1,0 +1,29 @@
+<h1>Listing modes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode code</th>
+      <th>Mode description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @modes.each do |mode| %>
+      <tr>
+        <td><%= mode.mode_code %></td>
+        <td><%= mode.mode_description %></td>
+        <td><%= link_to 'Show', mode %></td>
+        <td><%= link_to 'Edit', edit_mode_path(mode) %></td>
+        <td><%= link_to 'Destroy', mode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mode', new_mode_path %>

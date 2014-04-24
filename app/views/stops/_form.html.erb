@@ -1,0 +1,61 @@
+<%= form_for(@stop) do |f| %>
+  <% if @stop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stop.errors.count, "error") %> prohibited this stop from being saved:</h2>
+
+      <ul>
+      <% @stop.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stop_code %><br>
+    <%= f.number_field :stop_code %>
+  </div>
+  <div class="field">
+    <%= f.label :mi_system_id %><br>
+    <%= f.text_field :mi_system_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.number_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :administrative_code %><br>
+    <%= f.text_area :administrative_code %>
+  </div>
+  <div class="field">
+    <%= f.label :site_ref %><br>
+    <%= f.number_field :site_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :transport_mode %><br>
+    <%= f.text_area :transport_mode %>
+  </div>
+  <div class="field">
+    <%= f.label :quay_type %><br>
+    <%= f.text_area :quay_type %>
+  </div>
+  <div class="field">
+    <%= f.label :lat %><br>
+    <%= f.text_field :lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lon %><br>
+    <%= f.text_field :lon %>
+  </div>
+  <div class="field">
+    <%= f.label :shape %><br>
+    <%= f.text_field :shape %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

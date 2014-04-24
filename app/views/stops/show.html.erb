@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stop code:</strong>
+  <%= @stop.stop_code %>
+</p>
+
+<p>
+  <strong>Mi system:</strong>
+  <%= @stop.mi_system %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stop.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @stop.type %>
+</p>
+
+<p>
+  <strong>Administrative code:</strong>
+  <%= @stop.administrative_code %>
+</p>
+
+<p>
+  <strong>Site ref:</strong>
+  <%= @stop.site_ref %>
+</p>
+
+<p>
+  <strong>Transport mode:</strong>
+  <%= @stop.transport_mode %>
+</p>
+
+<p>
+  <strong>Quay type:</strong>
+  <%= @stop.quay_type %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @stop.lat %>
+</p>
+
+<p>
+  <strong>Lon:</strong>
+  <%= @stop.lon %>
+</p>
+
+<p>
+  <strong>Shape:</strong>
+  <%= @stop.shape %>
+</p>
+
+<%= link_to 'Edit', edit_stop_path(@stop) %> |
+<%= link_to 'Back', stops_path %>

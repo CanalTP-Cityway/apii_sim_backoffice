@@ -1,0 +1,45 @@
+<%= form_for(@mi_system) do |f| %>
+  <% if @mi_system.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mi_system.errors.count, "error") %> prohibited this mi_system from being saved:</h2>
+
+      <ul>
+      <% @mi_system.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </div>
+  <div class="field">
+    <%= f.label :api_url %><br>
+    <%= f.text_area :api_url %>
+  </div>
+  <div class="field">
+    <%= f.label :api_key %><br>
+    <%= f.text_area :api_key %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.datetime_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :multiple_starts_and_arrivals %><br>
+    <%= f.number_field :multiple_starts_and_arrivals %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
