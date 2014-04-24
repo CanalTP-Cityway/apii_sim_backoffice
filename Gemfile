@@ -50,7 +50,7 @@ gem 'inherited_resources'
 
 #gem 'immigrant'
 
-group :development, :test do
+group :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
   gem 'capybara'
