@@ -7,4 +7,8 @@ class ModesController < InheritedResources::Base
 	#respond_to :js, :only => :create
 	#respond_to :iphone, :except => [ :edit, :update ]
 
+	private
+	def permitted_params
+		params.permit(:widget => [:mode_code, :mode_description])
+	end
 end
