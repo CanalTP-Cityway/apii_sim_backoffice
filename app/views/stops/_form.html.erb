@@ -1,4 +1,4 @@
-<%= form_for(@stop) do |f| %>
+<%= form_for@stop, :html => { :class => "form-horizontal" } do |f| %>
   <% if @stop.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@stop.errors.count, "error") %> prohibited this stop from being saved:</h2>
@@ -11,51 +11,75 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :stop_code %><br>
-    <%= f.number_field :stop_code %>
+  <div class="form-group">
+    <%= f.label :stop_code, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.number_field :stop_code %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :mi_system_id %><br>
-    <%= f.text_field :mi_system_id %>
+  <div class="form-group">
+    <%= f.label :mi_system_id, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :mi_system_id %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.number_field :type %>
+  <div class="form-group">
+    <%= f.label :type, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.number_field :type %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :administrative_code %><br>
-    <%= f.text_area :administrative_code %>
+  <div class="form-group">
+    <%= f.label :administrative_code, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :administrative_code %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :site_ref %><br>
-    <%= f.number_field :site_ref %>
+  <div class="form-group">
+    <%= f.label :site_ref, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.number_field :site_ref %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :transport_mode %><br>
-    <%= f.text_area :transport_mode %>
+  <div class="form-group">
+    <%= f.label :transport_mode, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :transport_mode %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :quay_type %><br>
-    <%= f.text_area :quay_type %>
+  <div class="form-group">
+    <%= f.label :quay_type, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :quay_type %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
+  <div class="form-group">
+    <%= f.label :lat, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :lat %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :lon %><br>
-    <%= f.text_field :lon %>
+  <div class="form-group">
+    <%= f.label :lon, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :lon %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :shape %><br>
-    <%= f.text_field :shape %>
+  <div class="form-group">
+    <%= f.label :shape, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :shape %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9 actions">
+       <%= f.submit %> | <%= link_to 'Back', stops_path %>
+    </div>
   </div>
 <% end %>
