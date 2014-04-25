@@ -32,7 +32,7 @@ describe MiSystemsController do
 
   describe "GET index" do
     it "assigns all mi_systems as @mi_systems" do
-      mi_system = MiSystem.create! valid_attributes
+      mi_system = create( :mi_system)
       get :index, {}, valid_session
       expect(assigns(:mi_systems)).to eq([mi_system])
     end
