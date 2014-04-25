@@ -5,8 +5,8 @@ class CreateMiSystems < ActiveRecord::Migration
       t.text :comment, limit: 255
       t.text :api_url, limit: 255, null: false
       t.text :api_key, limit: 255
-      t.datetime :start_date, null: false
-      t.datetime :end_date, null: false
+      t.date :start_date, null: false
+      t.date :end_date, null: false
       t.integer :multiple_starts_and_arrivals
 
       t.timestamps
