@@ -17,7 +17,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">ApiiSimBackoffice</a>
+          <%= link_to "ApiiSimBackoffice", root_path, :class => "navbar-brand" %>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -40,6 +40,7 @@
   </div>
 
   <div class="container">
+    <%= render partial: "shared/flash_messages", flash: flash %>
     <%= yield %>
   </div>
 
