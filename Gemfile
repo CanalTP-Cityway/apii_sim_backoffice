@@ -24,6 +24,17 @@ gem 'jquery-rails'
 # Use twitter bootstrap resources
 gem 'font-awesome-sass'
 
+# Use map layers to display map
+gem 'map_layers', :git => 'https://github.com/maplayers/map_layers.git'
+
+# Add breadcrumb
+gem "breadcrumbs_on_rails"
+
+
+# Geography
+gem 'activerecord-postgis-adapter'
+gem 'ffi-geos'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -60,5 +71,3 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
 end
-
-gem 'activerecord-postgis-adapter'

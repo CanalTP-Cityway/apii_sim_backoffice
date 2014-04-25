@@ -1,4 +1,5 @@
 class MiSystem < ActiveRecord::Base
+  
 	has_and_belongs_to_many :modes, validate: :false
   has_many :stops, dependent: :delete_all, validate: :false 
 	has_many :connections, :through => :stops

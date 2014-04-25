@@ -9,9 +9,7 @@ class CreateStops < ActiveRecord::Migration
       t.integer :site_ref
       t.text :transport_mode, limit: 255
       t.text :quay_type, limit: 255
-      t.decimal :lat, precision: 19, scale: 16
-      t.decimal :lon, precision: 19, scale: 16
-      t.geometry :shape
+      t.point :shape, :srid => 4326
 
       t.timestamps
     end

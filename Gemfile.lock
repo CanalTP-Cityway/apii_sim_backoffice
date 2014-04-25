@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/maplayers/map_layers.git
+  revision: fd2aec75fe9bcf34486cb8cccdb3623b02693172
+  specs:
+    map_layers (0.0.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,6 +34,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
+    breadcrumbs_on_rails (2.3.0)
     builder (3.1.4)
     capybara (2.2.1)
       mime-types (>= 1.16)
@@ -50,6 +57,9 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    ffi (1.9.3)
+    ffi-geos (0.5.0)
+      ffi (>= 1.0.0)
     font-awesome-sass (4.0.3.1)
       sass (~> 3.2)
     has_scope (0.6.0.rc)
@@ -167,13 +177,16 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  breadcrumbs_on_rails
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl_rails
+  ffi-geos
   font-awesome-sass
   inherited_resources
   jbuilder (~> 1.2)
   jquery-rails
+  map_layers!
   pg
   rails (= 4.0.4)
   rspec-rails (~> 3.0.0.beta)
