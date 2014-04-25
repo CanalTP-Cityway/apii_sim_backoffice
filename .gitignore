@@ -30,3 +30,7 @@ config/secrets.yml
 # for Mac user
 .DS_Store
 
+#for emacs user
+.#*
+*~
+
