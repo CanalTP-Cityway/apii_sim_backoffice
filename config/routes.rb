@@ -1,11 +1,11 @@
 ApiiSimBackoffice::Application.routes.draw do
-  resources :stop_searches
+  resources :stop_searches, only: [:new, :create, :index]
 
   resources :stops, only: [:index, :show] do
     resources :connections
   end
 
-  resources :mi_systems, only: [:index, :show] do
+  resources :mi_systems do
     resources :stops, only: [:index, :show]
     resources :connections, only: [:index, :show]
   end
