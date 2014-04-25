@@ -41,8 +41,17 @@
 
   <div class="container">
     <%= render partial: "shared/flash_messages", flash: flash %>
+    <%= render_breadcrumbs :separator => " > " %>
+    
     <%= yield %>
+    
+    <div class='footer row'>
+      <div class='span12'>
+        <hr>
+        <p>APII-Sim Admin</p>
+        <p>Version n° 1.0 - AFIMB</p>
+      </div>
+    </div>    
   </div>
-
 </body>
 </html>

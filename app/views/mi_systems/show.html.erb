@@ -1,39 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="actions"> 
+  <%= link_to '<button type="button" class="btn btn-default">Editer</button>'.html_safe, edit_mi_system_path(@mi_system) %>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @mi_system.name %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @mi_system.comment %>
-</p>
-
-<p>
-  <strong>Api url:</strong>
-  <%= @mi_system.api_url %>
-</p>
-
-<p>
-  <strong>Api key:</strong>
-  <%= @mi_system.api_key %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @mi_system.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @mi_system.end_date %>
-</p>
-
-<p>
-  <strong>Multiple starts and arrivals:</strong>
-  <%= @mi_system.multiple_starts_and_arrivals %>
-</p>
-
-<%= link_to 'Edit', edit_mi_system_path(@mi_system) %> |
-<%= link_to 'Back', mi_systems_path %>
+<div class="row">   
+  <div class="col-md-4">      
+    <p>
+      <ul class="list-group">
+        <li class="list-group-item title">
+          <%= icon('info-circle') %><strong>Info Sim</strong>
+        </li>
+        <li class="list-group-item">
+          <strong>Nom:</strong> <%= @mi_system.name %>
+        </li>
+        <li class="list-group-item">
+          <strong>Api url:</strong> <%= @mi_system.api_url %>
+        </li>
+        <li class="list-group-item">
+          <strong>Api key:</strong> <%= @mi_system.api_key %>
+        </li>
+        <li class="list-group-item">
+          <strong>Période:</strong> du <%= @mi_system.start_date.to_s %> au <%= @mi_system.end_date %>
+        </li>
+      </ul>
+    </p>
+    <p>
+      <ul class="list-group">
+        <li class="list-group-item title">
+          <%= icon('check') %><strong>Mode(s) atourisé(s)</strong>
+        </li>
+        <li class="list-group-item">
+          <% @mi_system.modes.each do |mode| %>
+            <span class="mode"><%= mode.mode_code %></span>
+          <% end %>
+        </li>
+      </ul>
+    </p>
+    <p>
+      <ul class="list-group">
+        <li class="list-group-item title">
+          <%= icon('list') %><strong>Capacités</strong>
+        </li>
+        <li class="list-group-item">
+          <%= @mi_system.comment %>
+        </li>
+      </ul>
+    </p>
+  </div>
+  <div class="col-md-8">
+    <!-- html map container -->
+    <%= map_layers_container(@map, :class => 'small_size', :include_loading => true) %>     
+    <!-- map_layers js scripts and if necessary its dependencies -->
+    <%= map_layers_includes(@map, :onload => true) %>
+  </div>
+</div>
