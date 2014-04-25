@@ -9,5 +9,11 @@ FactoryGirl.define do
     f.start_date "2014-04-22 13:39:56"
     f.end_date "2014-04-22 13:39:56"
     f.multiple_starts_and_arrivals 1
+
+    after(:create) do |mis|
+      0.upto(5) do |i|
+        create(:stop, :mi_system => mis, :stop_code => "code #{i}")
+      end
+    end
   end
 end
