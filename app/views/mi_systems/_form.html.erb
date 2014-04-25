@@ -1,6 +1,6 @@
-<%= form_for(@mi_system) do |f| %>
+<%= form_for @mi_system, :html => { :class => "form-horizontal" } do |f| %>
   <% if @mi_system.errors.any? %>
-    <div id="error_explanation">
+    <div class="form-group" id="error_explanation">
       <h2><%= pluralize(@mi_system.errors.count, "error") %> prohibited this mi_system from being saved:</h2>
 
       <ul>
@@ -11,35 +11,51 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
+  <div class="form-group">
+    <%= f.label :comment, :class => "col-sm-3 control-label" %>
+     <div class="col-sm-9">
+       <%= f.text_area :comment %>
+     </div>
   </div>
-  <div class="field">
-    <%= f.label :api_url %><br>
-    <%= f.text_area :api_url %>
+  <div class="form-group">
+    <%= f.label :api_url, :class => "col-sm-3 control-label"  %>
+    <div class="col-sm-9">
+      <%= f.text_area :api_url %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :api_key %><br>
-    <%= f.text_area :api_key %>
+  <div class="form-group">
+    <%= f.label :api_key, :class => "col-sm-3 control-label"  %>
+    <div class="col-sm-9">
+      <%= f.text_area :api_key %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :start_date %><br>
-    <%= f.datetime_select :start_date %>
+  <div class="form-group">
+    <%= f.label :start_date, :class => "col-sm-3 control-label"  %>
+    <div class="col-sm-9">
+      <%= f.date_select :start_date %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <%= f.datetime_select :end_date %>
+  <div class="form-group">
+    <%= f.label :end_date, :class => "col-sm-3 control-label"  %>
+    <div class="col-sm-9">
+      <%= f.date_select :end_date %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :multiple_starts_and_arrivals %><br>
-    <%= f.number_field :multiple_starts_and_arrivals %>
+  <div class="form-group">
+    <%= f.label :multiple_starts_and_arrivals, :class => "col-sm-3 control-label"  %>
+    <div class="col-sm-9">
+      <%= f.number_field :multiple_starts_and_arrivals %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9 actions">
+      <%= f.submit %> | <%= link_to 'Back', mi_systems_path %>
+    </div>
   </div>
 <% end %>
