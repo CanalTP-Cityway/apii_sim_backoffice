@@ -7,6 +7,5 @@ FactoryGirl.define do
     distance 1
     duration 1
     prm_duration 1
-    shape ""
   end
 end

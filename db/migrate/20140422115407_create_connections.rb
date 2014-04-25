@@ -6,7 +6,6 @@ class CreateConnections < ActiveRecord::Migration
       t.integer :distance
       t.integer :duration
       t.integer :prm_duration
-      t.geometry :shape
 
       t.timestamps
     end
