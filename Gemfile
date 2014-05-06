@@ -20,20 +20,7 @@ gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-# Use twitter bootstrap resources
-gem 'font-awesome-sass'
-
-# Use map layers to display map
-gem 'map_layers', :git => 'https://github.com/maplayers/map_layers.git'
-
-# Add breadcrumb
-gem "breadcrumbs_on_rails"
-
-
-# Geography
-gem 'activerecord-postgis-adapter'
-gem 'ffi-geos'
+gem 'jquery-ui-sass-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -58,15 +45,37 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'inherited_resources'
-
 #gem 'foreigner'
 
 #gem 'immigrant'
 
+gem "ransack"
+gem 'compass-rails'
+
+# Use twitter bootstrap resources
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootswatch-rails', :git => "https://github.com/log0ymxm/bootswatch-rails.git"
+gem 'font-awesome-sass'
+gem 'bootstrap-datepicker-rails'
+gem 'will_paginate-bootstrap'
+
+# Use map layers to display map
+gem 'map_layers', :git => 'https://github.com/maplayers/map_layers.git'
+
+# Add breadcrumb
+gem "breadcrumbs_on_rails"
+
+gem 'inherited_resources'
+gem 'simple_form', :git => "https://github.com/plataformatec/simple_form.git"
+
+# Geography
+gem 'activerecord-postgis-adapter'
+gem 'ffi-geos'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
 end
+
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'

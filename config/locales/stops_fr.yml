@@ -1,0 +1,10 @@
+fr:
+  title:
+    default: Arrêt
+    stops:
+      new: "Ajouter un arrêt"
+      edit: "Modifier l'arrêt"
+      show: "Arrêt"  
+  activerecord:
+    models:
+      mi_system: Arrêt

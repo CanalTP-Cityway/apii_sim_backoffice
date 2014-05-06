@@ -1,22 +1,19 @@
-<h2>Listing stops</h2>
+<h2><%= page_title %></h2>
 
+<div class="lines paginated_content">
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Stop code</th>
-      <th>Mi system</th>
-      <th>Name</th>
+      <th>Code de l'arrêt</th>
+      <th>Sim</th>
+      <th>Nom</th>
+      <th>Code Administratif</th>
+      <th>Id parent</th>
+      <th>Mode de transport</th>
       <th>Type</th>
-      <th>Administrative code</th>
-      <th>Site ref</th>
-      <th>Transport mode</th>
-      <th>Quay type</th>
       <th>Lat</th>
       <th>Lon</th>
-      <th>Shape</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -24,20 +21,21 @@
     <% @stops.each do |stop| %>
       <tr>
         <td><%= stop.stop_code %></td>
-        <td><%= stop.mi_system %></td>
+        <td><% if stop.mi_system_id %> <%= link_to stop.mi_system_id, mi_system_path(stop.mi_system_id) %><% end %></td>
         <td><%= stop.name %></td>
-        <td><%= stop.type %></td>
         <td><%= stop.administrative_code %></td>
         <td><%= stop.site_ref %></td>
         <td><%= stop.transport_mode %></td>
         <td><%= stop.quay_type %></td>
-        <td><%= stop.lat %></td>
-        <td><%= stop.lon %></td>
-        <td><%= stop.shape %></td>
-        <td><%= link_to 'Show', stop %></td>
-        <td><%= link_to 'Edit', edit_stop_path(stop) %></td>
-        <td><%= link_to 'Destroy', stop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= stop.shape.y %></td>
+        <td><%= stop.shape.x %></td>
+        <td><%= link_to 'Consulter', stop %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+
+<div class="pagination">
+  <%= will_paginate @stops, :container => false, renderer: BootstrapPagination::Rails %>
+</div>

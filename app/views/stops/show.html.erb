@@ -1,59 +1,83 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Stop code:</strong>
-  <%= @stop.stop_code %>
-</p>
-
-<p>
-  <strong>Mi system:</strong>
-  <%= @stop.mi_system %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @stop.name %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @stop.type %>
-</p>
-
-<p>
-  <strong>Administrative code:</strong>
-  <%= @stop.administrative_code %>
-</p>
-
-<p>
-  <strong>Site ref:</strong>
-  <%= @stop.site_ref %>
-</p>
-
-<p>
-  <strong>Transport mode:</strong>
-  <%= @stop.transport_mode %>
-</p>
-
-<p>
-  <strong>Quay type:</strong>
-  <%= @stop.quay_type %>
-</p>
-
-<p>
-  <strong>Lat:</strong>
-  <%= @stop.lat %>
-</p>
-
-<p>
-  <strong>Lon:</strong>
-  <%= @stop.lon %>
-</p>
-
-<p>
-  <strong>Shape:</strong>
-  <%= @stop.shape %>
-</p>
-
-<%= link_to 'Edit', edit_stop_path(@stop) %> |
-<%= link_to 'Back', stops_path %>
+<div class="row">   
+  <div class="col-md-4">      
+    <p>
+      <ul class="list-group">
+        <li class="list-group-item title">
+          <%= icon('info-circle') %><strong>Info Sim</strong>
+        </li>
+        <li class="list-group-item">
+          <strong>Nom:</strong> <%= @stop.name %>
+        </li>
+        <li class="list-group-item">
+          <strong>Id Sim:</strong> <%= @stop.mi_system.id %>
+        </li>
+        <li class="list-group-item">
+          <strong>Sim:</strong> <%= @stop.mi_system.name %>
+        </li>
+        <li class="list-group-item">
+          <strong>Latitude-Longitude:</strong> <%= @stop.shape.y %> - <%= @stop.shape.x %>
+        </li>
+        <li class="list-group-item">
+          <strong>Code Postal:</strong> <%= @stop.administrative_code %>
+        </li>
+      </ul>
+    </p>
+  </div>
+  <div class="col-md-8">
+    <!-- html map container -->
+    <%= map_layers_container(@map, :class => 'small_size', :include_loading => true) %>     
+    <!-- map_layers js scripts and if necessary its dependencies -->
+    <%= map_layers_includes(@map, :onload => true) %>
+  </div>
+</div>
+<div class="row">   
+  <p>
+    <ul class="list-group">
+      <li class="list-group-item title">
+        <%= icon('link') %><strong>Transitions</strong>
+      </li>
+      <li class="list-group-item">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Id Source</th>
+              <th>Sim</th>
+              <th>Id rel Sim</th>
+              <th>Nom</th>
+              <th>Code Postal</th>
+              <th>Durée (min)</th>
+              <th>Durée PMR (min)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stop.primary_connections.each do |connection| %>
+            <tr>
+              <td>0</td>
+              <td><%= @connection.stop2.mi_system.id %></td>
+              <td><%= @connection.stop2.mi_system.name %></td>
+              <td><%= @connection.stop2.site_ref %></td>
+              <td><%= @connection.stop2.name %></td>
+              <td><%= @connection.stop2.administrative_code %></td>
+              <td><%= @connection.duration %></td>
+              <td><%= @connection.pmr_duration %></td>
+            </tr>
+            <% end %>
+            <% @stop.secondary_connections.each do |connection| %>
+            <tr>
+              <td>0</td>
+              <td><%= @connection.stop1.mi_system.id %></td>
+              <td><%= @connection.stop1.mi_system.name %></td>
+              <td><%= @connection.stop1.site_ref %></td>
+              <td><%= @connection.stop1.name %></td>
+              <td><%= @connection.stop1.administrative_code %></td>
+              <td><%= @connection.duration %></td>
+              <td><%= @connection.pmr_duration %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>       
+      </li>
+    </ul>
+  </p>
+</div>  

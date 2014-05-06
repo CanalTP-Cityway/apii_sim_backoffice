@@ -1,0 +1,20 @@
+fr:
+  title:
+    default: Sim
+    mi_systems:
+      new: "Ajouter un Sim"
+      edit: "Modifier le Sim"
+      show: "Sim"  
+  activerecord:
+    models:
+      mi_system: Sim
+  simple_form:
+    labels:
+      mi_system:
+        name: "Nom"
+        comment: "Commentaire"
+        api_url: "API de l'url"
+        api_key: "Clé API"
+        start_date: "Date début"
+        end_date: "Date fin"
+        multiple_starts_and_arrivals: "Multiple départs et arrivées"

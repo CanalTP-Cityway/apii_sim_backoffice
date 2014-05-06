@@ -1,61 +1,15 @@
-<%= form_for @mi_system, :html => { :class => "form-horizontal" } do |f| %>
-  <% if @mi_system.errors.any? %>
-    <div class="form-group" id="error_explanation">
-      <h2><%= pluralize(@mi_system.errors.count, "error") %> prohibited this mi_system from being saved:</h2>
-
-      <ul>
-      <% @mi_system.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :name, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-      <%= f.text_field :name %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :comment, :class => "col-sm-3 control-label" %>
-     <div class="col-sm-9">
-       <%= f.text_area :comment %>
-     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :api_url, :class => "col-sm-3 control-label"  %>
-    <div class="col-sm-9">
-      <%= f.text_area :api_url %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :api_key, :class => "col-sm-3 control-label"  %>
-    <div class="col-sm-9">
-      <%= f.text_area :api_key %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :start_date, :class => "col-sm-3 control-label"  %>
-    <div class="col-sm-9">
-      <%= f.date_select :start_date %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :end_date, :class => "col-sm-3 control-label"  %>
-    <div class="col-sm-9">
-      <%= f.date_select :end_date %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :multiple_starts_and_arrivals, :class => "col-sm-3 control-label"  %>
-    <div class="col-sm-9">
-      <%= f.number_field :multiple_starts_and_arrivals %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-9 actions">
-      <%= f.submit %> | <%= link_to 'Back', mi_systems_path %>
-    </div>
+<h2><%= page_title %></h2>
+<%= simple_form_for @mi_system, :html => { :class => "form-horizontal" } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :comment %>
+  <%= f.input :api_url %>
+  <%= f.input :api_key %>
+  <%= f.input :start_date, as: :date, :input_html => { "data-behaviour" => "datepicker", value: l(f.object.start_date) } %>
+  <%= f.input :end_date, as: :date, :input_html => { "data-behaviour" => "datepicker", value: l(f.object.end_date)  } %>
+  <%= f.input :multiple_starts_and_arrivals %>
+  <div class="form-actions">
+    <%= f.submit %> | <%= link_to 'Annuler', mi_systems_path %>
   </div>
 <% end %>
+
+  
