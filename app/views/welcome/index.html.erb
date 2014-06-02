@@ -6,7 +6,7 @@
          Backoffice des "méta-données" fournissant les outils nécessaires à la supervision de l'actualisation des méta-données et à leurs rectifications.   
       </p>
       <p>
-        <a class="btn btn-primary btn-lg" role="button">Rechercher un arrêt</a>
+        <%= link_to "Rechercher un arrêt", new_stop_search_path, :class => "btn btn-primary btn-lg" %>
       </p>
     </div>
     <div class="col-md-4">
@@ -22,9 +22,9 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Arrêts</th>
-            <th>Connections</th>
+            <th>Nom</th>
+            <th>#Arrêts</th>
+            <th>#Connections</th>
           </tr>
         </thead>
 

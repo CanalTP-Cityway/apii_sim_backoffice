@@ -1,6 +1,7 @@
 <h1>Listing stop_searches</h1>
 
-<table>
+<div class="lines paginated_content">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Stop name</th>
@@ -8,9 +9,7 @@
       <th>Administrative code</th>
       <th>Stop code</th>
       <th>Stop</th>
-      <th>Neighbour stop</th>
       <th>Mis</th>
-      <th>Has transition</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,23 +17,22 @@
   </thead>
 
   <tbody>
-    <% @stop_searches.each do |stop_search| %>
+    <% @stop_search.results.each do |stop| %>
       <tr>
-        <td><%= stop_search.stop_name %></td>
-        <td><%= stop_search.postal_code %></td>
-        <td><%= stop_search.administrative_code %></td>
-        <td><%= stop_search.stop_code %></td>
-        <td><%= stop_search.stop_id %></td>
-        <td><%= stop_search.neighbour_stop_id %></td>
-        <td><%= stop_search.mis_id %></td>
-        <td><%= stop_search.has_transition %></td>
-        <td><%= link_to 'Show', stop_search %></td>
-        <td><%= link_to 'Edit', edit_stop_search_path(stop_search) %></td>
-        <td><%= link_to 'Destroy', stop_search, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= stop.name %></td>
+        <td><%= stop.administrative_code %></td>
+        <td><%= stop.administrative_code %></td>
+        <td><%= stop.stop_code %></td>
+        <td><%= stop.id %></td>
+        <td><%= stop.mi_system_id %></td>
+        <td><%= link_to 'Show', stop %></td>
+        <td><%= link_to 'Destroy', stop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+
 
 <br>
 

@@ -40,121 +40,121 @@ describe StopsController do
 
   describe "GET show" do
     it "assigns the requested stop as @stop" do
-      stop = Stop.create! valid_attributes
+      stop = create(:stop) #Stop.create! valid_attributes
       get :show, {:id => stop.to_param}, valid_session
       expect(assigns(:stop)).to eq(stop)
     end
   end
 
-  describe "GET new" do
-    it "assigns a new stop as @stop" do
-      get :new, {}, valid_session
-      expect(assigns(:stop)).to be_a_new(Stop)
-    end
-  end
+  #describe "GET new" do
+    #it "assigns a new stop as @stop" do
+      #get :new, {}, valid_session
+      #expect(assigns(:stop)).to be_a_new(Stop)
+    #end
+  #end
 
-  describe "GET edit" do
-    it "assigns the requested stop as @stop" do
-      stop = Stop.create! valid_attributes
-      get :edit, {:id => stop.to_param}, valid_session
-      expect(assigns(:stop)).to eq(stop)
-    end
-  end
+  #describe "GET edit" do
+    #it "assigns the requested stop as @stop" do
+      #stop = Stop.create! valid_attributes
+      #get :edit, {:id => stop.to_param}, valid_session
+      #expect(assigns(:stop)).to eq(stop)
+    #end
+  #end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Stop" do
-        expect {
-          post :create, {:stop => valid_attributes}, valid_session
-        }.to change(Stop, :count).by(1)
-      end
+  #describe "POST create" do
+    #describe "with valid params" do
+      #it "creates a new Stop" do
+        #expect {
+          #post :create, {:stop => valid_attributes}, valid_session
+        #}.to change(Stop, :count).by(1)
+      #end
 
-      it "assigns a newly created stop as @stop" do
-        post :create, {:stop => valid_attributes}, valid_session
-        expect(assigns(:stop)).to be_a(Stop)
-        expect(assigns(:stop)).to be_persisted
-      end
+      #it "assigns a newly created stop as @stop" do
+        #post :create, {:stop => valid_attributes}, valid_session
+        #expect(assigns(:stop)).to be_a(Stop)
+        #expect(assigns(:stop)).to be_persisted
+      #end
 
-      it "redirects to the created stop" do
-        post :create, {:stop => valid_attributes}, valid_session
-        expect(response).to redirect_to(Stop.last)
-      end
-    end
+      #it "redirects to the created stop" do
+        #post :create, {:stop => valid_attributes}, valid_session
+        #expect(response).to redirect_to(Stop.last)
+      #end
+    #end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved stop as @stop" do
+    #describe "with invalid params" do
+      #it "assigns a newly created but unsaved stop as @stop" do
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
-        expect(assigns(:stop)).to be_a_new(Stop)
-      end
+        #allow_any_instance_of(Stop).to receive(:save).and_return(false)
+        #post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
+        #expect(assigns(:stop)).to be_a_new(Stop)
+      #end
 
-      it "re-renders the 'new' template" do
+      #it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
+        #allow_any_instance_of(Stop).to receive(:save).and_return(false)
+        #post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
+        #expect(response).to render_template("new")
+      #end
+    #end
+  #end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested stop" do
-        stop = Stop.create! valid_attributes
+  #describe "PUT update" do
+    #describe "with valid params" do
+      #it "updates the requested stop" do
+        #stop = Stop.create! valid_attributes
         # Assuming there are no other stops in the database, this
         # specifies that the Stop created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        expect_any_instance_of(Stop).to receive(:update).with({ "stop_code" => "1" })
-        put :update, {:id => stop.to_param, :stop => { "stop_code" => "1" }}, valid_session
-      end
+        #expect_any_instance_of(Stop).to receive(:update).with({ "stop_code" => "1" })
+        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "1" }}, valid_session
+      #end
 
-      it "assigns the requested stop as @stop" do
-        stop = Stop.create! valid_attributes
-        put :update, {:id => stop.to_param, :stop => valid_attributes}, valid_session
-        expect(assigns(:stop)).to eq(stop)
-      end
+      #it "assigns the requested stop as @stop" do
+        #stop = Stop.create! valid_attributes
+        #put :update, {:id => stop.to_param, :stop => valid_attributes}, valid_session
+        #expect(assigns(:stop)).to eq(stop)
+      #end
 
-      it "redirects to the stop" do
-        stop = Stop.create! valid_attributes
-        put :update, {:id => stop.to_param, :stop => valid_attributes}, valid_session
-        expect(response).to redirect_to(stop)
-      end
-    end
+      #it "redirects to the stop" do
+        #stop = Stop.create! valid_attributes
+        #put :update, {:id => stop.to_param, :stop => valid_attributes}, valid_session
+        #expect(response).to redirect_to(stop)
+      #end
+    #end
 
-    describe "with invalid params" do
-      it "assigns the stop as @stop" do
-        stop = Stop.create! valid_attributes
+    #describe "with invalid params" do
+      #it "assigns the stop as @stop" do
+        #stop = Stop.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
-        expect(assigns(:stop)).to eq(stop)
-      end
+        #allow_any_instance_of(Stop).to receive(:save).and_return(false)
+        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
+        #expect(assigns(:stop)).to eq(stop)
+      #end
 
-      it "re-renders the 'edit' template" do
-        stop = Stop.create! valid_attributes
+      #it "re-renders the 'edit' template" do
+        #stop = Stop.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
+        #allow_any_instance_of(Stop).to receive(:save).and_return(false)
+        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
+        #expect(response).to render_template("edit")
+      #end
+    #end
+  #end
 
-  describe "DELETE destroy" do
-    it "destroys the requested stop" do
-      stop = Stop.create! valid_attributes
-      expect {
-        delete :destroy, {:id => stop.to_param}, valid_session
-      }.to change(Stop, :count).by(-1)
-    end
+  #describe "DELETE destroy" do
+    #it "destroys the requested stop" do
+      #stop = Stop.create! valid_attributes
+      #expect {
+        #delete :destroy, {:id => stop.to_param}, valid_session
+      #}.to change(Stop, :count).by(-1)
+    #end
 
-    it "redirects to the stops list" do
-      stop = Stop.create! valid_attributes
-      delete :destroy, {:id => stop.to_param}, valid_session
-      expect(response).to redirect_to(stops_url)
-    end
-  end
+    #it "redirects to the stops list" do
+      #stop = Stop.create! valid_attributes
+      #delete :destroy, {:id => stop.to_param}, valid_session
+      #expect(response).to redirect_to(stops_url)
+    #end
+  #end
 
 end

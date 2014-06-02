@@ -15,7 +15,7 @@
           <strong>Sim:</strong> <%= @stop.mi_system.name %>
         </li>
         <li class="list-group-item">
-          <strong>Latitude-Longitude:</strong> <%= @stop.shape.y %> - <%= @stop.shape.x %>
+          <strong>Latitude-Longitude:</strong> <%= @stop.shape.y if @stop.shape %> - <%= @stop.shape.x if @stop.shape %>
         </li>
         <li class="list-group-item">
           <strong>Code Postal:</strong> <%= @stop.administrative_code %>

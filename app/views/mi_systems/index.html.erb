@@ -9,7 +9,6 @@
       <th>Multiple starts and arrivals</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -21,13 +20,8 @@
         <td><%= mi_system.end_date %></td>
         <td><%= mi_system.multiple_starts_and_arrivals %></td>
         <td><%= link_to 'Consulter', mi_system %></td>
-        <td><%= link_to 'Editer', edit_mi_system_path(mi_system) %></td>
         <td><%= link_to 'Supprimer', mi_system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Mi system', new_mi_system_path %>

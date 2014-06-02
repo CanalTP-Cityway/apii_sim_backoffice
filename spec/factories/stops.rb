@@ -10,8 +10,6 @@ FactoryGirl.define do
     site_ref 1
     transport_mode "MyText"
     quay_type "MyText"
-    lat "9.99"
-    lon "9.99"
     #shape ""
   end
 end

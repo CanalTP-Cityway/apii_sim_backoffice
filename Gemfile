@@ -66,6 +66,7 @@ gem 'map_layers', :git => 'https://github.com/maplayers/map_layers.git'
 gem "breadcrumbs_on_rails"
 
 gem 'inherited_resources'
+gem 'will_paginate', '~> 3.0'
 gem 'simple_form', :git => "https://github.com/plataformatec/simple_form.git"
 
 # Geography

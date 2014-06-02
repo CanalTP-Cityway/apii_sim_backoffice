@@ -25,19 +25,18 @@ ActiveRecord::Schema.define(version: 20140422124631) do
     t.integer  "prm_duration"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "shape",        limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "connections", ["stop_1_id"], :name => "index_connections_on_stop_1_id"
   add_index "connections", ["stop_2_id"], :name => "index_connections_on_stop_2_id"
 
   create_table "mi_systems", force: true do |t|
-    t.string   "name",                         limit: 50
+    t.string   "name",                         limit: 50, null: false
     t.text     "comment"
-    t.text     "api_url"
+    t.text     "api_url",                                 null: false
     t.text     "api_key"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date     "start_date",                              null: false
+    t.date     "end_date",                                null: false
     t.integer  "multiple_starts_and_arrivals"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -54,26 +53,26 @@ ActiveRecord::Schema.define(version: 20140422124631) do
   add_index "mi_systems_modes", ["mi_system_id", "mode_id"], :name => "index_mi_systems_modes_on_mi_system_id_and_mode_id"
 
   create_table "modes", force: true do |t|
-    t.string   "mode_code",        limit: 50
+    t.string   "mode_code",        limit: 50, null: false
     t.text     "mode_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "modes", ["mode_code"], :name => "index_modes_on_mode_code", :unique => true
+
   create_table "stops", force: true do |t|
     t.integer  "stop_code"
     t.integer  "mi_system_id"
     t.string   "name"
-    t.integer  "type"
+    t.integer  "stop_type"
     t.text     "administrative_code"
     t.integer  "site_ref"
     t.text     "transport_mode"
     t.text     "quay_type"
-    t.decimal  "lat",                                                       precision: 19, scale: 16
-    t.decimal  "lon",                                                       precision: 19, scale: 16
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "shape",               limit: {:srid=>0, :type=>"geometry"}
+    t.spatial  "shape",               limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "stops", ["mi_system_id"], :name => "index_stops_on_mi_system_id"
