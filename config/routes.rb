@@ -2,7 +2,13 @@ ApiiSimBackoffice::Application.routes.draw do
   resources :stop_searches, only: [:new, :create]
 
   resources :stops, only: [:index, :show] do
-    resources :connections
+    resources :connections do
+      member do
+        patch :invalidate_connection
+        patch :validate_connection
+      end
+      #get 'invalidate_connection', :on => :connection, :as => invalidate_connection
+    end 
   end
 
   resources :mi_systems, only: [:index, :show] do

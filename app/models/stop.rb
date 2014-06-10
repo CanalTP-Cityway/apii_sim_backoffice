@@ -14,8 +14,6 @@ class Stop < ActiveRecord::Base
   scope :neighbours, ->(neighbour_stop_id, dist) { where ( "ST_DWithin(shape, #{Stop.find(neighbour_stop_id).shape}, #{dist})") unless neighbour_stop_id.blank? }
   scope :has_transtions, ->(has_transition) { where( "#{connections.length} > 0" ) unless has_transition.to_i == 0 }
 
-
-  #scope :searching, ->(mis_id, stop_id, reg_name, admin_code, postal_code, st_code, neighbour_stop_id, dist, has_transition) {mis(mis_id).identifier(stop_id).named_like(reg_name).admin_code(admin_code).postal_code(postal_code).st_code(st_code).neighbours(neighbour_stop_id, dist).has_transtions(has_transition)}
   scope :searching, ->(args){mis(args[:mis_id]).identifier(args[:stop_id]).named_like(args[:stop_name]).admin_code(args[:administrative_code]).postal_code(args[:postal_code]).st_code(args[:stop_code]).neighbours(args[:neighbour_stop_id], args[:dist]).has_transtions(args[:has_transition])}
 
   def connections
