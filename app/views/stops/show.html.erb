@@ -59,7 +59,7 @@
           </thead>
           <tbody>
             <% i = 0.to_i %>
-            <% @stop.primary_connections.each do |connection| %>
+            <% @stop.connections.each do |connection| %>
             <% i = i.to_i + 1 %>
             <tr>
               <td><%= i %></td>
@@ -75,26 +75,6 @@
               <th><%= link_to 'Supprimer', stop_connection_path(@stop, connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' } %></th>
               <th> 
                 <%= link_to_if(connection.validity?, 'Invalider', invalidate_connection_stop_connection_path(@stop, connection), method: :patch ) %>
-                <%= link_to_unless(connection.validity?, 'Valider', validate_connection_stop_connection_path(@stop, connection), method: :patch) %>
-              </th>
-            </tr>
-            <% end %>
-            <% @stop.secondary_connections.each do |connection| %>
-            <% i = i.to_i + 1 %>
-            <tr>
-              <td><%= i %></td>
-              <td><%= connection.stop_1.mi_system.id %></td>
-              <td><%= connection.stop_1.mi_system.name %></td>
-              <td><%= connection.stop_1.site_ref %></td>
-              <td><%= connection.stop_1.name %></td>
-              <td><%= connection.stop_1.administrative_code %></td>
-              <td><%= connection.duration %></td>
-              <td><%= connection.prm_duration %></td>
-              <th><%= link_to 'Visualiser', stop_connection_path(@stop, connection) %></th>
-              <th><%= link_to 'Modifier', edit_stop_connection_path(@stop, connection) %></th>
-              <th><%= link_to 'Supprimer', stop_connection_path(@stop, connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' } %></th>
-              <th> 
-                <%= link_to_if(connection.validity?, 'Invalider', invalidate_connection_stop_connection_path(@stop, connection), method: :patch) %>
                 <%= link_to_unless(connection.validity?, 'Valider', validate_connection_stop_connection_path(@stop, connection), method: :patch) %>
               </th>
             </tr>

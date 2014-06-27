@@ -9,7 +9,7 @@ class StopsController < InheritedResources::Base
     super do |format|      
       # add this line to respond to format kml using your renderer
       format.kml {
-        @features = stops
+        @features = Stop.all
         render 'map_layers/stops'
       }
     end

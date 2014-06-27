@@ -17,6 +17,6 @@ class Stop < ActiveRecord::Base
   scope :searching, ->(args){mis(args[:mis_id]).identifier(args[:stop_id]).named_like(args[:stop_name]).admin_code(args[:administrative_code]).postal_code(args[:postal_code]).st_code(args[:stop_code]).neighbours(args[:neighbour_stop_id], args[:dist]).has_transtions(args[:has_transition])}
 
   def connections
-  	Connection.where("stop_1_id = ? OR stop_2_id = ?", id, id)
+  	Connection.where("stop_1_id = ? OR stop_2_id = ?", id, id).order(:id)
   end
 end
