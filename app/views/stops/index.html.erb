@@ -1,7 +1,7 @@
 <h2><%= page_title %></h2>
 
 <div class="lines paginated_content">
-<table class="table table-hover">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>Code de l'arrêt</th>
@@ -29,7 +29,7 @@
         <td><%= stop.quay_type %></td>
         <td><%= stop.shape.y %></td>
         <td><%= stop.shape.x %></td>
-        <td><%= link_to 'Consulter', stop %></td>
+        <td><%= link_to 'Consulter', stop, :class => "btn btn-sm btn-default" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,18 +1,16 @@
-<h1>Listing stop_searches</h1>
+<h2><%= page_title %></h2>
 
 <div class="lines paginated_content">
-<table class="table table-hover">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th>Stop name</th>
-      <th>Postal code</th>
-      <th>Administrative code</th>
-      <th>Stop code</th>
-      <th>Stop</th>
-      <th>Mis</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th><%= t("simple_form.labels.stop_search.stop_name") %></th>
+      <th><%= t("simple_form.labels.stop_search.postal_code") %></th>
+      <th><%= t("simple_form.labels.stop_search.administrative_code") %></th>
+      <th><%= t("simple_form.labels.stop_search.stop_code") %></th>
+      <th><%= t("simple_form.labels.stop_search.stop_id") %></th>
+      <th><%= t("simple_form.labels.stop_search.mis_id") %></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -25,8 +23,10 @@
         <td><%= stop.stop_code %></td>
         <td><%= stop.id %></td>
         <td><%= stop.mi_system_id %></td>
-        <td><%= link_to 'Show', stop %></td>
-        <td><%= link_to 'Destroy', stop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Consulter', stop, :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Supprimer', stop, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-sm' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

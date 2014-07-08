@@ -1,0 +1,19 @@
+fr:
+  title:
+    default: "Transition"
+    connections:
+      new: "Ajouter une Transition"
+      edit: "Modifier une correspondance"
+      show: "Transition"
+      index: "Transitions"
+  activerecord:
+    models:
+      connection: "Transition"
+  simple_form:
+    labels:
+      connection:
+        stop_1_id: "Premier arrêt"
+        stop_2_id: "Deuxieme arrêt"
+        distance: "Distance"
+        duration: "Durée"
+        prm_duration: "Durée mobilité réduite"

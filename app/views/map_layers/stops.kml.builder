@@ -5,22 +5,22 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
     xml.name "#{@features.class.to_s}_collection"
 
     # styles examples
-    xml.StyleMap :id => "sunny_icon_pair" do
+    xml.StyleMap :id => "stop_icon_pair" do
       xml.Pair do
         xml.key "normal"
-        xml.styleUrl "#sunny_icon_normal"
+        xml.styleUrl "#stop_icon_normal"
       end
       xml.Pair do
         xml.key "highlight"
-        xml.styleUrl "#sunny_icon_highlight"
+        xml.styleUrl "#stop_icon_highlight"
       end
     end
 
-    xml.Style :id => "sunny_icon_normal" do
+    xml.Style :id => "stop_icon_normal" do
       xml.IconStyle do
         xml.scale "1.2"
         xml.Icon do
-          xml.href "http://maps.google.com/mapfiles/kml/shapes/sunny.png"
+          xml.href "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png"
         end
         xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
       end
@@ -29,11 +29,11 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
       end
     end
 
-    xml.Style :id => "sunny_icon_highlight" do
+    xml.Style :id => "stop_icon_highlight" do
       xml.IconStyle do
         xml.scale "1.4"
         xml.Icon do
-          xml.href "http://maps.google.com/mapfiles/kml/shapes/sunny.png"
+          xml.href "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png"
         end
         xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
       end
@@ -65,7 +65,7 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
             # popup url
             xml.popup_content_url polymorphic_path([:popup_content, feature]) rescue nil
 
-            xml.styleUrl "#sunny_icon_pair"
+            xml.styleUrl "#stop_icon_pair"
             #xml.styleUrl "##{feature.map_layers_marker}" if feature.respond_to?('map_layers_marker')
 
             # place link

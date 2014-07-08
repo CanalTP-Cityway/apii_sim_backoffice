@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MiSystemsController do
+describe MiSystemsController, :type => :controller do
   
   let(:valid_session) { {} }
 

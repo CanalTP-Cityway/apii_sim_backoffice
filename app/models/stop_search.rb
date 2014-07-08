@@ -6,7 +6,7 @@ class StopSearch
 	attr_accessor :mis_id, :has_transition
 
 	def persisted?  
-	    false  
+    false  
 	end
 
 	def results

@@ -47,9 +47,6 @@ class StopsController < InheritedResources::Base
       # Add a button to hide/show layers
       page << builder.map.add_control(MapLayers::OpenLayers::Control::LayerSwitcher.new)
 
-      # Add a link for permanent url
-      page << builder.map.add_control(MapLayers::OpenLayers::Control::Permalink.new('permalink'))
-
       # Add mouse coordinates
       page << builder.map.add_control(MapLayers::OpenLayers::Control::MousePosition.new)
 

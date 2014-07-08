@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe StopsController do
+describe StopsController, :type => :routing do
 
   describe "routing" do
 

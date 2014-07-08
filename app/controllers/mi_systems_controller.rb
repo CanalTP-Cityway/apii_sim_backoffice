@@ -1,16 +1,6 @@
 class MiSystemsController < InheritedResources::Base
 
   def show
-    #@map = map
-    #show!
-    #@map = map
-    #super do |format|      
-      # add this line to respond to format kml using your renderer
-      #format.kml {
-        #@features = [stops]
-        #render 'map_layers/stops'
-      #}
-    #end
     @map = map
     super do |format|
       @features = Stop.where("mi_system_id = ?", params[:id])
@@ -31,9 +21,6 @@ class MiSystemsController < InheritedResources::Base
 
       # Add a button to hide/show layers
       page << builder.map.add_control(MapLayers::OpenLayers::Control::LayerSwitcher.new)
-
-      # Add a link for permanent url
-      page << builder.map.add_control(MapLayers::OpenLayers::Control::Permalink.new('permalink'))
 
       # Add mouse coordinates
       page << builder.map.add_control(MapLayers::OpenLayers::Control::MousePosition.new)

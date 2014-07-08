@@ -1,51 +1,17 @@
-<%= form_for(@stop_search) do |f| %>
-  <% if @stop_search.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stop_search.errors.count, "error") %> prohibited this stop_search from being saved:</h2>
-
-      <ul>
-      <% @stop_search.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :stop_name %><br>
-    <%= f.text_field :stop_name %>
+<%= simple_form_for @stop_search, :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
+  <div class ="form-inputs">
+    <%= form.input :stop_name %>
+    <%= form.input :postal_code %>
+    <%= form.input :administrative_code %>
+    <%= form.input :stop_code %>
+    <%= form.input :stop_id %>
+    <%= form.input :neighbour_stop_id %>
+    <%= form.input :mis_id %>
+    <% unless Connection.all.empty? %>
+    <%= form.input :has_transition, as: :boolean %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :postal_code %><br>
-    <%= f.text_field :postal_code %>
-  </div>
-  <div class="field">
-    <%= f.label :administrative_code %><br>
-    <%= f.text_field :administrative_code %>
-  </div>
-  <div class="field">
-    <%= f.label :stop_code %><br>
-    <%= f.text_field :stop_code %>
-  </div>
-  <div class="field">
-    <%= f.label :stop_id %><br>
-    <%= f.number_field :stop_id %>
-  </div>
-  <div class="field">
-    <%= f.label :neighbour_stop_id %><br>
-    <%= f.number_field :neighbour_stop_id %>
-  </div>
-  <div class="field">
-    <%= f.label :mis_id %><br>
-    <%= f.number_field :mis_id %>
-  </div>
-  <% unless Connection.all.empty? %>
-    <div class="field">
-      <%= f.label :has_transition %><br>
-      <%= f.check_box :has_transition %>
-    </div>
-  <% end %>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="col-sm-offset-3 col-sm-10 actions">
+    <%= form.submit "Rechercher" %>
   </div>
 <% end %>

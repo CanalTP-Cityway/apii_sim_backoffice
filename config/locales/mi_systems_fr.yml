@@ -4,7 +4,8 @@ fr:
     mi_systems:
       new: "Ajouter un Sim"
       edit: "Modifier le Sim"
-      show: "Sim"  
+      show: "Sim"
+      index: "Sims"
   activerecord:
     models:
       mi_system: Sim

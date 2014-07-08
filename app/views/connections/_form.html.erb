@@ -1,41 +1,13 @@
-<%= form_for([@stop, @connection]) do |f| %>
-  <% if @connection.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
-
-      <ul>
-      <% @connection.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :stop_1_id %><br>
-    <%= f.text_field :stop_1_id, :value => @stop.id,:readonly => true %>
+<%= simple_form_for [@stop, @connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
+  <div class ="form-inputs">
+    <%= form.input :stop_1_id %>
+    <%= form.input :stop_2_id %>
+    <%= form.input :distance %>
+    <%= form.input :duration %>
+    <%= form.input :prm_duration %>
   </div>
-  <div class="field">
-    <%= f.label :stop_2_id %><br>
-    <%= f.text_field :stop_2_id %>
-  </div>
-  <div class="field">
-    <%= f.label :distance %><br>
-    <%= f.number_field :distance %>
-  </div>
-  <div class="field">
-    <%= f.label :duration %><br>
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
-    <%= f.label :prm_duration %><br>
-    <%= f.number_field :prm_duration %>
-  </div>
-  <!--div class="field" -->
-    <!-- %= f.label :shape % ><br -->
-    <!-- %= f.text_field :shape % -->
-  <!--/div-->
-  <div class="actions">
-    <%= f.submit %>
+  <div class="col-sm-offset-3 col-sm-10 actions">
+    <%= form.submit %>
+    <%= link_to 'Retour', @stop %>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "stop_searches/new" do
+describe "stop_searches/new", :type => :view do
   before(:each) do
     assign(:stop_search, stub_model(StopSearch,
       :stop_name => "MyString",

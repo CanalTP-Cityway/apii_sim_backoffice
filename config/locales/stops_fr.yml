@@ -4,7 +4,8 @@ fr:
     stops:
       new: "Ajouter un arrêt"
       edit: "Modifier l'arrêt"
-      show: "Arrêt"  
+      show: "Arrêt"
+      index: "Arrêts"
   activerecord:
     models:
-      mi_system: Arrêt
+      stop: Arrêt

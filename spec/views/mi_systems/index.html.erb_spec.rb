@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "mi_systems/index" do
+describe "mi_systems/index", :type => :view do
   before(:each) do
     mi_system1 = create(:mi_system)
     mi_system2 = create(:mi_system)

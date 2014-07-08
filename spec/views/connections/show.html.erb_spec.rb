@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "connections/show" do
+describe "connections/show", :type => :view do
   before(:each) do
     @connection = assign(:connection, stub_model(Connection,
       :stop_1_id => nil,

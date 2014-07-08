@@ -3,23 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .list-group {
-    .list-group-item.title {
-        background-color: gray;
-        color: white;
-
-        i {
-            margin-right: 20px;
-        }
-    }
 
     .list-group-item{
         .mode{
             margin-rigt: 10px;
         }
     }
-}
-
-.map_container.small_size{
-    margin: 10px 0 0 0;
-    height: 400px;
 }

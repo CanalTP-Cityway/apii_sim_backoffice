@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
+# Fix to delete unused warn
+gem 'thin'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
@@ -54,7 +57,7 @@ gem 'compass-rails'
 
 # Use twitter bootstrap resources
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootswatch-rails', :git => "https://github.com/log0ymxm/bootswatch-rails.git"
+gem 'bootswatch-rails'
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'will_paginate-bootstrap'
@@ -72,9 +75,13 @@ gem 'simple_form', :git => "https://github.com/plataformatec/simple_form.git"
 # Geography
 gem 'activerecord-postgis-adapter'
 gem 'ffi-geos'
+gem 'transpec'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-activemodel-mocks'
+  gem 'guard'
+  gem 'guard-rspec'
 end
 
 group :test do

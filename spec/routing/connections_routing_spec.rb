@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe ConnectionsController do
+describe ConnectionsController, :type => :routing do
   describe "routing" do
 
     it "routes to #index" do
