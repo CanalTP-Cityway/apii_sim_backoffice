@@ -25,7 +25,6 @@ describe "stop_searches/new", :type => :view do
       assert_select "input#stop_search_stop_id[name=?]", "stop_search[stop_id]"
       assert_select "input#stop_search_neighbour_stop_id[name=?]", "stop_search[neighbour_stop_id]"
       assert_select "input#stop_search_mis_id[name=?]", "stop_search[mis_id]"
-      assert_select "input#stop_search_has_transition[name=?]", "stop_search[has_transition]"
     end
   end
 end
