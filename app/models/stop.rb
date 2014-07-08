@@ -12,7 +12,8 @@ class Stop < ActiveRecord::Base
   scope :postal_code, ->(postal_code) { where( "administrative_code = ?", postal_code ) unless postal_code.blank? }
   scope :st_code, ->(st_code) { where( "stop_code = ?", st_code ) unless st_code.blank? }
   scope :neighbours, ->(neighbour_stop_id, dist) { where ( "ST_DWithin(shape, #{Stop.find(neighbour_stop_id).shape}, #{dist})") unless neighbour_stop_id.blank? }
-  scope :has_transtions, ->(has_transition) { where( "#{connections.length} > 0" ) unless has_transition.to_i == 0 }
+
+  scope :has_transtions, ->(has_transition) { where( "id IN ?", Connection.all.map(&:stop_1_id) + Connection.all.map(&:stop_2_id) ) unless (has_transition.to_i == 0) || (Connection.all.map(&:stop_1_id).empty? && Connection.all.map(&:stop_2_id).empty?) }
 
   scope :searching, ->(args){mis(args[:mis_id]).identifier(args[:stop_id]).named_like(args[:stop_name]).admin_code(args[:administrative_code]).postal_code(args[:postal_code]).st_code(args[:stop_code]).neighbours(args[:neighbour_stop_id], args[:dist]).has_transtions(args[:has_transition])}
 
