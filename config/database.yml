@@ -19,7 +19,7 @@ development:
   #adapter: postgresql
   encoding: unicode
   postgis_extension: true
-  schema_search_path: public,postgis
+  schema_search_path: public
   database: apii_sim_backoffice_development
   pool: 5
   username: apii_sim_backoffice
@@ -53,7 +53,7 @@ test:
   #adapter: postgresql
   encoding: unicode
   postgis_extension: true
-  schema_search_path: public,postgis
+  schema_search_path: public
   database: apii_sim_backoffice_test
   pool: 5
   username: apii_sim_backoffice
@@ -68,7 +68,7 @@ production:
   #adapter: postgresql
   encoding: unicode
   postgis_extension: true
-  schema_search_path: public,postgis
+  schema_search_path: public
   database: apii_sim_backoffice_production
   pool: 5
   username: apii_sim_backoffice
