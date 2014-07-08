@@ -9,3 +9,8 @@ before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "bundle exec rake db:create"
 script: "bundle exec rake spec"
+notifications:
+  recipients:
+    - ldonnet@cityway.fr
+    - zbouziane@cityway.fr
+
