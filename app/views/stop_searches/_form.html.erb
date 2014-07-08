@@ -39,10 +39,12 @@
     <%= f.label :mis_id %><br>
     <%= f.number_field :mis_id %>
   </div>
-  <div class="field">
-    <%= f.label :has_transition %><br>
-    <%= f.check_box :has_transition %>
-  </div>
+  <% unless Connection.all.empty? %>
+    <div class="field">
+      <%= f.label :has_transition %><br>
+      <%= f.check_box :has_transition %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
