@@ -12,9 +12,11 @@ fr:
       stop_search:
         stop_name: "Nom"
         postal_code: "Code Postal"
-        administrative_code: "Code Insee"
+        administrative_code: "Code INSEE"
         stop_code: "Code arrêt"
         stop_id: "Identifiant arrêt"
         neighbour_stop_id: "Identifiant arrêt voisin"
-        mis_id: "Identifiant du sim"
+        neighbour_stop_code: "Code arrêt voisin"
+        mis_id: "Identifiant du SIM"
+        mis_name: "Nom du SIM"
         has_transition: "Contient des transitions"

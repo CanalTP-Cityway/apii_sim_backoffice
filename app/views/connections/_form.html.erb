@@ -1,10 +1,11 @@
 <%= simple_form_for [@stop, @connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
   <div class ="form-inputs">
-    <%= form.input :stop_1_id %>
-    <%= form.input :stop_2_id %>
+    <%= form.association :stop_1 %>
+    <%= form.association :stop_2 %>
     <%= form.input :distance %>
     <%= form.input :duration %>
     <%= form.input :prm_duration %>
+    <%= form.input :validity %>
   </div>
   <div class="col-sm-offset-3 col-sm-10 actions">
     <%= form.submit %>

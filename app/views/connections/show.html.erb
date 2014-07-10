@@ -1,28 +1,41 @@
 <h2><%= page_title %></h2>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.stop_1_id") %>:</strong>
-  <%= @connection.stop_1_id %>
+  <strong><%= t("simple_form.labels.connection.stop_1") %> :</strong>
+  <%= link_to @connection.stop_1.name, stop_path(@connection.stop_1_id) %>
+  <strong><%= t("simple_form.labels.connection.from") %></strong>
+  <%= link_to @connection.stop_1.mi_system.name, mi_system_path(@connection.stop_1.mi_system.id) %>
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.stop_2_id") %>:</strong>
-  <%= @connection.stop_2_id %>
+  <strong><%= t("simple_form.labels.connection.stop_2") %> :</strong>
+  <%= link_to @connection.stop_2.name, stop_path(@connection.stop_2_id) %>
+  <strong><%= t("simple_form.labels.connection.from") %></strong>
+  <%= link_to @connection.stop_2.mi_system.name, mi_system_path(@connection.stop_2.mi_system.id) %>
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.distance") %>:</strong>
+  <strong><%= t("simple_form.labels.connection.distance") %> :</strong>
   <%= @connection.distance %>
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.duration") %>:</strong>
+  <strong><%= t("simple_form.labels.connection.duration") %> :</strong>
   <%= @connection.duration %>
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.prm_duration") %>:</strong>
+  <strong><%= t("simple_form.labels.connection.prm_duration") %> :</strong>
   <%= @connection.prm_duration %>
+</p>
+
+<p>
+  <strong><%= t("simple_form.labels.connection.validity") %> :</strong>
+  <% if @connection.validity? %>
+    <%= t("simple_form.labels.connection.valid") %>
+  <% else %>
+    <%= t("simple_form.labels.connection.invalid") %>
+  <% end %>
 </p>
 
 

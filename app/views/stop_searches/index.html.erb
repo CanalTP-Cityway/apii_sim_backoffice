@@ -5,28 +5,27 @@
   <thead>
     <tr>
       <th><%= t("simple_form.labels.stop_search.stop_name") %></th>
-      <th><%= t("simple_form.labels.stop_search.postal_code") %></th>
-      <th><%= t("simple_form.labels.stop_search.administrative_code") %></th>
       <th><%= t("simple_form.labels.stop_search.stop_code") %></th>
-      <th><%= t("simple_form.labels.stop_search.stop_id") %></th>
-      <th><%= t("simple_form.labels.stop_search.mis_id") %></th>
-      <th>Actions</th>
+      <th>Type</th>
+      <th>SIM</th>
+      <th>Code INSEE</th>
+      <th>Mode de transport</th>
+      <th>Lat</th>
+      <th>Lon</th>
     </tr>
   </thead>
 
   <tbody>
     <% @stop_search.results.each do |stop| %>
       <tr>
-        <td><%= stop.name %></td>
-        <td><%= stop.administrative_code %></td>
-        <td><%= stop.administrative_code %></td>
+        <td><%= link_to stop.name, stop_path(stop.id) %></td>
         <td><%= stop.stop_code %></td>
-        <td><%= stop.id %></td>
-        <td><%= stop.mi_system_id %></td>
-        <td>
-          <%= link_to 'Consulter', stop, :class => 'btn btn-default btn-sm' %>
-          <%= link_to 'Supprimer', stop, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-sm' %>
-        </td>
+        <td><%= stop.quay_type %></td>
+	<td><% if stop.mi_system %> <%= link_to stop.mi_system.name, mi_system_path(stop.mi_system_id) %><% end %></td>
+        <td><%= stop.administrative_code %></td>
+        <td><%= stop.transport_mode %></td>
+        <td><%= stop.shape.y %></td>
+        <td><%= stop.shape.x %></td>
       </tr>
     <% end %>
   </tbody>

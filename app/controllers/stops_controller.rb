@@ -33,12 +33,12 @@ class StopsController < InheritedResources::Base
     @stops = Stop.page(params[:page])
   end
   
-	private
+  private
   
-	def permitted_params
-		params.permit(:stop => [:stop_code, :mi_system_id, :name, :type, :administrative_code, :site_ref, :transport_mode, :quay_type, :geometry])
-	end
-
+  def permitted_params
+    params.permit(:stop => [:stop_code, :mi_system_id, :name, :type, :administrative_code, :site_ref, :transport_mode, :quay_type, :geometry])
+  end
+  
   def map
     @map = MapLayers::JsExtension::MapBuilder.new("map") do |builder, page|
       # OpenStreetMap layer

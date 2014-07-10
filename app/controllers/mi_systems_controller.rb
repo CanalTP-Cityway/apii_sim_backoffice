@@ -7,6 +7,37 @@ class MiSystemsController < InheritedResources::Base
       format.kml { render 'map_layers/stops' }
     end
   end 
+
+  def connections
+    @mi_system = MiSystem.find(params[:id])
+    @connections = @mi_system.connections
+  end
+
+  def stops
+    @mi_system = MiSystem.find(params[:id])
+    @stops = @mi_system.stops.page(params[:page])
+  end
+
+#  def index_connections
+#    @mi_system = MiSystem.find(params[:mi_system_id])
+#    @connections = @mi_system.connections
+#   end
+  
+  def show_connection
+    @mi_system = MiSystem.find(params[:mi_system_id])
+    @connection = Connection.find(params[:id]) 
+  end
+  
+#  def index_stops
+#    @mi_system = MiSystem.find(params[:mi_system_id])
+#    @stops = @mi_system.stops.page(params[:page])
+#  end
+  
+  def show_stop
+    @mi_system = MiSystem.find(params[:mi_system_id])
+    @stop = Stop.find(params[:id]) 
+    @map = map
+  end
   
   private
   

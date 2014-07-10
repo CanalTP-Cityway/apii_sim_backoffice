@@ -6,7 +6,9 @@
     <%= form.input :stop_code %>
     <%= form.input :stop_id %>
     <%= form.input :neighbour_stop_id %>
+    <!-- <%= form.input :neighbour_stop_code %> -->
     <%= form.input :mis_id %>
+    <%= form.input :mis_name %>
     <% unless Connection.all.empty? %>
     <%= form.input :has_transition, as: :boolean %>
     <% end %>

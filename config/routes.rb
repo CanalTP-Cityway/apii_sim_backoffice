@@ -12,9 +12,16 @@ ApiiSimBackoffice::Application.routes.draw do
   end
 
   resources :mi_systems, only: [:index, :show] do
-    resources :stops, only: [:index, :show]
-    resources :connections, only: [:index, :show]
+    #resources :stops, only: [:index, :show]
+    #resources :connections, only: [:index, :show]
+    member do
+      get :stops
+      get :connections
+    end
   end
+  
+  get '/mi_systems/:mi_system_id/connections/:id', to: 'mi_systems#show_connection'
+  get '/mi_systems/:mi_system_id/stops/:id', to: 'mi_systems#show_stop'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

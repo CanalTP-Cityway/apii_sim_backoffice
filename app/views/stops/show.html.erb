@@ -6,19 +6,22 @@
           <%= icon('info-circle') %><strong>Info Arrêt</strong>
         </li>
         <li class="list-group-item">
-          <strong>Nom:</strong> <%= @stop.name %>
+          <strong>Nom :</strong> <%= @stop.name %>
         </li>
         <li class="list-group-item">
-          <strong>Id Sim:</strong> <%= @stop.mi_system.id %>
+          <strong>Identifiant :</strong> <%= @stop.stop_code %>
+        </li>
+	<li class="list-group-item">
+          <strong>Type :</strong> <%= @stop.quay_type %>
         </li>
         <li class="list-group-item">
-          <strong>Sim:</strong> <%= @stop.mi_system.name %>
+          <strong>SIM :</strong> <%= link_to @stop.mi_system.name, mi_system_path(@stop.mi_system.id) %>
         </li>
         <li class="list-group-item">
-          <strong>Latitude-Longitude:</strong> <%= @stop.shape.y if @stop.shape %> - <%= @stop.shape.x if @stop.shape %>
+          <strong>Latitude-Longitude :</strong> <%= @stop.shape.y if @stop.shape %> - <%= @stop.shape.x if @stop.shape %>
         </li>
         <li class="list-group-item">
-          <strong>Code Postal:</strong> <%= @stop.administrative_code %>
+          <strong>Code INSEE :</strong> <%= @stop.administrative_code %>
         </li>
       </ul>
     </p>
@@ -38,16 +41,16 @@
         <div class="pull-right"><%= link_to '<i class="fa fa-plus"></i>Ajout de transition'.html_safe, new_stop_connection_path(@stop), :class => "btn btn-sm btn-default" %></div>
         <div class="clearfix"/>
       </li>
+      <% unless @stop.primary_connections.empty? %>
       <li class="list-group-item">
         <table class="table table-hover table-strip">
           <thead>
             <tr>
               <th>#</th>
-              <th>Id Source</th>
-              <th>Sim</th>
-              <th>Id rel Sim</th>
-              <th>Nom</th>
-              <th>Code Postal</th>
+              <th>Vers l'arrêt</th>
+              <th>Identifiant</th>
+              <th>SIM</th>
+              <th>Code INSEE</th>
               <th>Durée (min)</th>
               <th>Durée PMR (min)</th>
               <th>Actif</th>
@@ -56,14 +59,13 @@
           </thead>
           <tbody>
             <% i = 0.to_i %>
-            <% @stop.connections.each do |connection| %>
+            <% @stop.primary_connections.each do |connection| %>
             <% i = i.to_i + 1 %>
             <tr>
               <td><%= i %></td>
-              <td><%= connection.stop_2.mi_system.id %></td>
-              <td><%= connection.stop_2.mi_system.name %></td>
-              <td><%= connection.stop_2.site_ref %></td>
-              <td><%= connection.stop_2.name %></td>
+              <td><%= link_to connection.stop_2.name, stop_path(connection.stop_2_id) %></td>
+              <td><%= connection.stop_2.stop_code %></td>
+              <td><%= link_to connection.stop_2.mi_system.name, mi_system_path(connection.stop_2.mi_system.id) %></td>
               <td><%= connection.stop_2.administrative_code %></td>
               <td><%= connection.duration %></td>
               <td><%= connection.prm_duration %></td>             
@@ -82,6 +84,51 @@
           </tbody>
         </table>       
       </li>
+      <% end %>
+      <% unless @stop.secondary_connections.empty? %>
+      <li class="list-group-item">
+        <table class="table table-hover table-strip">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Depuis l'arrêt</th>
+              <th>Identifiant</th>
+              <th>SIM</th>
+              <th>Code INSEE</th>
+              <th>Durée (min)</th>
+              <th>Durée PMR (min)</th>
+              <th>Actif</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% i = 0.to_i %>
+            <% @stop.secondary_connections.each do |connection| %>
+            <% i = i.to_i + 1 %>
+            <tr>
+              <td><%= i %></td>
+              <td><%= link_to connection.stop_1.name, stop_path(connection.stop_1_id) %></td>
+              <td><%= connection.stop_1.stop_code %></td>
+              <td><%= link_to connection.stop_1.mi_system.name, mi_system_path(connection.stop_1.mi_system.id) %></td>
+              <td><%= connection.stop_1.administrative_code %></td>
+              <td><%= connection.duration %></td>
+              <td><%= connection.prm_duration %></td>             
+              <td>
+                <div class="btn-group" data-toggle="buttons" data-toggle-default-class="btn-default">
+                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                </div>                
+              </td>
+              <td>
+                <%= link_to 'Modifier', edit_stop_connection_path(@stop, connection), :class => 'btn btn-default btn-sm' %>
+                <%= link_to 'Supprimer', stop_connection_path(@stop, connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' }, :class => 'btn btn-danger btn-sm' %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>       
+      </li>
+      <% end %>
     </ul>
   </p>
 </div>  

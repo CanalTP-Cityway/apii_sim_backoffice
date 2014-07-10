@@ -27,15 +27,19 @@
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Arrêts</th>
-              <th>Connections</th>
+	      <th><%= t("simple_form.labels.mi_system.start_date") %></th>
+	      <th><%= t("simple_form.labels.mi_system.end_date") %></th>
+              <th># Arrêts</th>
+              <th># Connections</th>
             </tr>
           </thead>
 
           <tbody>
             <% @mi_systems.limit(10).each do |mi_system| %>
             <tr>
-              <td><%= mi_system.name %></td>
+              <td><%= link_to mi_system.name, mi_system_path(mi_system.id) %></td>
+              <td><%= mi_system.start_date %></td>
+              <td><%= mi_system.end_date %></td>
               <td><%= mi_system.stops.size %></td>
               <td><%= mi_system.connections.size %></td>            
             </tr>

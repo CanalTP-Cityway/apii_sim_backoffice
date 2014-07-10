@@ -4,32 +4,28 @@
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th>Code de l'arrêt</th>
-      <th>Sim</th>
       <th>Nom</th>
-      <th>Code Administratif</th>
-      <th>Id parent</th>
-      <th>Mode de transport</th>
+      <th>Identifiant</th>
       <th>Type</th>
+      <th>SIM</th>
+      <th>Code INSEE</th>
+      <th>Mode de transport</th>
       <th>Lat</th>
       <th>Lon</th>
-      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @stops.each do |stop| %>
       <tr>
+        <td><%= link_to stop.name, stop_path(stop.id) %></td>
         <td><%= stop.stop_code %></td>
-        <td><% if stop.mi_system_id %> <%= link_to stop.mi_system_id, mi_system_path(stop.mi_system_id) %><% end %></td>
-        <td><%= stop.name %></td>
-        <td><%= stop.administrative_code %></td>
-        <td><%= stop.site_ref %></td>
-        <td><%= stop.transport_mode %></td>
         <td><%= stop.quay_type %></td>
+        <td><% if stop.mi_system %> <%= link_to stop.mi_system.name, mi_system_path(stop.mi_system_id) %><% end %></td>
+        <td><%= stop.administrative_code %></td>
+        <td><%= stop.transport_mode %></td>
         <td><%= stop.shape.y %></td>
         <td><%= stop.shape.x %></td>
-        <td><%= link_to 'Consulter', stop, :class => "btn btn-sm btn-default" %></td>
       </tr>
     <% end %>
   </tbody>
