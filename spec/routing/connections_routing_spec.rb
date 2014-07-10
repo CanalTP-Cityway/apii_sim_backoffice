@@ -31,12 +31,12 @@ describe ConnectionsController, :type => :routing do
       expect(:delete => "/stops/1/connections/1").to route_to("connections#destroy", :stop_id => "1", :id => "1")
     end
 
-    it "routes to #index of systems" do
-      expect(:get => "/mi_systems/1/connections").to route_to("connections#index", :mi_system_id => "1")
+    it "routes to #index of connections for a system" do
+      expect(:get => "/mi_systems/1/connections").to route_to("mi_systems#connections", :id => "1")
     end
 
-    it "routes to #show of systems" do
-      expect(:get => "/mi_systems/1/connections/1").to route_to("connections#show", :mi_system_id => "1", :id => "1")
+    it "routes to #index of stops for a system" do
+      expect(:get => "/mi_systems/1/stops").to route_to("mi_systems#stops", :id => "1")
     end
 
   end
