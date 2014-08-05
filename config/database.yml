@@ -63,11 +63,11 @@ production:
   adapter: postgis
   encoding: unicode
   schema_search_path: public
-  database: apii_sim_backoffice_production
+  database: afimb_db_cway_new
   pool: 5
-  username: apii_sim_backoffice
-  password: apii_sim_backoffice
-  su_username: apii_sim_backoffice
-  su_password: apii_sim_backoffice
-  host: localhost
+  username: cityway
+  password: c17yW4Y13
+  su_username: cityway
+  su_password: c17yW4Y13
+  host: 82.226.26.241
   port: 5432
