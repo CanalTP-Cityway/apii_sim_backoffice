@@ -8,25 +8,25 @@
           <%= icon('info-circle') %><strong>Info Sim</strong>
         </li>
         <li class="list-group-item">
-          <strong>Nom :</strong> <%= @mi_system.name %>
+          <strong>Nom :</strong> <%= @mis.name %>
         </li>
         <li class="list-group-item">
-          <strong>URL :</strong> <%= link_to @mi_system.api_url, @mi_system.api_url %>
+          <strong>URL :</strong> <%= link_to @mis.api_url, @mis.api_url %>
         </li>
         <li class="list-group-item">
-          <strong>Api key :</strong> <%= @mi_system.api_key %>
+          <strong>Api key :</strong> <%= @mis.api_key %>
         </li>
         <li class="list-group-item">
-          <strong>Période :</strong> du <%= l @mi_system.start_date %> au <%= l @mi_system.end_date %>
+          <strong>Période :</strong> du <%= l @mis.start_date %> au <%= l @mis.end_date %>
         </li>
 	<li class="list-group-item">
 	  <strong># d'arrêts :</strong>
-	  <%= @mi_system.stops.size %>
-	  <%= link_to 'Liste des arrêts du SIM', stops_mi_system_path(@mi_system) %>
+	  <%= @mis.stops.size %>
+	  <%= link_to 'Liste des arrêts du SIM', stops_miss_path(@mis) %>
 	</li>
 	<li class="list-group-item">
-	  <strong># de connections :</strong><%= @mi_system.connections.size %>
-	  <%= link_to 'Liste des connections du SIM', connections_mi_system_path(@mi_system) %>
+	  <strong># de connections :</strong><%= @mis.connections.size %>
+	  <%= link_to 'Liste des connections du SIM', connections_miss_path(@mis) %>
         </li>
       </ul>
     </p>
@@ -36,8 +36,8 @@
           <%= icon('check') %><strong>Mode(s) autorisé(s)</strong>
         </li>
         <li class="list-group-item">
-          <% @mi_system.modes.each do |mode| %>
-          <span class="mode"><%= mode.mode_code %></span>
+          <% @mis.modes.each do |mode| %>
+          <span class="mode"><%= mode.code %></span>
           <% end %>
         </li>
       </ul>
@@ -48,7 +48,7 @@
           <%= icon('list') %><strong>Capacités</strong>
         </li>
         <li class="list-group-item">
-          <% case @mi_system.multiple_starts_and_arrivals %>
+          <% case @mis.multiple_start_and_arrivals %>
 	  <% when 1 %>
 	  <%= 'Recherche itinéraire n x m non détaillée' %>
 	  <% end %>

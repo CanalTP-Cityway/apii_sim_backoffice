@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :mode do |f|
-    f.sequence(:mode_code) { |n| "Mode #{n}" }
-    f.sequence(:mode_description) { |n| "Descibing mode #{n}" }
+    f.sequence(:code) { |n| "Mode #{n}" }
+    f.sequence(:description) { |n| "Descibing mode #{n}" }
   end
 end

@@ -19,13 +19,13 @@
     <% @stops.each do |stop| %>
       <tr>
         <td><%= link_to stop.name, stop_path(stop.id) %></td>
-        <td><%= stop.stop_code %></td>
+        <td><%= stop.code %></td>
         <td><%= stop.quay_type %></td>
-        <td><% if stop.mi_system %> <%= link_to stop.mi_system.name, mi_system_path(stop.mi_system_id) %><% end %></td>
+        <td><% if stop.mis %> <%= link_to stop.mis.name, miss_path(stop.mis_id) %><% end %></td>
         <td><%= stop.administrative_code %></td>
         <td><%= stop.transport_mode %></td>
-        <td><%= stop.shape.y %></td>
-        <td><%= stop.shape.x %></td>
+        <td><%= stop.lat %></td>
+        <td><%= stop.lon %></td>
       </tr>
     <% end %>
   </tbody>

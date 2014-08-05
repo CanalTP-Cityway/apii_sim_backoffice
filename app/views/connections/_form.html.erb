@@ -1,12 +1,12 @@
 <%= simple_form_for [@stop, @connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
   <div class ="form-inputs">
-    <%= form.association :stop_1, collection: [@stop], include_blank: false %>
+    <%= form.association :stop1, collection: [@stop], include_blank: false %>
     <!-- TODO prendre seulement les arrets des autres SIM qui se trouvent à moins d'une distance données-->
-    <%= form.association :stop_2, collection: Stop.where( "mi_system_id != ?",  @stop.mi_system_id) %>
+    <%= form.association :stop2, collection: Stop.where( "mis_id != ?",  @stop.mis_id) %>
     <%= form.input :distance %>
     <%= form.input :duration %>
     <%= form.input :prm_duration %>
-    <%= form.input :validity %>
+    <%= form.input :active %>
   </div>
   <div class="col-sm-offset-3 col-sm-10 actions">
     <%= form.submit %>

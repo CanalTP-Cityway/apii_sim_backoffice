@@ -23,7 +23,7 @@ describe StopsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Stop. As you add validations to Stop, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "stop_code" => "1" } }
+  let(:valid_attributes) { { "mis_id" => "1", "code" => "1", "name" => "stop name", "lat" => 1.5656, "lon" => 48.0909} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe StopsController, :type => :controller do
       #it "assigns a newly created but unsaved stop as @stop" do
         # Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        #post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
+        #post :create, {:stop => { "code" => "invalid value" }}, valid_session
         #expect(assigns(:stop)).to be_a_new(Stop)
       #end
 
       #it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        #post :create, {:stop => { "stop_code" => "invalid value" }}, valid_session
+        #post :create, {:stop => { "code" => "invalid value" }}, valid_session
         #expect(response).to render_template("new")
       #end
     #end
@@ -106,8 +106,8 @@ describe StopsController, :type => :controller do
         # specifies that the Stop created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        #expect_any_instance_of(Stop).to receive(:update).with({ "stop_code" => "1" })
-        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "1" }}, valid_session
+        #expect_any_instance_of(Stop).to receive(:update).with({ "code" => "1" })
+        #put :update, {:id => stop.to_param, :stop => { "code" => "1" }}, valid_session
       #end
 
       #it "assigns the requested stop as @stop" do
@@ -128,7 +128,7 @@ describe StopsController, :type => :controller do
         #stop = Stop.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
+        #put :update, {:id => stop.to_param, :stop => { "code" => "invalid value" }}, valid_session
         #expect(assigns(:stop)).to eq(stop)
       #end
 
@@ -136,7 +136,7 @@ describe StopsController, :type => :controller do
         #stop = Stop.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Stop).to receive(:save).and_return(false)
-        #put :update, {:id => stop.to_param, :stop => { "stop_code" => "invalid value" }}, valid_session
+        #put :update, {:id => stop.to_param, :stop => { "code" => "invalid value" }}, valid_session
         #expect(response).to render_template("edit")
       #end
     #end

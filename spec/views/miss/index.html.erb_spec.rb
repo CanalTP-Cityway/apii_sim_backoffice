@@ -1,28 +1,28 @@
 require 'spec_helper'
 
-describe "mi_systems/index", :type => :view do
+describe "miss/index", :type => :view do
   before(:each) do
-    mi_system1 = create(:mi_system)
-    mi_system2 = create(:mi_system)
-    assign(:mi_systems, [mi_system1, mi_system2
-      #stub_model(MiSystem,
+    mis1 = create(:mis)
+    mis2 = create(:mis)
+    assign(:miss, [mis1, mis2
+      #stub_model(Mis,
       #  :name => "Name",
       #  :comment => "MyText",
       #  :api_url => "MyText",
       #  :api_key => "MyText",
-      #  :multiple_starts_and_arrivals => 1
+      #  :multiple_start_and_arrivals => 1
       #),
-      #stub_model(MiSystem,
+      #stub_model(Mis,
       #  :name => "Name",
       #  :comment => "MyText",
       #  :api_url => "MyText",
       #  :api_key => "MyText",
-      #  :multiple_starts_and_arrivals => 1
+      #  :multiple_start_and_arrivals => 1
       #)
     ])
   end
 
-  it "renders a list of mi_systems" do
+  it "renders a list of miss" do
     render
     #assert_select "tr>td", :text => "Name".to_s, :count => 2
     #assert_select "tr>td", :text => "MyText".to_s, :count => 2

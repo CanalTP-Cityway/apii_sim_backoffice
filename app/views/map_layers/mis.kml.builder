@@ -2,7 +2,7 @@
 xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
 xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
   xml.Document do
-    xml.name "#{@mi_system.class.to_s}_collection"
+    xml.name "#{@mis.class.to_s}_collection"
 
     # styles examples
     xml.StyleMap :id => "sunny_icon_pair" do
@@ -47,33 +47,33 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
     xml.Folder do
       xml.name @folder_name
       
-      unless mi_system.envelope
+      unless mis.envelope
         xml.Placemark do
           # id
-          xml.id "#{dom_id(mi_system)}"
+          xml.id "#{dom_id(mis)}"
           
           # place name
-          name = mi_system.respond_to?('name') ? mi_system.name : "#{dom_id(mi_system)}"
+          name = mis.respond_to?('name') ? mis.name : "#{dom_id(mis)}"
           xml.name "#{name}"
           
           # place description
           xml.description do
-            xml.cdata! "#{mi_system.comment}"
+            xml.cdata! "#{mis.comment}"
           end
 
           # popup url
-          #xml.popup_content_url polymorphic_path([:popup_content, mi_system]) rescue nil
+          #xml.popup_content_url polymorphic_path([:popup_content, mis]) rescue nil
 
           #xml.styleUrl "#sunny_icon_pair"
-          #xml.styleUrl "##{mi_system.map_layers_marker}" if mi_system.respond_to?('map_layers_marker')
+          #xml.styleUrl "##{mis.map_layers_marker}" if mis.respond_to?('map_layers_marker')
 
           # place link
-          #xml.link browse_path(mi_system.url)
+          #xml.link browse_path(mis.url)
 
           # place geoloc
-          xml.Polygon do
-            xml.coordinates "#{mi_system.shape.x.to_f},#{mi_system.shape.y.to_f},#{altitude}"
-          end
+          #xml.Polygon do
+          #  xml.coordinates "#{mis.shape.x.to_f},#{mis.shape.y.to_f},#{altitude}"
+          #end
         end
       end
     end    

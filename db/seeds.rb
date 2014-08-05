@@ -6,18 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-modes = Mode.create([{mode_code: 'BUS', mode_description: 'Bus'},
-                     {mode_code: 'TROLLEYBUS', mode_description: 'Trolleyus'},
-                     {mode_code: 'TRAM', mode_description: 'Tramway'},
-                     {mode_code: 'COACH', mode_description: 'Coach'},
-                     {mode_code: 'RAIL', mode_description: 'Trains and other rail vehicles'},
-                     {mode_code: 'INTERCITYRAIL', mode_description: 'Long distance rails'},
-                     {mode_code: 'URBANRAIL', mode_description: 'Short distance rails'},
-                     {mode_code: 'METRO', mode_description: 'Underground'},
-                     {mode_code: 'AIR', mode_description: 'Plains nd helicopters'},
-                     {mode_code: 'WATER', mode_description: 'Boats and ...'},
-                     {mode_code: 'CABLE', mode_description: 'Cable ...'},
-                     {mode_code: 'FUNICULAR', mode_description: 'Funicular'},
-                     {mode_code: 'TAXI', mode_description: 'Taxi'},
-                     {mode_code: 'BIKE', mode_description: 'bicycle'},
-                     {mode_code: 'CAR', mode_description: 'Private car'}])
+modes = Mode.create([{code: 'BUS', description: 'Bus'},
+                     {code: 'TROLLEYBUS', description: 'Trolleyus'},
+                     {code: 'TRAM', description: 'Tramway'},
+                     {code: 'COACH', description: 'Coach'},
+                     {code: 'RAIL', description: 'Trains and other rail vehicles'},
+                     {code: 'INTERCITYRAIL', description: 'Long distance rails'},
+                     {code: 'URBANRAIL', description: 'Short distance rails'},
+                     {code: 'METRO', description: 'Underground'},
+                     {code: 'AIR', description: 'Plains nd helicopters'},
+                     {code: 'WATER', description: 'Boats and ...'},
+                     {code: 'CABLE', description: 'Cable ...'},
+                     {code: 'FUNICULAR', description: 'Funicular'},
+                     {code: 'TAXI', description: 'Taxi'},
+                     {code: 'BIKE', description: 'bicycle'},
+                     {code: 'CAR', description: 'Private car'}])

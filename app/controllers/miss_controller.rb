@@ -1,40 +1,47 @@
-class MiSystemsController < InheritedResources::Base
+class MissController < InheritedResources::Base
 
+  def index
+    @miss = Mis.all
+    index!
+  end
+  
   def show
+    @miss = Mis.all
+    @mis = Mis.find(params[:id])
     @map = map
     super do |format|
-      @features = Stop.where("mi_system_id = ?", params[:id])
+      @features = Stop.where("mis_id = ?", params[:id])
       format.kml { render 'map_layers/stops' }
     end
   end 
-
+  
   def connections
-    @mi_system = MiSystem.find(params[:id])
-    @connections = @mi_system.connections
+    @mis = Mis.find(params[:id])
+    @connections = @mis.connections
   end
-
+  
   def stops
-    @mi_system = MiSystem.find(params[:id])
-    @stops = @mi_system.stops.page(params[:page])
+    @mis = Mis.find(params[:id])
+    @stops = @mis.stops.page(params[:page])
   end
-
-#  def index_connections
-#    @mi_system = MiSystem.find(params[:mi_system_id])
-#    @connections = @mi_system.connections
-#   end
+  
+  #  def index_connections
+  #    @mis = Mis.find(params[:mis_id])
+  #    @connections = @mis.connections
+  #   end
   
   def show_connection
-    @mi_system = MiSystem.find(params[:mi_system_id])
+    @mis = Mis.find(params[:mis_id])
     @connection = Connection.find(params[:id]) 
   end
   
-#  def index_stops
-#    @mi_system = MiSystem.find(params[:mi_system_id])
-#    @stops = @mi_system.stops.page(params[:page])
-#  end
+  #  def index_stops
+  #    @mis = Mis.find(params[:mis_id])
+  #    @stops = @mis.stops.page(params[:page])
+  #  end
   
   def show_stop
-    @mi_system = MiSystem.find(params[:mi_system_id])
+    @mis = Mis.find(params[:mis_id])
     @stop = Stop.find(params[:id]) 
     @map = map
   end
@@ -42,7 +49,7 @@ class MiSystemsController < InheritedResources::Base
   private
   
   def permitted_params
-    params.permit(mi_system: [:name, :comment, :api_url, :api_key, :start_date, :end_date, :multiple_starts_and_arrivals])
+    params.permit(mis: [:name, :comment, :api_url, :api_key, :start_date, :end_date, :multiple_start_and_arrivals])
   end
   
   def map

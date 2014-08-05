@@ -12,12 +12,12 @@ fr:
   simple_form:
     labels:
       connection:
-        stop_1: "Premier arrêt"
-        stop_2: "Deuxieme arrêt"
+        stop1: "Premier arrêt"
+        stop2: "Deuxieme arrêt"
         distance: "Distance"
         duration: "Durée"
         prm_duration: "Durée mobilité réduite"
-        validity: "Validité"
+        active: "Validité"
         valid: "Oui"
         invalid: "Non"
         from: "du SIM"

@@ -13,7 +13,7 @@ fr:
         stop_name: "Nom"
         postal_code: "Code Postal"
         administrative_code: "Code INSEE"
-        stop_code: "Code arrêt"
+        code: "Code arrêt"
         stop_id: "Identifiant arrêt"
         neighbour_stop_id: "Identifiant arrêt voisin"
         neighbour_stop_code: "Code arrêt voisin"

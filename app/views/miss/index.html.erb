@@ -1,0 +1,27 @@
+<h2><%= page_title %></h2>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th><%= t("simple_form.labels.mis.name") %></th>
+      <th><%= t("simple_form.labels.mis.start_date") %></th>
+      <th><%= t("simple_form.labels.mis.end_date") %></th>
+      <th><%= t("simple_form.labels.mis.multiple_start_and_arrivals") %></th>
+      <th># Arrêts</th>
+      <th># Connections</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @miss.each do |mis| %>
+      <tr>
+        <td><%= link_to mis.name, miss_path(mis.id) %></td>
+        <td><%= mis.start_date %></td>
+        <td><%= mis.end_date %></td>
+        <td><%= mis.multiple_start_and_arrivals %></td>
+	<td><%= mis.stops.size %></td>
+	<td><%= mis.connections.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,16 @@
+﻿INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (1, 'all', 'ALL', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (2, 'bus', 'BUS', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (3, 'trolleybus', 'TROLLEYBUS', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (4, 'tram', 'TRAM', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (5, 'coach', 'COACH', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (6, 'rail', 'RAIL', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (7, 'intercityrail', 'INTERCITYRAIL', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (8, 'urbanrail', 'URBANRAIL', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (9, 'metro', 'METRO', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (10, 'air', 'AIR', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (11, 'water', 'WATER', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (12, 'cable', 'CABLE', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (13, 'funicular', 'FUNICULAR', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (14, 'taxi', 'TAXI', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (15, 'bike', 'BIKE', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');
+INSERT INTO mode(id, code, description, created_at, updated_at) VALUES (16, 'car', 'CAR', '2014-07-31 07:42:22.147206', '2014-07-31 07:42:22.147206');

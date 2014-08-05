@@ -9,16 +9,16 @@
           <strong>Nom :</strong> <%= @stop.name %>
         </li>
         <li class="list-group-item">
-          <strong>Identifiant :</strong> <%= @stop.stop_code %>
+          <strong>Identifiant :</strong> <%= @stop.code %>
         </li>
 	<li class="list-group-item">
           <strong>Type :</strong> <%= @stop.quay_type %>
         </li>
         <li class="list-group-item">
-          <strong>SIM :</strong> <%= link_to @stop.mi_system.name, mi_system_path(@stop.mi_system.id) %>
+          <strong>SIM :</strong> <%= link_to @stop.mis.name, miss_path(@stop.mis.id) %>
         </li>
         <li class="list-group-item">
-          <strong>Latitude-Longitude :</strong> <%= @stop.shape.y if @stop.shape %> - <%= @stop.shape.x if @stop.shape %>
+          <strong>Latitude-Longitude :</strong> <%= @stop.lat %> - <%= @stop.lon %>
         </li>
         <li class="list-group-item">
           <strong>Code INSEE :</strong> <%= @stop.administrative_code %>
@@ -63,16 +63,16 @@
             <% i = i.to_i + 1 %>
             <tr>
               <td><%= i %></td>
-              <td><%= link_to connection.stop_2.name, stop_path(connection.stop_2_id) %></td>
-              <td><%= connection.stop_2.stop_code %></td>
-              <td><%= link_to connection.stop_2.mi_system.name, mi_system_path(connection.stop_2.mi_system.id) %></td>
-              <td><%= connection.stop_2.administrative_code %></td>
+              <td><%= link_to connection.stop2.name, stop_path(connection.stop2_id) %></td>
+              <td><%= connection.stop2.code %></td>
+              <td><%= link_to connection.stop2.mis.name, miss_path(connection.stop2.mis.id) %></td>
+              <td><%= connection.stop2.administrative_code %></td>
               <td><%= connection.duration %></td>
               <td><%= connection.prm_duration %></td>             
               <td>
                 <div class="btn-group" data-toggle="buttons" data-toggle-default-class="btn-default">
-                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
-                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
                 </div>                
               </td>
               <td>
@@ -107,16 +107,16 @@
             <% i = i.to_i + 1 %>
             <tr>
               <td><%= i %></td>
-              <td><%= link_to connection.stop_1.name, stop_path(connection.stop_1_id) %></td>
-              <td><%= connection.stop_1.stop_code %></td>
-              <td><%= link_to connection.stop_1.mi_system.name, mi_system_path(connection.stop_1.mi_system.id) %></td>
-              <td><%= connection.stop_1.administrative_code %></td>
+              <td><%= link_to connection.stop1.name, stop_path(connection.stop1_id) %></td>
+              <td><%= connection.stop1.code %></td>
+              <td><%= link_to connection.stop1.mis.name, miss_path(connection.stop1.mis.id) %></td>
+              <td><%= connection.stop1.administrative_code %></td>
               <td><%= connection.duration %></td>
               <td><%= connection.prm_duration %></td>             
               <td>
                 <div class="btn-group" data-toggle="buttons" data-toggle-default-class="btn-default">
-                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
-                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.validity? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
                 </div>                
               </td>
               <td>

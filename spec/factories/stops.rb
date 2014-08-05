@@ -2,14 +2,14 @@
 
 FactoryGirl.define do
   factory :stop do |s|
-    stop_code 1
-    association :mi_system
+    code 1
+    association :mis
     name "MyString"
-    stop_type 1
+    stop_type "GL"
     administrative_code "MyText"
-    site_ref 1
-    transport_mode "MyText"
+    transport_mode "bus"
     quay_type "MyText"
-    #shape ""
+    lat 1.5656
+    lon 48.0909
   end
 end

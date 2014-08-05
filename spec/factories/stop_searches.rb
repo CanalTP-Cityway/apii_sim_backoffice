@@ -5,7 +5,7 @@ FactoryGirl.define do
     stop_name "MyString"
     postal_code "MyString"
     administrative_code "MyString"
-    stop_code "MyString"
+    code "MyString"
     stop_id 1
     neighbour_stop_id 1
     mis_id 1

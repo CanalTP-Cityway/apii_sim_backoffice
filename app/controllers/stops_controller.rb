@@ -36,7 +36,7 @@ class StopsController < InheritedResources::Base
   private
   
   def permitted_params
-    params.permit(:stop => [:stop_code, :mi_system_id, :name, :type, :administrative_code, :site_ref, :transport_mode, :quay_type, :geometry])
+    params.permit(:stop => [:code, :mis_id, :name, :type, :administrative_code, :site_ref, :transport_mode, :quay_type, :geometry])
   end
   
   def map

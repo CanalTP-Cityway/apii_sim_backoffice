@@ -23,7 +23,7 @@ describe ConnectionsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Connection. As you add validations to Connection, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "stop_1_id" => "1234", "stop_2_id" => "1324" } }
+  let(:valid_attributes) { { "stop1_id" => "1234", "stop2_id" => "1324" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -34,8 +34,8 @@ describe ConnectionsController, :type => :controller do
   #  it "assigns all connections as @connections" do
   #    connection = create(:connection) #Connection.create! valid_attributes
       #puts connection.inspect
-      # => puts "TEXT #{Stop.find(connection.stop_1_id)  }"
-  #    get :index, {:stop_id => connection.stop_1_id, :id => connection.id}, valid_session
+      # => puts "TEXT #{Stop.find(connection.stop1_id)  }"
+  #    get :index, {:stop_id => connection.stop1_id, :id => connection.id}, valid_session
   #    expect(assigns(:connections)).to eq([connection])
   #  end
   #end
@@ -44,7 +44,7 @@ describe ConnectionsController, :type => :controller do
     it "assigns the requested connection as @connection" do
       connection = create(:connection)
       #puts "connection.to_param = #{connection.to_param}"
-      get :show, {:stop_id => connection.stop_1_id, :id => connection.id}, valid_session
+      get :show, {:stop_id => connection.stop1_id, :id => connection.id}, valid_session
       expect(assigns(:connection)).to eq(connection)
     end
   end
@@ -60,7 +60,7 @@ describe ConnectionsController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested connection as @connection" do
       connection = create(:connection) #Connection.create! valid_attributes
-      get :edit, {:stop_id => connection.stop_1_id, :id => connection.to_param}, valid_session
+      get :edit, {:stop_id => connection.stop1_id, :id => connection.to_param}, valid_session
       expect(assigns(:connection)).to eq(connection)
     end
   end
@@ -70,7 +70,7 @@ describe ConnectionsController, :type => :controller do
       it "creates a new Connection" do
         stop1 = create(:stop)
         stop2 = create(:stop)
-        connection = build(:connection, :stop_1_id => stop1.id, :stop_2_id => stop2.id) 
+        connection = build(:connection, :stop1_id => stop1.id, :stop2_id => stop2.id) 
         expect {
           post :create, {:stop_id => stop1.id, :connection => connection.attributes}, valid_session
         }.to change(Connection, :count).by(1)
@@ -79,7 +79,7 @@ describe ConnectionsController, :type => :controller do
       it "assigns a newly created connection as @connection" do
         stop1 = create(:stop)
         stop2 = create(:stop)
-        connection = build(:connection, :stop_1_id => stop1.id, :stop_2_id => stop2.id) 
+        connection = build(:connection, :stop1_id => stop1.id, :stop2_id => stop2.id) 
         post :create, {:stop_id => stop1.id, :connection => connection.attributes}, valid_session
         expect(assigns(:connection)).to be_a(Connection)
         expect(assigns(:connection)).to be_persisted
@@ -88,10 +88,10 @@ describe ConnectionsController, :type => :controller do
       it "redirects to the created connection" do
         stop1 = create(:stop)
         stop2 = create(:stop)
-        connection = build(:connection, :stop_1_id => stop1.id, :stop_2_id => stop2.id) 
+        connection = build(:connection, :stop1_id => stop1.id, :stop2_id => stop2.id) 
         post :create, {:stop_id => stop1.id, :connection => connection.attributes}, valid_session
         connection2 = Connection.last
-        expect(response).to redirect_to([connection2.stop_1, connection2])
+        expect(response).to redirect_to([connection2.stop1, connection2])
       end
     end
 
@@ -99,7 +99,7 @@ describe ConnectionsController, :type => :controller do
       it "assigns a newly created but unsaved connection as @connection" do
         stop1 = create(:stop)
         stop2 = create(:stop)
-        connection = build(:connection, :stop_1_id => stop1.id, :stop_2_id => stop2.id) 
+        connection = build(:connection, :stop1_id => stop1.id, :stop2_id => stop2.id) 
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Connection).to receive(:save).and_return(false)
         post :create, {:stop_id => stop1.id, :connection => connection.attributes}, valid_session
@@ -109,7 +109,7 @@ describe ConnectionsController, :type => :controller do
       #it "re-renders the 'new' template" do
         #stop1 = create(:stop)
         ##stop2 = create(:stop)
-        #connection = build(:connection, :stop_1_id => stop1.id, :stop_2_id => stop1.id) 
+        #connection = build(:connection, :stop1_id => stop1.id, :stop2_id => stop1.id) 
         ## Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Connection).to receive(:save).and_return(false)
         #post :create, {:stop_id => stop1.id, :connection => connection.attributes}, valid_session
@@ -128,21 +128,21 @@ describe ConnectionsController, :type => :controller do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         #puts "stop2.connections = #{stop2.connections}"
-        #expect(stop2.connections.first).to receive(:update).with({ "stop_2_id" => "1234" })
-        #expect_any_instance_of(stop2.connections).to receive(:update).with({ "stop_2_id" => "1234" })
-        #put :update, {:stop_id => connection.stop_1_id, :id => connection.to_param, :connection => { "stop_2_id" => stop2.id}}, valid_session
+        #expect(stop2.connections.first).to receive(:update).with({ "stop2_id" => "1234" })
+        #expect_any_instance_of(stop2.connections).to receive(:update).with({ "stop2_id" => "1234" })
+        #put :update, {:stop_id => connection.stop1_id, :id => connection.to_param, :connection => { "stop2_id" => stop2.id}}, valid_session
       #end
 
       it "assigns the requested connection as @connection" do
         connection = create(:connection)
-        put :update, {:stop_id => connection.stop_1_id, :id => connection.to_param}, valid_session
+        put :update, {:stop_id => connection.stop1_id, :id => connection.to_param}, valid_session
         expect(assigns(:connection)).to eq(connection)
       end
 
       it "redirects to the connection" do
         connection = create(:connection)
-        put :update, {:stop_id => connection.stop_1_id, :id => connection.to_param}, valid_session
-        expect(response).to redirect_to([connection.stop_1, connection])
+        put :update, {:stop_id => connection.stop1_id, :id => connection.to_param}, valid_session
+        expect(response).to redirect_to([connection.stop1, connection])
       end
     end
 
@@ -151,7 +151,7 @@ describe ConnectionsController, :type => :controller do
         connection = create(:connection)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Connection).to receive(:save).  and_return(false)
-        put :update, {:stop_id => connection.stop_1_id, :id => connection.to_param, :connection => { "stop_1_id" => "invalid value" }}, valid_session
+        put :update, {:stop_id => connection.stop1_id, :id => connection.to_param, :connection => { "stop1_id" => "invalid value" }}, valid_session
         expect(assigns(:connection)).to eq(connection)
       end
 
@@ -159,7 +159,7 @@ describe ConnectionsController, :type => :controller do
         #connection = create(:connection)
         # Trigger the behavior that occurs when invalid params are submitted
         #allow_any_instance_of(Connection).to receive(:save).and_return(false)
-        #put :update, {:stop_id => connection.stop_1_id, :id => connection.to_param, :connection => { "stop_1_id" => "invalid value" }}, valid_session
+        #put :update, {:stop_id => connection.stop1_id, :id => connection.to_param, :connection => { "stop1_id" => "invalid value" }}, valid_session
         #expect(response).to render_template("edit")
       #end
     end
@@ -169,15 +169,15 @@ describe ConnectionsController, :type => :controller do
     it "destroys the requested connection" do
       connection = create(:connection)
       expect {
-        delete :destroy, {:stop_id => connection.stop_1.id, :id => connection.to_param}, valid_session
+        delete :destroy, {:stop_id => connection.stop1.id, :id => connection.to_param}, valid_session
       }.to change(Connection, :count).by(-1)
     end
 
     #it "redirects to the connections list" do
     #  connection = create(:connection)
-    #  stop_1 = connection.stop_1
-    #  delete :destroy, {:stop_id => connection.stop_1.id, :id => connection.to_param}, valid_session
-    #  expect(response).to redirect_to([stop_1, "connections"])
+    #  stop1 = connection.stop1
+    #  delete :destroy, {:stop_id => connection.stop1.id, :id => connection.to_param}, valid_session
+    #  expect(response).to redirect_to([stop1, "connections"])
     #end
   end
 

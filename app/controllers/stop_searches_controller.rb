@@ -29,6 +29,6 @@ class StopSearchesController < InheritedResources::Base
   
   private
   def permitted_params
-    params.permit(:stop_search => [:stop_name, :postal_code, :administrative_code, :stop_code, :stop_id, :neighbour_stop_id, :neighbour_stop_code, :mis_id, :mis_name, :has_transition])
+    params.permit(:stop_search => [:stop_name, :postal_code, :administrative_code, :code, :stop_id, :neighbour_stop_id, :neighbour_stop_code, :mis_id, :mis_name, :has_transition])
   end
 end

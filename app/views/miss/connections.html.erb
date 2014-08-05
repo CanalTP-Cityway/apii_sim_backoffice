@@ -30,17 +30,17 @@
             <% i = i.to_i + 1 %>
             <tr>
               <td><%= i %></td>
-              <td><%= link_to connection.stop_1.name, stop_path(connection.stop_1_id) %></td>
-              <td><%= connection.stop_1.stop_code %></td>
-              <td><%= link_to connection.stop_1.mi_system.name, mi_system_path(connection.stop_1.mi_system.id) %></td>
-              <td><%= link_to connection.stop_2.name, stop_path(connection.stop_2_id) %></td>
-              <td><%= connection.stop_2.stop_code %></td>
-              <td><%= link_to connection.stop_2.mi_system.name, mi_system_path(connection.stop_2.mi_system.id) %></td>
-              <td><%= connection.stop_2.administrative_code %></td>
+              <td><%= link_to connection.stop1.name, stop_path(connection.stop1_id) %></td>
+              <td><%= connection.stop1.code %></td>
+              <td><%= link_to connection.stop1.mis.name, miss_path(connection.stop1.mis.id) %></td>
+              <td><%= link_to connection.stop2.name, stop_path(connection.stop2_id) %></td>
+              <td><%= connection.stop2.code %></td>
+              <td><%= link_to connection.stop2.mis.name, miss_path(connection.stop2.mis.id) %></td>
+              <td><%= connection.stop2.administrative_code %></td>
               <td><%= connection.duration %></td>
               <td><%= connection.prm_duration %></td>             
               <td>
-		<% if connection.validity? %>
+		<% if connection.active? %>
                   <%= 'Oui' %>
                 <% else %>
                   <%= 'Oui' %>
@@ -57,4 +57,4 @@
   </p>
 </div>  
 
-<%= link_to 'Back', @mi_system %>
+<%= link_to 'Back', miss_path(@mis) %>

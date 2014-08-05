@@ -48,7 +48,7 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
       xml.name @folder_name
 
       @features.each do |feature|
-        unless feature.shape.y.nil? || feature.shape.x.nil?
+        unless feature.lat.nil? || feature.lon.nil?
           xml.Placemark do
             # id
             xml.id "#{dom_id(feature)}"
@@ -74,7 +74,7 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
             # place geoloc
             altitude = feature.respond_to?('altitude') ? feature.altitude : 0
             xml.Point do
-              xml.coordinates "#{feature.shape.x.to_f},#{feature.shape.y.to_f},#{altitude}"
+              xml.coordinates "#{feature.lat.to_f},#{feature.lon.to_f},#{altitude}"
             end
           end
         end

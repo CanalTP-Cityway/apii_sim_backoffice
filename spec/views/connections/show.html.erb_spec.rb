@@ -3,12 +3,11 @@ require 'spec_helper'
 describe "connections/show", :type => :view do
   before(:each) do
     @connection = assign(:connection, stub_model(Connection,
-      :stop_1_id => nil,
-      :stop_2_id => nil,
+      :stop1_id => nil,
+      :stop2_id => nil,
       :distance => 1,
       :duration => 2,
       :prm_duration => 3,
-      :shape => ""
     ))
   end
 

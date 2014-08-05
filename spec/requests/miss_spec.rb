@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "MiSystems", :type => :request do
-  describe "GET /mi_systems" do
+describe "Miss", :type => :request do
+  describe "GET /miss" do
     it "works! (now write some real specs)" do
-      get mi_systems_path
+      get miss_index_path
       expect(response.status).to be(200)
     end
   end

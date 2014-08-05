@@ -27,27 +27,27 @@
           <thead>
             <tr>
               <th>Nom</th>
-	      <th><%= t("simple_form.labels.mi_system.start_date") %></th>
-	      <th><%= t("simple_form.labels.mi_system.end_date") %></th>
+	      <th><%= t("simple_form.labels.mis.start_date") %></th>
+	      <th><%= t("simple_form.labels.mis.end_date") %></th>
               <th># Arrêts</th>
               <th># Connections</th>
             </tr>
           </thead>
 
           <tbody>
-            <% @mi_systems.limit(10).each do |mi_system| %>
+            <% @miss.limit(10).each do |mis| %>
             <tr>
-              <td><%= link_to mi_system.name, mi_system_path(mi_system.id) %></td>
-              <td><%= mi_system.start_date %></td>
-              <td><%= mi_system.end_date %></td>
-              <td><%= mi_system.stops.size %></td>
-              <td><%= mi_system.connections.size %></td>            
+              <td><%= link_to mis.name, miss_path(mis.id) %></td>
+              <td><%= mis.start_date %></td>
+              <td><%= mis.end_date %></td>
+              <td><%= mis.stops.size %></td>
+              <td><%= mis.connections.size %></td>            
             </tr>
             <% end %>
           </tbody>
         </table>
 
-        <p><%= link_to 'Voir détails &raquo;'.html_safe, mi_systems_path, :class => "btn btn-default" %></p>
+        <p><%= link_to 'Voir détails &raquo;'.html_safe, miss_index_path, :class => "btn btn-default" %></p>
       </div>
     </div>            
   </div>
@@ -68,8 +68,8 @@
           <tbody>
             <% @stops.limit(10).each do |stop| %>
             <tr>
-              <td><%= stop.stop_code %></td>
-              <td><%= stop.mi_system %></td>
+              <td><%= stop.code %></td>
+              <td><%= stop.mis %></td>
               <td><%= stop.name %></td>
               <td><%= stop.stop_type %></td>           
             </tr>

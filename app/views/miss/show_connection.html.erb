@@ -1,17 +1,17 @@
 <h2><%= page_title %></h2>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.stop_1") %> :</strong>
-  <%= link_to @connection.stop_1.name, stop_path(@connection.stop_1_id) %>
+  <strong><%= t("simple_form.labels.connection.stop1") %> :</strong>
+  <%= link_to @connection.stop1.name, stop_path(@connection.stop1_id) %>
   <strong><%= t("simple_form.labels.connection.from") %></strong>
-  <%= link_to @connection.stop_1.mi_system.name, mi_system_path(@connection.stop_1.mi_system.id) %>
+  <%= link_to @connection.stop1.mis.name, miss_path(@connection.stop1.mis.id) %>
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.stop_2") %> :</strong>
-  <%= link_to @connection.stop_2.name, stop_path(@connection.stop_2_id) %>
+  <strong><%= t("simple_form.labels.connection.stop2") %> :</strong>
+  <%= link_to @connection.stop2.name, stop_path(@connection.stop2_id) %>
   <strong><%= t("simple_form.labels.connection.from") %></strong>
-  <%= link_to @connection.stop_2.mi_system.name, mi_system_path(@connection.stop_2.mi_system.id) %>
+  <%= link_to @connection.stop2.mis.name, miss_path(@connection.stop2.mis.id) %>
 </p>
 
 <p>
@@ -30,8 +30,8 @@
 </p>
 
 <p>
-  <strong><%= t("simple_form.labels.connection.validity") %> :</strong>
-  <% if @connection.validity? %>
+  <strong><%= t("simple_form.labels.connection.active") %> :</strong>
+  <% if @connection.active? %>
     <%= t("simple_form.labels.connection.valid") %>
   <% else %>
     <%= t("simple_form.labels.connection.invalid") %>
@@ -39,4 +39,4 @@
 </p>
 
 
-<%= link_to 'Back', connections_mi_system_path(@mi_system) %>
+<%= link_to 'Back', connections_miss_path(@mis) %>
