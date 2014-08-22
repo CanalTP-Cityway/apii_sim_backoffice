@@ -1,16 +1,11 @@
 class MissController < InheritedResources::Base
-
-  def index
-    @miss = Mis.all
-    index!
-  end
+  respond_to :html
+  respond_to :kml, :only => :show
+  defaults :resource_class => Mis, :collection_name => 'miss', :instance_name => 'mis'
   
-  def show
-    @miss = Mis.all
-    @mis = Mis.find(params[:id])
-    @map = map
+  def show    
     super do |format|
-      @features = Stop.where("mis_id = ?", params[:id])
+      @map = map("/miss/#{resource.id}/stops.kml")
       format.kml { render 'map_layers/stops' }
     end
   end 
@@ -24,27 +19,10 @@ class MissController < InheritedResources::Base
     @mis = Mis.find(params[:id])
     @stops = @mis.stops.page(params[:page])
   end
-  
-  #  def index_connections
-  #    @mis = Mis.find(params[:mis_id])
-  #    @connections = @mis.connections
-  #   end
-  
-  def show_connection
-    @mis = Mis.find(params[:mis_id])
-    @connection = Connection.find(params[:id]) 
-  end
-  
-  #  def index_stops
-  #    @mis = Mis.find(params[:mis_id])
-  #    @stops = @mis.stops.page(params[:page])
-  #  end
-  
-  def show_stop
-    @mis = Mis.find(params[:mis_id])
-    @stop = Stop.find(params[:id]) 
-    @map = map
-  end
+
+  protected
+  alias_method :mis, :resource
+  alias_method :miss, :collection
   
   private
   
@@ -52,7 +30,7 @@ class MissController < InheritedResources::Base
     params.permit(mis: [:name, :comment, :api_url, :api_key, :start_date, :end_date, :multiple_start_and_arrivals])
   end
   
-  def map
+  def map(url)
     MapLayers::JsExtension::MapBuilder.new("map") do |builder, page|
       # OpenStreetMap layer
       page << builder.map.add_layer(MapLayers::OpenLayers::OSM_MAPNIK)
@@ -64,10 +42,10 @@ class MissController < InheritedResources::Base
       page << builder.map.add_control(MapLayers::OpenLayers::Control::MousePosition.new)
 
       # Add a vector layer to read from kml url
-      page << builder.add_vector_layer('stops', '/stops.kml', :format => :kml)
+      page << builder.add_vector_layer('stops', url, :format => :kml)
       
       # Add an empty vector layer
-      page << builder.add_vector_layer('connections', nil, :format => :kml)              
+      #page << builder.add_vector_layer('connections', '/miss/#{mis.id}/connections.kml', :format => :kml)              
       
       # Initialize select, point, path, polygon and drag control for features
       # you may want to handle event on only one layer

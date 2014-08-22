@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -189,7 +190,7 @@ CREATE TABLE stop (
     geog geography(Point,4326),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    geom geometry
+    geom geometry(Point,4326)
 );
 
 
@@ -282,14 +283,6 @@ ALTER TABLE ONLY stop ALTER COLUMN id SET DEFAULT nextval('stop_id_seq'::regclas
 --
 
 ALTER TABLE ONLY transfer ALTER COLUMN id SET DEFAULT nextval('transfer_id_seq'::regclass);
-
-
---
--- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
-\.
 
 
 --

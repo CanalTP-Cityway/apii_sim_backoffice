@@ -1,37 +1,34 @@
 <h2><%= page_title %></h2>
 
-<div class="lines paginated_content">
-<table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Identifiant</th>
-      <th>Type</th>
-      <th>SIM</th>
-      <th>Code INSEE</th>
-      <th>Mode de transport</th>
-      <th>Lat</th>
-      <th>Lon</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stops.each do |stop| %>
-      <tr>
-        <td><%= link_to stop.name, stop_path(stop.id) %></td>
-        <td><%= stop.code %></td>
-        <td><%= stop.quay_type %></td>
-        <td><% if stop.mis %> <%= link_to stop.mis.name, miss_path(stop.mis_id) %><% end %></td>
-        <td><%= stop.administrative_code %></td>
-        <td><%= stop.transport_mode %></td>
-        <td><%= stop.lat %></td>
-        <td><%= stop.lon %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= search_form_for @q, :url => stops_path, wrapper: "inline_form", :remote => true, :html => {:method => :get, class: "form-inline", :id => "search", role: "form"} do |f| %>
+<div class="panel panel-default">
+  <div class="panel-heading">   
+    <div class="input-group col-md-10">   
+      <%= f.input_field :name_cont, :placeholder => "Recherche par nom", :class => 'form-control' %>
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+    </div><!-- /input-group -->
+    <a data-toggle="collapse" data-parent="#search" href="#advanced_search">
+      <i class="fa fa-plus"></i> Recherche Avancée
+    </a>
+  </div>
+  
+  <div id="advanced_search" class="panel-collapse collapse">          
+    <div class="panel-body">
+      <div>
+        <%= f.input :mis_id_eq, as: :select, :collection => Mis.all, :include_blank => "Sim" %>
+        <%= f.input :administrative_code_cont, :placeholder => "Code Postal" %>
+        <%= f.input :code_cont, :placeholder => "Code Arret" %>
+        <%= f.input :having_connection, :as => :boolean %> <span>Possède une transition</span>
+      </div>
+      <div>
+        <span>Recherche autour d'un point : </span><%= f.input :origin, :placeholder => "2.787778,43.90909", :title => "Coordonnées latitude,longitude avec comme séparateur décimal le point"  %>
+        <%= f.input :distance, :as => :integer, :placeholder => "300", :title => "Distance maximum en mètres autour du point" %>        
+      </div>
+    </div>
+  </div>
 </div>
+<% end %>
 
-<div class="pagination">
-  <%= will_paginate @stops, :container => false, renderer: BootstrapPagination::Rails %>
-</div>
+<div id="stops"><%= render 'stops' %></div>

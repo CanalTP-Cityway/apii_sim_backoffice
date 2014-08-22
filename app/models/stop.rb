@@ -17,12 +17,29 @@ class Stop < ActiveRecord::Base
   scope :neighbours, ->(neighbour_stop_id, dist) { where ( "ST_DWithin(geog, '#{ Stop.find(neighbour_stop_id).geog.as_text}', #{dist})") unless neighbour_stop_id.blank? }
   scope :neighbours_n, ->(neighbour_stop_code, dist) { where ( "ST_DWithin(geog, '#{ Stop.where(code: neighbour_stop_code).geog.as_text}', #{dist})") unless neighbour_stop_code.blank? }
 
-  #scope :has_transtions, ->(has_transition) { where( "id IN (?)", Connection.all.map(&:stop1_id) + Connection.all.map(&:stop2_id) ) unless (has_transition.to_i == 0) || (Connection.all.map(&:stop1_id).empty? && Connection.all.map(&:stop2_id).empty?) }
-  scope :has_transtions, ->(has_transition) { where( id: (Connection.all.map(&:stop1_id) + Connection.all.map(&:stop2_id)).uniq ) unless (has_transition.to_i == 0) || (Connection.all.map(&:stop1_id).empty? && Connection.all.map(&:stop2_id).empty?) }
+  scope :has_connection, ->(boolean) { where( "#{boolean} AND (id IN (?))", Connection.all.map(&:stop1_id) + Connection.all.map(&:stop2_id) ) }
 
   scope :searching, ->(args){mis(args[:mis_id]).mis_n(args[:mis_name]).identifier(args[:stop_id]).named_like(args[:stop_name]).admin_code(args[:administrative_code]).postal_code(args[:postal_code]).st_code(args[:code]).neighbours(args[:neighbour_stop_id], args[:dist]).neighbours_n(args[:neighbour_stop_code], args[:dist]).has_transtions(args[:has_transition])}
+
+  #attr_accessor :origin, :distance, :having_connection
+  def self.ransackable_attributes(auth_object = nil)
+    (column_names + ['origin', 'distance', 'having_connection']) + _ransackers.keys
+  end
 
   def connections
     Connection.where("stop1_id = ? OR stop2_id = ?", id, id).order(:id)
   end
+
+  def self.near_from(point, distance)        
+    where "ST_DWithin(geom, '#{point.as_text}', #{distance})"
+  end
+
+  def having_connections
+    #.join()
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:has_connection ]
+  end
+  
 end

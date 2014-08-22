@@ -31,13 +31,13 @@ describe ConnectionsController, :type => :routing do
       expect(:delete => "/stops/1/connections/1").to route_to("connections#destroy", :stop_id => "1", :id => "1")
     end
 
-    it "routes to #index of connections for a system" do
-      expect(:get => "/miss/1/connections").to route_to("miss#connections", :id => "1")
-    end
+    # it "routes to #index of connections for a system" do
+    #   expect(:get => "/miss/1/connections").to route_to("miss#connections", :id => "1")
+    # end
 
-    it "routes to #index of stops for a system" do
-      expect(:get => "/miss/1/stops").to route_to("miss#stops", :id => "1")
-    end
+    # it "routes to #index of stops for a system" do
+    #   expect(:get => "/miss/1/stops").to route_to("miss#stops", :id => "1")
+    # end
 
   end
 end

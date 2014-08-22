@@ -1,5 +1,4 @@
 ApiiSimBackoffice::Application.routes.draw do
-  resources :stop_searches, only: [:new, :create]
 
   resources :stops, only: [:index, :show] do
     resources :connections do
@@ -12,16 +11,9 @@ ApiiSimBackoffice::Application.routes.draw do
   end
 
   resources :miss, only: [:index, :show] do
-    #resources :stops, only: [:index, :show]
-    #resources :connections, only: [:index, :show]
-    member do
-      get :stops
-      get :connections
-    end
+    resources :stops, only: [:index, :show]
+    resources :connections, only: [:index, :show]
   end
-  
-  get '/miss/:mis_id/connections/:id', to: 'miss#show_connection'
-  get '/miss/:mis_id/stops/:id', to: 'miss#show_stop'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

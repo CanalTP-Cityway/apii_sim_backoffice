@@ -18,7 +18,7 @@
           <strong>SIM :</strong> <%= link_to @stop.mis.name, miss_path(@stop.mis.id) %>
         </li>
         <li class="list-group-item">
-          <strong>Latitude-Longitude :</strong> <%= @stop.lat %> - <%= @stop.lon %>
+          <strong>Latitude-Longitude :</strong> <%= @stop.lat %>,<%= @stop.lon %>
         </li>
         <li class="list-group-item">
           <strong>Code INSEE :</strong> <%= @stop.administrative_code %>

@@ -20,8 +20,8 @@ class CreateStop < ActiveRecord::Migration
       t.integer :parent_id
       t.column :transport_mode, :transport_mode_enum
       t.string :quay_type, limit: 255
-      t.spatial  "geog",    :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-      t.spatial  "geom",    :limit => {:geographic=>false}
+      t.spatial  "geog", :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+      t.spatial  "geom", :limit => {:srid=>4326, :type=>"point", :geographic=>false}
 
       t.timestamps
     end

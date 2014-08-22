@@ -47,37 +47,36 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
     xml.Folder do
       xml.name @folder_name
 
-      @stops.each do |stop|
-        unless stop.lat.nil? || stop.lon.nil?
+        unless @stop.lat.nil? || @stop.lon.nil?
           xml.Placemark do
             # id
-            xml.id "#{dom_id(stop)}"
+            xml.id "#{dom_id(@stop)}"
 
             # place name
-            name = stop.respond_to?('name') ? stop.name : "#{dom_id(stop)}"
+            name = @stop.respond_to?('name') ? @stop.name : "#{dom_id(@stop)}"
             xml.name "#{name}"
 
             # place description
             #xml.description do
-            #  xml.cdata! "#{stop.description}"
+            #  xml.cdata! "#{@stop.description}"
             #end
 
             # popup url
-            xml.popup_content_url polymorphic_path([:popup_content, stop]) rescue nil
+            xml.popup_content_url polymorphic_path([:popup_content, @stop]) rescue nil
 
             xml.styleUrl "#stop_icon_pair"
-            #xml.styleUrl "##{stop.map_layers_marker}" if stop.respond_to?('map_layers_marker')
+            #xml.styleUrl "##{@stop.map_layers_marker}" if @stop.respond_to?('map_layers_marker')
 
             # place link
-            #xml.link browse_path(stop.url)
+            #xml.link browse_path(@stop.url)
 
             # place geoloc
-            altitude = stop.respond_to?('altitude') ? stop.altitude : 0
+            altitude = @stop.respond_to?('altitude') ? @stop.altitude : 0
             xml.Point do
-              xml.coordinates "#{stop.lat.to_f},#{stop.lon.to_f},#{altitude}"
+              xml.coordinates "#{@stop.lat.to_f},#{@stop.lon.to_f},#{altitude}"
             end
           end
-        end
+
       end
 
     end
