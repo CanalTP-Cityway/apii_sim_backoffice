@@ -36,7 +36,7 @@ class StopsController < InheritedResources::Base
     if ransack_params.present?
       if ransack_params["origin"].present? && ransack_params["distance"].present?
         origin = Stop.geos_factory.parse_wkt( "POINT(#{ransack_params["origin"].gsub(",", " ")})" )
-        distance = ransack_params["distance"] * ( 0.001 / 111 )       
+        distance = ransack_params["distance"].to_i * ( 0.001 / 111 )       
       end
 
       having_connection = ransack_params["having_connection"]
