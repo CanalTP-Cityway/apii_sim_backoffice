@@ -2,21 +2,21 @@
 xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
 xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
   xml.Document do
-    xml.name "#{@stops.class.to_s}_collection"
+    xml.name "#{@connections.class.to_s}_collection"
 
     # styles examples
-    xml.StyleMap :id => "stop_icon_pair" do
+    xml.StyleMap :id => "connection_icon_pair" do
       xml.Pair do
         xml.key "normal"
-        xml.styleUrl "#stop_icon_normal"
+        xml.styleUrl "#connection_icon_normal"
       end
       xml.Pair do
         xml.key "highlight"
-        xml.styleUrl "#stop_icon_highlight"
+        xml.styleUrl "#connection_icon_highlight"
       end
     end
 
-    xml.Style :id => "stop_icon_normal" do
+    xml.Style :id => "connection_icon_normal" do
       xml.IconStyle do
         xml.scale "1.2"
         xml.Icon do
@@ -29,7 +29,7 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
       end
     end
 
-    xml.Style :id => "stop_icon_highlight" do
+    xml.Style :id => "connection_icon_highlight" do
       xml.IconStyle do
         xml.scale "1.4"
         xml.Icon do
@@ -47,34 +47,33 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
     xml.Folder do
       xml.name @folder_name
 
-      @stops.each do |stop|
-        unless stop.lat.nil? || stop.lon.nil?
+      @connections.each do |connection|
+        unless connection.stop1.lat.nil? || connection.stop1.lon.nil? || connection.stop2.lat.nil? || connection.stop2.lon.nil?  
           xml.Placemark do
             # id
-            xml.id "#{dom_id(stop)}"
+            xml.id "#{dom_id(connection)}"
 
             # place name
-            name = stop.respond_to?('name') ? stop.name : "#{dom_id(stop)}"
-            xml.name "#{name}"
+            # name = connection.respond_to?('name') ? connection.name : "#{dom_id(connection)}"
+            # xml.name "#{name}"
 
             # place description
             #xml.description do
-            #  xml.cdata! "#{stop.description}"
+            #  xml.cdata! "#{connection.description}"
             #end
 
             # popup url
-            xml.popup_content_url polymorphic_path([:popup_content, stop]) rescue nil
+            # xml.popup_content_url polymorphic_path([:popup_content, connection]) rescue nil
 
-            xml.styleUrl "#stop_icon_pair"
-            #xml.styleUrl "##{stop.map_layers_marker}" if stop.respond_to?('map_layers_marker')
+            #xml.styleUrl "#connection_icon_pair"
+            #xml.styleUrl "##{connection.map_layers_marker}" if connection.respond_to?('map_layers_marker')
 
             # place link
-            #xml.link browse_path(stop.url)
+            #xml.link browse_path(connection.url)
 
             # place geoloc
-            altitude = stop.respond_to?('altitude') ? stop.altitude : 0
-            xml.Point do
-              xml.coordinates "#{stop.lon.to_f},#{stop.lat.to_f},#{altitude}"
+            xml.LineString do
+              xml.coordinates "#{connection.stop1.lon.to_f},#{connection.stop1.lat.to_f} #{connection.stop2.lon.to_f},#{connection.stop2.lat.to_f}" 
             end
           end
         end

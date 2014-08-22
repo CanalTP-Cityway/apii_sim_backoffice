@@ -73,7 +73,7 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
             # place geoloc
             altitude = @stop.respond_to?('altitude') ? @stop.altitude : 0
             xml.Point do
-              xml.coordinates "#{@stop.lat.to_f},#{@stop.lon.to_f},#{altitude}"
+              xml.coordinates "#{@stop.lon.to_f},#{@stop.lat.to_f},#{altitude}"
             end
           end
 

@@ -36,7 +36,7 @@ class StopsController < InheritedResources::Base
     if ransack_params.present?
       if ransack_params["origin"].present? && ransack_params["distance"].present?
         origin = Stop.geos_factory.parse_wkt( "POINT(#{ransack_params["origin"].gsub(",", " ")})" )
-        distance = ransack_params["distance"] * ( 0.001 / 111 )       
+        distance = ransack_params["distance"].to_i * ( 0.001 / 111 )       
       end
 
       having_connection = ransack_params["having_connection"]
@@ -76,7 +76,8 @@ class StopsController < InheritedResources::Base
 
       # Add a vector layer to read from kml url
       page << builder.add_vector_layer('stop', url, :format => :kml)
-              
+      page << builder.add_vector_layer('stop', "/stops/#{resource.id}/connections.kml", :format => :kml)
+      
       # Initialize select, point, path, polygon and drag control for features
       # you may want to handle event on only one layer
       #page << builder.map_handler.initialize_controls('map_controls', 'pikts')
