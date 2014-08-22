@@ -76,7 +76,8 @@ class StopsController < InheritedResources::Base
 
       # Add a vector layer to read from kml url
       page << builder.add_vector_layer('stop', url, :format => :kml)
-              
+      page << builder.add_vector_layer('stop', "/stops/#{resource.id}/connections.kml", :format => :kml)
+      
       # Initialize select, point, path, polygon and drag control for features
       # you may want to handle event on only one layer
       #page << builder.map_handler.initialize_controls('map_controls', 'pikts')

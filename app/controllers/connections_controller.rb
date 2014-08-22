@@ -1,13 +1,19 @@
-class ConnectionsController < ApplicationController
-  inherit_resources
-  
+class ConnectionsController < InheritedResources::Base  
   custom_actions :resource => [:validate_connection, :invalidate_connection]
   belongs_to :stop
+
+  respond_to :kml, :only => :index
   
   def destroy
     destroy! { @stop }
   end
-  
+
+  def index
+    super do |format|
+      format.kml { render 'map_layers/connections' }
+    end
+  end 
+
   def collection
     @connections = Connection.where("stop1_id = ? OR stop2_id = ?", parent.id, parent.id)
   end
