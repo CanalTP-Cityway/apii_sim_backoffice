@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.0.5'
 
 # Fix to delete unused warn
 gem 'thin'
@@ -75,10 +75,9 @@ gem 'simple_form', :git => "https://github.com/plataformatec/simple_form.git"
 # Geography
 gem 'activerecord-postgis-adapter'
 gem 'ffi-geos'
-gem 'transpec'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-activemodel-mocks'
   gem 'guard'
   gem 'guard-rspec'

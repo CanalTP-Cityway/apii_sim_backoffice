@@ -1,5 +1,4 @@
 jQuery ->
-  console.log("test")
   switch_toggle = (event) -> 
     $(this).find('.btn').toggleClass('active')
 

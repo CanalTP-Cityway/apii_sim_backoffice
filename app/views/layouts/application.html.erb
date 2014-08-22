@@ -31,14 +31,11 @@
           </li>
           <li><a href="#">Import</a></li>
         </ul>
-        <%= simple_form_for stop_search, :html => {:class => 'navbar-form navbar-right', :role => 'form' } do |form| %>
-        <%= form.input :stop_name, :placeholder => "Rechercher un arrêt...", :label => false, input_html: { class: 'form-group' } %>
-        <% end %>
       </div>
     </div>
   </div>
   
-  <div class="container">
+  <div class="container  <%= controller_name %> <%= action_name %>">
     <%= render partial: "shared/flash_messages", flash: flash %>
     <%= render_breadcrumbs :separator => " > " %>
     
