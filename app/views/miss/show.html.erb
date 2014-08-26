@@ -5,28 +5,31 @@
     <p>
       <ul class="list-group">
         <li class="list-group-item disabled title">
-          <%= icon('info-circle') %><strong>Info Sim</strong>
+          <%= icon('info-circle') %><strong><%= t("sim.info") %></strong>
         </li>
         <li class="list-group-item">
-          <strong>Nom :</strong> <%= @mis.name %>
+          <strong><%= t("simple_form.labels.mis.name") %> :</strong> <%= @mis.name %>
         </li>
         <li class="list-group-item">
-          <strong>URL :</strong> <%= link_to @mis.api_url, @mis.api_url %>
+          <strong><%= t("simple_form.labels.mis.api_url") %> :</strong> <%= link_to @mis.api_url, @mis.api_url %>
         </li>
         <li class="list-group-item">
-          <strong>Api key :</strong> <%= @mis.api_key %>
+          <strong><%= t("simple_form.labels.mis.api_key") %> :</strong> <%= @mis.api_key %>
         </li>
         <li class="list-group-item">
-          <strong>Période :</strong> du <%= l @mis.start_date %> au <%= l @mis.end_date %>
+          <strong><%= t("simple_form.labels.mis.period") %> :</strong> 
+	  <%= t("simple_form.labels.mis.period_from") %> <%= l @mis.start_date %>
+	  <%= t("simple_form.labels.mis.period_to") %><%= l @mis.end_date %>
         </li>
 	<li class="list-group-item">
-	  <strong># d'arrêts :</strong>
-	  <%= @mis.stops.size %>
-	  <%= link_to 'Liste des arrêts du SIM', '#' %>
+	  <strong><%= t("simple_form.labels.mis.number_of_stops") %> :</strong>
+	  <%= link_to @mis.stops.size, miss_stops_path(@mis.id) %>
+	  <!-- %= link_to t('sim.list_of_stops'), '#' % -->
 	</li>
 	<li class="list-group-item">
-	  <strong># de connections :</strong><%= @mis.connections.size %>
-	  <%= link_to 'Liste des connections du SIM', '#' %>
+	  <strong><%= t("simple_form.labels.mis.number_of_connections") %> : </strong>
+	  <%= link_to @mis.connections.size, miss_connections_path(@mis.id) %>
+	  <!-- %= link_to t('sim.list_of_connections'), '#' % -->
         </li>
       </ul>
     </p>

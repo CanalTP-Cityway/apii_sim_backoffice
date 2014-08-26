@@ -1,7 +1,8 @@
 class ConnectionsController < InheritedResources::Base  
   custom_actions :resource => [:validate_connection, :invalidate_connection]
-  belongs_to :stop
-
+  
+  belongs_to :stop, :mis, :polymorphic => true
+  
   respond_to :kml, :only => :index
   
   def destroy
@@ -15,7 +16,13 @@ class ConnectionsController < InheritedResources::Base
   end 
 
   def collection
-    @connections = Connection.where("stop1_id = ? OR stop2_id = ?", parent.id, parent.id)
+    @q = parent.present? ? parent.connections.search(params[:q]) : Connection.all.search(params[:q])
+    @connections ||= 
+      begin
+        connections = @q.result(:distinct => true).order(:name)
+        connections = connections.paginate(:page => params[:page], :per_page => @per_page) if @per_page.present?
+        connections
+      end
   end
   
   def invalidate_connection

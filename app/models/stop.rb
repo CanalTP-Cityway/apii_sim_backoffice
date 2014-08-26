@@ -37,7 +37,7 @@ class Stop < ActiveRecord::Base
   def having_connections
     #.join()
   end
-
+  
   def self.ransackable_scopes(auth_object = nil)
     [:has_connection ]
   end
