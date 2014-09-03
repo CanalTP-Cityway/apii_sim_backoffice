@@ -2,17 +2,17 @@
   <table class="table table-hover table-striped">
     <thead>
       <tr>
-        <th><%= sort_link @q, :name, "Nom" %></th>
-        <th>Identifiant</th>
-        <th>Type</th>
-        <th>SIM</th>
-        <th>Code INSEE</th>
-        <th>Mode de transport</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
+        <th><%= sort_link @q, :name, t("simple_form.labels.stop.name") %></th>
+        <th><%= t("simple_form.labels.stop.id") %></th>
+        <th><%= t("simple_form.labels.stop.type") %></th>
+        <th><%= t("simple_form.labels.stop.mis") %></th>
+        <th><%= t("simple_form.labels.stop.administrative_code") %></th>
+        <th><%= t("simple_form.labels.stop.transportation_mode") %></th>
+        <th><%= t("simple_form.labels.stop.latitude") %></th>
+        <th><%= t("simple_form.labels.stop.longitude") %></th>
       </tr>
     </thead>
-
+    
     <tbody>
       <% @stops.each do |stop| %>
       <tr>

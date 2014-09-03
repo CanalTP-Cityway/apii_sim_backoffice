@@ -1,27 +1,27 @@
-<div class="row">   
+<div class="row">
   <div class="col-md-4">      
     <p>
       <ul class="list-group">
         <li class="list-group-item disabled title">
-          <%= icon('info-circle') %><strong>Info Arrêt</strong>
+          <%= icon('info-circle') %><strong><%= t('stop.info')  %></strong>
         </li>
         <li class="list-group-item">
-          <strong>Nom :</strong> <%= @stop.name %>
+          <strong><%= t('simple_form.labels.stop.name')  %> :</strong> <%= @stop.name %>
         </li>
         <li class="list-group-item">
-          <strong>Identifiant :</strong> <%= @stop.code %>
+          <strong><%= t('simple_form.labels.stop.id')  %> :</strong> <%= @stop.code %>
         </li>
 	<li class="list-group-item">
-          <strong>Type :</strong> <%= @stop.quay_type %>
+          <strong><%= t('simple_form.labels.stop.type')  %> :</strong> <%= @stop.quay_type %>
         </li>
         <li class="list-group-item">
-          <strong>SIM :</strong> <%= link_to @stop.mis.name, miss_path(@stop.mis.id) %>
+          <strong><%= t('simple_form.labels.stop.mis')  %> :</strong> <%= link_to @stop.mis.name, miss_path(@stop.mis.id) %>
         </li>
         <li class="list-group-item">
-          <strong>Latitude-Longitude :</strong> <%= @stop.lat %>,<%= @stop.lon %>
+          <strong><%= t('simple_form.labels.stop.latitude')  %>-<%= t('simple_form.labels.stop.longitude')  %> :</strong> <%= @stop.lat %>,<%= @stop.lon %>
         </li>
         <li class="list-group-item">
-          <strong>Code INSEE :</strong> <%= @stop.administrative_code %>
+          <strong><%= t('simple_form.labels.stop.administrative_code') %> :</strong> <%= @stop.administrative_code %>
         </li>
       </ul>
     </p>
@@ -37,8 +37,8 @@
   <p>
     <ul class="list-group">
       <li class="list-group-item disabled title">
-        <div class="pull-left"><%= icon('link') %><strong>Transitions</strong></div>
-        <div class="pull-right"><%= link_to '<i class="fa fa-plus"></i>Ajout de transition'.html_safe, new_stop_connection_path(@stop), :class => "btn btn-sm btn-default" %></div>
+        <div class="pull-left"><%= icon('link') %><strong><%= t('simple_form.labels.connection.title') %></strong></div>
+        <div class="pull-right"><%= link_to ('<i class="fa fa-plus"></i>'+t("simple_form.labels.connection.adding")).html_safe, new_stop_connection_path(@stop), :class => "btn btn-sm btn-default" %></div>
         <div class="clearfix"/>
       </li>
       <% unless @stop.primary_connections.empty? %>
@@ -47,14 +47,14 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Vers l'arrêt</th>
-              <th>Identifiant</th>
-              <th>SIM</th>
-              <th>Code INSEE</th>
-              <th>Durée (min)</th>
-              <th>Durée PMR (min)</th>
-              <th>Actif</th>
-              <th>Actions</th>
+              <th><%= t('simple_form.labels.connection.to_stop') %></th>
+              <th><%= t('simple_form.labels.connection.id') %></th>
+              <th><%= t('simple_form.labels.connection.mis') %></th>
+              <th><%= t('simple_form.labels.connection.administrative_code') %></th>
+              <th><%= t('simple_form.labels.connection.duration') %></th>
+              <th><%= t('simple_form.labels.connection.prm_duration') %></th>
+              <th><%= t('simple_form.labels.connection.active') %></th>
+              <th><%= t('simple_form.labels.connection.actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -71,13 +71,13 @@
               <td><%= connection.prm_duration %></td>             
               <td>
                 <div class="btn-group" data-toggle="buttons" data-toggle-default-class="btn-default">
-                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
-                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( t('simple_form.labels.connection.active_yes'), validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( t('simple_form.labels.connection.active_no'), invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
                 </div>                
               </td>
               <td>
-                <%= link_to 'Modifier', edit_stop_connection_path(@stop, connection), :class => 'btn btn-default btn-sm' %>
-                <%= link_to 'Supprimer', stop_connection_path(@stop, connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' }, :class => 'btn btn-danger btn-sm' %>
+                <%= link_to t('simple_form.labels.connection.actions_modify'), edit_connection_path(connection), :class => 'btn btn-default btn-sm' %>
+                <%= link_to t('simple_form.labels.connection.actions_remove'), connection_path(connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' }, :class => 'btn btn-danger btn-sm' %>
               </td>
             </tr>
             <% end %>
@@ -91,14 +91,14 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Depuis l'arrêt</th>
-              <th>Identifiant</th>
-              <th>SIM</th>
-              <th>Code INSEE</th>
-              <th>Durée (min)</th>
-              <th>Durée PMR (min)</th>
-              <th>Actif</th>
-              <th>Actions</th>
+              <th><%= t('simple_form.labels.connection.from_stop') %></th>
+              <th><%= t('simple_form.labels.connection.id') %></th>
+              <th><%= t('simple_form.labels.connection.mis') %></th>
+              <th><%= t('simple_form.labels.connection.administrative_code') %></th>
+              <th><%= t('simple_form.labels.connection.duration') %></th>
+              <th><%= t('simple_form.labels.connection.prm_duration') %></th>
+              <th><%= t('simple_form.labels.connection.active') %></th>
+              <th><%= t('simple_form.labels.connection.actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -115,13 +115,13 @@
               <td><%= connection.prm_duration %></td>             
               <td>
                 <div class="btn-group" data-toggle="buttons" data-toggle-default-class="btn-default">
-                  <%= link_to( 'Oui', validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
-                  <%= link_to( 'Non', invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( t('simple_form.labels.connection.active_yes'), validate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
+                  <%= link_to( t('simple_form.labels.connection.active_no'), invalidate_connection_stop_connection_path(@stop, connection), :class => "btn btn-sm #{ !connection.active? ? 'btn-primary' : 'btn-default'}", method: :patch ) %>
                 </div>                
               </td>
               <td>
-                <%= link_to 'Modifier', edit_stop_connection_path(@stop, connection), :class => 'btn btn-default btn-sm' %>
-                <%= link_to 'Supprimer', stop_connection_path(@stop, connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' }, :class => 'btn btn-danger btn-sm' %>
+                <%= link_to t('simple_form.labels.connection.actions_modify'), edit_connection_path(connection), :class => 'btn btn-default btn-sm' %>
+                <%= link_to t('simple_form.labels.connection.actions_remove'), connection_path(connection), method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer cette transition ?' }, :class => 'btn btn-danger btn-sm' %>
               </td>
             </tr>
             <% end %>

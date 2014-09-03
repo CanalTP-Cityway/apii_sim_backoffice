@@ -17,5 +17,6 @@
 //= require OpenLayers
 //= require map_layers
 //= require bootstrap
+//= require typeahead.min
 //= require bootstrap-datepicker
 //= require_tree .

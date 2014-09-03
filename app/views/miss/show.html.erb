@@ -36,7 +36,7 @@
     <p>
       <ul class="list-group">
         <li class="list-group-item disabled title">
-          <%= icon('check') %><strong>Mode(s) autorisé(s)</strong>
+          <%= icon('check') %><strong><%= t("sim.allowed_modes") %></strong>
         </li>
         <li class="list-group-item">
           <% @mis.modes.each do |mode| %>
@@ -48,12 +48,12 @@
     <p>
       <ul class="list-group">
         <li class="list-group-item disabled title">
-          <%= icon('list') %><strong>Capacités</strong>
+          <%= icon('list') %><strong><%= t("sim.capacity") %></strong>
         </li>
         <li class="list-group-item">
           <% case @mis.multiple_start_and_arrivals %>
 	  <% when 1 %>
-	  <%= 'Recherche itinéraire n x m non détaillée' %>
+	  <%= t("sim.capacity_n_m") %>
 	  <% end %>
         </li>
       </ul>

@@ -23,19 +23,19 @@ namespace :demo do
     Mis.all.each do |mis|
       [].tap do |stop_array|
         random = Random.new(1000)
-        1.upto(300) do |index|
+        1.upto(30000) do |index|
           stop_array << {code: "#{index}-#{random.rand}" , mis_id: mis.id,
                          name: "STOP #{index} OF #{mis.name}",
                          administrative_code: random.rand,
                          quay_type: 'Quay',
-                         lat: 1.5656 + random.rand/10000000.0,
-                         lon: 48.0909 + random.rand/10000000.0 }
+                         lon: 1.5656 + random.rand/10000000.0,
+                         lat: 48.0909 + random.rand/10000000.0 }
         end
         Stop.create stop_array
       end
     end
 
-        puts "connections"
+    puts "connections"
     stop_select_by_mis_id = {}
     Mis.all.each do |mis|
       stop_select_by_mis_id[mis.id] = mis.stops.first(20).map(&:id)

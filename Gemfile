@@ -61,6 +61,7 @@ gem 'bootswatch-rails'
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'will_paginate-bootstrap'
+gem 'typeahead-rails', '~> 0.10.5'
 
 # Use map layers to display map
 gem 'map_layers', :git => 'https://github.com/maplayers/map_layers.git'
@@ -87,3 +88,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
 end
+
+#gem 'protected_attributes'

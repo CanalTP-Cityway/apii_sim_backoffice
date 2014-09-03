@@ -7,11 +7,16 @@ class Mis < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :api_url, presence: true, uniqueness: true
-
+  
   def connections
-    leavings = Connection.where( :stop1_id => stops )
-    arrivings = Connection.where( :stop2_id => stops )
-    leavings + arrivings
+    #leavings = Connection.where( :stop1_id => stops )
+    #arrivings = Connection.where( :stop2_id => stops )
+    #Connection.from("(#{leavings.to_sql} UNION #{arrivings.to_sql}) AS connections")
+    Connection.where( 'stop1_id IN (SELECT id FROM stop WHERE mis_id = ?) OR stop2_id IN (SELECT id FROM stop WHERE mis_id = ?) ', id, id )
+  end
+
+  def self.connections_inter_mis ( mis1_id, mis2_id )
+    Connection.where( 'stop1_id IN (SELECT id FROM stop WHERE mis_id IN (?)) AND stop2_id IN (SELECT id FROM stop WHERE mis_id IN (?)) ', [mis1_id, mis2_id], [mis1_id, mis2_id] )
   end
 
   def envelope

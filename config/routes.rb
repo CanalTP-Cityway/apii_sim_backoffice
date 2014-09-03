@@ -1,7 +1,9 @@
 ApiiSimBackoffice::Application.routes.draw do
 
+  resources :connections
+
   resources :stops, only: [:index, :show] do
-    resources :connections do
+    resources :connections, only: [:index, :create, :new] do
       member do
         patch :invalidate_connection
         patch :validate_connection
@@ -12,7 +14,7 @@ ApiiSimBackoffice::Application.routes.draw do
 
   resources :miss, only: [:index, :show] do
     resources :stops, only: [:index, :show]
-    resources :connections, only: [:index, :show]
+    resources :connections, only: [:index]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

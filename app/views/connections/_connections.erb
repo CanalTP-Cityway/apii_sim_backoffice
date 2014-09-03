@@ -1,0 +1,23 @@
+<div class="lines paginated_content">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Identifiant</th>
+        <th>Stop 1</th>
+        <th>Stop 2</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @connections.each do |connection| %>
+      <tr>
+        <td><%= link_to connection.id, connection_path(connection.id) %></td>
+        <td><%= connection.stop1.name %></td>
+        <td><%= connection.stop2.name %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

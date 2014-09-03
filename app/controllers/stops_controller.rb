@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 class StopsController < InheritedResources::Base
-	actions :index, :show
+  actions :index, :show
 
-	respond_to :html
+  belongs_to :mis, :param => :miss_id, :parent_class => Mis, :optional => true
+  
+  respond_to :html
   respond_to :kml, :only => [:index, :show]
-	respond_to :js, :only => :index
+  respond_to :js, :only => :index
+  respond_to :json
 
   def index
     super do |format|      
@@ -38,12 +41,12 @@ class StopsController < InheritedResources::Base
         origin = Stop.geos_factory.parse_wkt( "POINT(#{ransack_params["origin"].gsub(",", " ")})" )
         distance = ransack_params["distance"].to_i * ( 0.001 / 111 )       
       end
-
+      
       having_connection = ransack_params["having_connection"]
 
       ransack_params.delete_if {|key, value| ["origin", "distance", "having_connection"].include?(key) } 
     end
-
+    
     selected_stops = if origin && distance && having_connection
                        Stop.near_from(origin, distance)
                      elsif having_connection
@@ -51,7 +54,7 @@ class StopsController < InheritedResources::Base
                      elsif origin && distance
                        Stop.near_from(origin, distance)                       
                      else
-                       Stop.all
+                       parent.present? ? parent.stops : Stop.all    
                      end
     @q = selected_stops.search(params[:q])
     @stops ||= @q.result(:distinct => true).order(:name).limit(20)
@@ -67,7 +70,7 @@ class StopsController < InheritedResources::Base
     @map = MapLayers::JsExtension::MapBuilder.new("map") do |builder, page|
       # OpenStreetMap layer
       page << builder.map.add_layer(MapLayers::OpenLayers::OSM_MAPNIK)
-
+      
       # Add a button to hide/show layers
       page << builder.map.add_control(MapLayers::OpenLayers::Control::LayerSwitcher.new)
 

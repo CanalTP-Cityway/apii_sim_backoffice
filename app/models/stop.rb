@@ -25,11 +25,19 @@ class Stop < ActiveRecord::Base
   def self.ransackable_attributes(auth_object = nil)
     (column_names + ['origin', 'distance', 'having_connection']) + _ransackers.keys
   end
-
+  
   def connections
     Connection.where("stop1_id = ? OR stop2_id = ?", id, id).order(:id)
   end
-
+  
+  def connections_with_stop ( stop1_id )
+    Connection.where("stop1_id IN (?) AND stop2_id IN (?)", [id, stop1_id], [id, stop1_id]).order(:id)
+  end
+  
+  def connections_with_mis ( mis1_id )
+    Connection.where( '(stop1_id = ?  AND stop2_id IN (SELECT id FROM stop WHERE mis_id = ?)) OR (stop2_id = ?  AND stop1_id IN (SELECT id FROM stop WHERE mis_id IN (?)))', id, mis1_id, id, mis1_id)
+  end
+  
   def self.near_from(point, distance)        
     where "ST_DWithin(geom, '#{point.as_text}', #{distance})"
   end

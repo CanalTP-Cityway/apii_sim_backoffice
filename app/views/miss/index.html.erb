@@ -11,10 +11,10 @@
       <th><%= t("simple_form.labels.mis.number_of_connections") %></th>
     </tr>
   </thead>
-
+  
   <tbody>
     <% @miss.each do |mis| %>
-      <tr>
+    <tr>
         <td><%= link_to mis.name, miss_path(mis.id) %></td>
         <td><%= mis.start_date %></td>
         <td><%= mis.end_date %></td>

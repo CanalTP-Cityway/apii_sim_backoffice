@@ -1,3 +1,16 @@
 // Place all the styles related to the Connections controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container.connections
+{
+    form#search {
+    	input {
+	      .param-hidden {display: none}
+	}
+    }
+}
+
+#stop1_input.param-hidden {display: none}
+#mis2_input.param-hidden {display: none}
+#stop2_input.param-hidden {display: none}

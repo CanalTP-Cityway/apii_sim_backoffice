@@ -1,6 +1,7 @@
 class MissController < InheritedResources::Base
   respond_to :html
   respond_to :kml, :only => :show
+  respond_to :json
   defaults :resource_class => Mis, :collection_name => 'miss', :instance_name => 'mis'
   
   def show    
@@ -21,8 +22,14 @@ class MissController < InheritedResources::Base
   end
 
   protected
+  
   alias_method :mis, :resource
   alias_method :miss, :collection
+  
+  def collection
+    @q = params[:q].present? ? Mis.search(params[:q]) : Mis.all
+    @miss ||= params[:q].present? ? @q.result(:distinct => true).first(20) : @q.first(20)
+  end
   
   private
   

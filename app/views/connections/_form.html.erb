@@ -1,8 +1,7 @@
-<%= simple_form_for [@stop, @connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
+<%= simple_form_for [@connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
   <div class ="form-inputs">
-    <%= form.association :stop1, collection: [@stop], include_blank: false %>
-    <!-- TODO prendre seulement les arrets des autres SIM qui se trouvent à moins d'une distance données-->
-    <%= form.association :stop2, collection: Stop.where( "mis_id != ?",  @stop.mis_id) %>
+    <%= form.association :stop1, prompt: t("simple_form.labels.connection.select_a_first_stop") %>
+    <%= form.association :stop2, prompt: t("simple_form.labels.connection.select_a_last_stop")%>
     <%= form.input :distance %>
     <%= form.input :duration %>
     <%= form.input :prm_duration %>
@@ -10,6 +9,6 @@
   </div>
   <div class="col-sm-offset-3 col-sm-10 actions">
     <%= form.submit %>
-    <%= link_to 'Retour', @stop %>
+    <%= link_to 'Retour', @connection %>
   </div>
 <% end %>
