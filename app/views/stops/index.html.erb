@@ -2,8 +2,8 @@
 
 <%= search_form_for @q, :url => stops_path, wrapper: "inline_form", :remote => true, :html => {:method => :get, class: "form-inline", :id => "search", role: "form"} do |f| %>
 <div class="panel panel-default">
-  <div class="panel-heading">   
-    <div class="input-group col-md-10">   
+  <div class="panel-heading">
+    <div class="input-group col-md-10">
       <%= f.input_field :name_cont, :placeholder => t('stop.search_by_name'), :class => 'form-control' %>
       <div class="input-group-btn">
         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
@@ -13,18 +13,17 @@
       <i class="fa fa-plus"></i> <%= t('stop.advanced_search') %>
     </a>
   </div>
-  
-  <div id="advanced_search" class="panel-collapse collapse">          
+
+  <div id="advanced_search" class="panel-collapse collapse">
     <div class="panel-body">
       <div>
         <%= f.input :mis_id_eq, as: :select, :collection => Mis.all, :include_blank => t("stop.sim") %>
         <%= f.input :administrative_code_cont, :placeholder => t("stop.postal_code") %>
         <%= f.input :code_cont, :placeholder => t("stop.stop_code") %>
-        <%= f.input :having_connection, :as => :boolean %> <span><%= t("stop.has_connection") %></span>
       </div>
       <div>
         <span><%= t("stop.search_neighbour") %> </span><%= f.input :origin, :placeholder => "2.787778,43.90909", :title => t("stop.search_neighbour_position")  %>
-        <%= f.input :distance, :as => :integer, :placeholder => "300", :title => t("stop.search_neighbour_distance") %>        
+        <%= f.input :distance, :as => :integer, :placeholder => "300", :title => t("stop.search_neighbour_distance") %>
       </div>
     </div>
   </div>
