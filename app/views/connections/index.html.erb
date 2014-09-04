@@ -2,10 +2,10 @@
 
 <%= search_form_for @q, :url => connections_path, :remote => true, :html => {:method => :get, class: "form-inline", :id => "search", role: "form"} do |f| %>
   <div class="panel panel-default">
-    <div class="panel-heading">   
+    <div class="panel-heading">
       <div class="input-group col-md-10">
 	<div id="prefetch">
-	  <input class="typeahead_ms1 form-control input-lg" maxlength="255" type="text" 
+	  <input class="typeahead_ms1 form-control input-lg" maxlength="255" type="text"
 		 value='<%= @mis ? @mis.name : "" %>'
 		 placeholder='<%= @mis ? "" : "Enter MIS..." %>'/>
 	  <input id="stop1_input" class="typeahead_ss1 form-control input-lg <%= (@stop || @mis) ? '' : 'param-hidden'  %>" maxlength="255" type="text"
@@ -21,8 +21,7 @@
 	    <%= f.input_field :duration_lteq, :placeholder => "Durée max...", :class => 'form-control' %>
 	    <%= f.input_field :prm_duration_lteq, :placeholder => "Durée PMR max...", :class => 'form-control' %>
 	    <!-- %= f.select :modification_state_eq, Connection::MODIFICATION_STATES, :class => 'form-control' % -->
-	    <%= f.check_box :active_eq %>
-	    <%= f.label :active %>
+        <%= f.input_field :active_eq, :title => "Actif ou non", :as => :select, :collection => [["Actif", true], ["Inactif", false]], :include_blank => true %>
 	</div>
 	<%= f.hidden_field  :stop_id_search1, {:value => (@stop ? @stop.id : nil)} %>
 	<%= f.hidden_field  :mis_id_search1, {:value => (@mis ? @mis.id : nil)} %>
@@ -35,7 +34,7 @@
     </div>
   </div>
 <% end %>
-  
+
 <div id="connections"><%= render 'connections' %></div >
 
 <script>
@@ -47,7 +46,7 @@
           };
       });
     };
-  
+
     var filtering_stop1 = function(list) {
       return $.map( list, function( d) {
           return { id: d.id,
@@ -56,7 +55,7 @@
           };
       });
     };
-  
+
     var filtering_mis2 = function(list) {
       return $.map( list, function( d) {
           return { id: d.id,
@@ -64,16 +63,16 @@
           };
       });
     };
-  
+
     var filtering_stop2 = function(list) {
       return $.map( list, function( d) {
           return { id: d.id,
-                   mis_id: d.mis_id, 
+                   mis_id: d.mis_id,
                    the_stop2_key: d.name + ' ( ' + d.code + ')'
           };
       });
     };
-  
+
     var miss1Engine = new Bloodhound({
       datumTokenizer: function(d) {
         return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
@@ -87,7 +86,7 @@
         filter: filtering_mis1,
       }
     });
-    
+
     var stops1Engine = new Bloodhound({
       datumTokenizer: function(d) {
         return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
@@ -101,7 +100,7 @@
         filter: filtering_stop1,
       }
     });
-  
+
     var miss2Engine = new Bloodhound({
       datumTokenizer: function(d) {
         return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
@@ -115,7 +114,7 @@
         filter: filtering_mis2,
       }
     });
-    
+
     var stops2Engine = new Bloodhound({
       datumTokenizer: function(d) {
         return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
@@ -129,13 +128,13 @@
         filter: filtering_stop2,
       }
     });
-  
+
     // kicks off the loading/processing of `local` and `prefetch`
     miss1Engine.initialize();
     stops1Engine.initialize();
     miss2Engine.initialize();
     stops2Engine.initialize();
-  
+
     // passing in `null` for the `options` arguments will result in the default
     // options being used
     $('.typeahead_ms1').typeahead(
@@ -150,7 +149,7 @@
         source: miss1Engine.ttAdapter(),
       }
     );
-  
+
     $('.typeahead_ss1').typeahead(
       {
         hint: true,
@@ -163,7 +162,7 @@
         source: stops1Engine.ttAdapter(),
       }
     );
-  
+
     $('.typeahead_ms2').typeahead(
       {
         hint: true,
@@ -176,7 +175,7 @@
         source: miss2Engine.ttAdapter(),
       }
     );
-  
+
     $('.typeahead_ss2').typeahead(
       {
         hint: true,
@@ -189,7 +188,7 @@
         source: stops2Engine.ttAdapter(),
       }
     );
-  
+
     $('.typeahead_ms1').on('typeahead:selected', function($e, datum) {
       $('input[name="q[mis_id_search1]"]').val(datum.id);
       $('.typeahead_ss1').show();
@@ -197,20 +196,20 @@
       stops1Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search1]"]').val() + '&q[name_cont]=%QUERY&format=json',
       stops1Engine.initialize(true);
     })
-  
+
     $('.typeahead_ss1').on('typeahead:selected', function($e, datum) {
       $('input[name="q[mis_id_search1]"]').val(datum.mis_id);
       $('input[name="q[stop_id_search1]"]').val(datum.id);
       //miss1Engine.initialize(true);
     })
-  
+
     $('.typeahead_ms2').on('typeahead:selected', function($e, datum) {
       $('input[name="q[mis_id_search2]"]').val(datum.id);
       $('.typeahead_ss2').show();
       stops2Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search2]"]').val() + '&q[name_cont]=%QUERY&format=json',
       stops2Engine.initialize(true);
     })
-  
+
     $('.typeahead_ss2').on('typeahead:selected', function($e, datum) {
       $('input[name="q[mis_id_search2]"]').val(datum.mis_id);
       $('input[name="q[stop_id_search2]"]').val(datum.id);
@@ -220,7 +219,7 @@
     $('.typeahead_ss1').keypress(function() {
       $('.typeahead_ss1').attr("placeholder", "");
     });
-  
+
     $('.typeahead_ms1').keypress(function() {
       $('.typeahead_ss1').val("");
       $('.typeahead_ms2').val("");
@@ -240,7 +239,7 @@
     $('.typeahead_ss2').keypress(function() {
       $('.typeahead_ss2').attr("placeholder", "");
     });
-    
+
     $('.typeahead_ms2').keypress(function() {
       $('.typeahead_ss2').val("");
       $('.typeahead_ms2').attr("placeholder", "");
@@ -251,4 +250,4 @@
     });
   });
 </script>
-  
+
