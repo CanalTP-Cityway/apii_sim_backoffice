@@ -2,11 +2,11 @@ class Stop < ActiveRecord::Base
   include RgeoExt
   self.table_name = "stop"
   set_rgeo_factory_for_column(:geog, @@geos_factory)
-  
+
   belongs_to :mis, :class_name => "Mis", :foreign_key => 'mis_id'
   has_many :primary_connections, :class_name => "Connection", :foreign_key => "stop1_id"
   has_many :secondary_connections, :class_name => "Connection", :foreign_key => "stop2_id"
-  
+
   scope :mis, ->(mis_id) { where( mis_id: mis_id ) unless mis_id.blank? }
   scope :mis_n, ->(mis_name) { where( mis_id: Mis.where( name: mis_name ).map(&:id) ) unless mis_name.blank? }
   scope :identifier, ->(stop_id) { where( id: stop_id ) unless stop_id.blank? }
@@ -25,29 +25,33 @@ class Stop < ActiveRecord::Base
   def self.ransackable_attributes(auth_object = nil)
     (column_names + ['origin', 'distance', 'having_connection']) + _ransackers.keys
   end
-  
+
+  def short_name
+    "#{name} (#{code})"
+  end
+
   def connections
     Connection.where("stop1_id = ? OR stop2_id = ?", id, id).order(:id)
   end
-  
+
   def connections_with_stop ( stop1_id )
     Connection.where("stop1_id IN (?) AND stop2_id IN (?)", [id, stop1_id], [id, stop1_id]).order(:id)
   end
-  
+
   def connections_with_mis ( mis1_id )
     Connection.where( '(stop1_id = ?  AND stop2_id IN (SELECT id FROM stop WHERE mis_id = ?)) OR (stop2_id = ?  AND stop1_id IN (SELECT id FROM stop WHERE mis_id IN (?)))', id, mis1_id, id, mis1_id)
   end
-  
-  def self.near_from(point, distance)        
+
+  def self.near_from(point, distance)
     where "ST_DWithin(geom, '#{point.as_text}', #{distance})"
   end
 
   def having_connections
     #.join()
   end
-  
+
   def self.ransackable_scopes(auth_object = nil)
     [:has_connection ]
   end
-  
+
 end

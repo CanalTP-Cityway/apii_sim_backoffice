@@ -1,19 +1,34 @@
+<p><%= "#{@connections.count} transitions affichées sur #{@connections_count} au total"%></p>
 <div class="lines paginated_content">
   <table class="table table-hover table-striped">
     <thead>
       <tr>
-        <th>Identifiant</th>
+        <th>Id</th>
+        <th>Mis 1</th>
         <th>Stop 1</th>
+        <th>Mis 2</th>
         <th>Stop 2</th>
+        <th>Actif/Inactif</th>
+        <th>Etat</th>
+        <th>Distance</th>
+        <th>Durée</th>
+        <th>Durée PMR</th>
       </tr>
     </thead>
 
     <tbody>
       <% @connections.each do |connection| %>
       <tr>
-        <td><%= link_to connection.id, connection_path(connection.id) %></td>
-        <td><%= connection.stop1.name %></td>
-        <td><%= connection.stop2.name %></td>
+        <td><%= link_to connection.id, connection_path(connection) %></td>
+        <td><%= link_to connection.stop1.mis.name, miss_path( connection.stop1.mis) %></td>
+        <td><%= link_to connection.stop1.short_name, stop_path( connection.stop1) %></td>
+        <td><%= link_to connection.stop2.mis.name, miss_path( connection.stop2.mis) %></td>
+        <td><%= link_to connection.stop2.short_name, stop_path( connection.stop2) %></td>
+        <td><%= connection.active %></td>
+        <td><%= connection.modification_state %></td>
+        <td><%= connection.distance %></td>
+        <td><%= connection.duration %></td>
+        <td><%= connection.prm_duration %></td>
       </tr>
       <% end %>
     </tbody>
