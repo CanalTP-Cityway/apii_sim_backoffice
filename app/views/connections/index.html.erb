@@ -4,29 +4,20 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="input-group col-md-10">
-	<div id="prefetch">
-	  <input class="typeahead_ms1 form-control input-lg" maxlength="255" type="text"
-		 value='<%= @mis ? @mis.name : "" %>'
-		 placeholder='<%= @mis ? "" : "Enter MIS..." %>'/>
-	  <input id="stop1_input" class="typeahead_ss1 form-control input-lg <%= (@stop || @mis) ? '' : 'param-hidden'  %>" maxlength="255" type="text"
-		 value='<%= @stop ? "#{@stop.name} ( #{@stop.code} )" : "" %>'
-		 placeholder='<%= @stop ? "" : "Enter Stop..." %>' />
-	  <br>
-	  <input id="mis2_input" class="typeahead_ms2 form-control input-lg <%= (@stop || @mis) ? '' : 'param-hidden'  %>" maxlength="255" type="text"
-		 placeholder="Enter MIS..." />
-	  <input id="stop2_input" class="typeahead_ss2 form-control input-lg param-hidden" maxlength="255" type="text"
-		 placeholder="Enter Stop..." />
-	  <p>
 	    <%= f.input_field :distance_lteq, :placeholder => "Distance max...", :class => 'form-control' %>
 	    <%= f.input_field :duration_lteq, :placeholder => "Durée max...", :class => 'form-control' %>
 	    <%= f.input_field :prm_duration_lteq, :placeholder => "Durée PMR max...", :class => 'form-control' %>
 	    <!-- %= f.select :modification_state_eq, Connection::MODIFICATION_STATES, :class => 'form-control' % -->
         <%= f.input_field :active_eq, :title => "Actif ou non", :as => :select, :collection => [["Actif", true], ["Inactif", false]], :include_blank => true %>
+      </div>
+      <div class="input-group col-md-10">
+        <%= f.input :mis_id_search1, :hint_text => "Entrez un SIM...", :no_result_text => "Pas de résultat",:searching_text => 'Recherche en cours...', :input_html => { :"data-pre" => ( @mis ? [ { id: @mis.id, name: @mis.name} ] : [] ).to_json } %>
+        <%= f.input :stop_id_search1, :hint_text => "Entrez un Stop...", :no_result_text => "Pas de résultat",:searching_text => 'Recherche en cours...', :input_html => { :"data-pre" => ( @stop ? [ { id: @stop.id, name: @stop.name} ] : [] ).to_json } %>
+        <%= f.input :mis_id_search2, :hint_text => "Entrez un SIM...", :no_result_text => "Pas de résultat",:searching_text => 'Recherche en cours...', :input_html => { :"data-pre" => ( [] ).to_json } %>
+        <%= f.input :stop_id_search2, :hint_text => "Entrez un Stop...", :no_result_text => "Pas de résultat",:searching_text => 'Recherche en cours...', :input_html => { :"data-pre" => ( [] ).to_json } %>
+
+      </div>
 	</div>
-	<%= f.hidden_field  :stop_id_search1, {:value => (@stop ? @stop.id : nil)} %>
-	<%= f.hidden_field  :mis_id_search1, {:value => (@mis ? @mis.id : nil)} %>
-	<%= f.hidden_field  :stop_id_search2 %>
-	<%= f.hidden_field  :mis_id_search2 %>
 	<div class="input-group-btn">
           <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 	</div>
@@ -39,215 +30,42 @@
 
 <script>
   $(document).ready( function() {
-    var filtering_mis1 = function(list) {
-      return $.map( list, function( d) {
-          return { id: d.id,
-                   the_mis1_key: d.name
-          };
+      var unselectSim = function( item, index) {
+        console.log("call unselectSim index="+index);
+
+        $('#q_stop_id_search'+index).tokenInput( "clear" );
+      }
+
+      var selectSim1 = function ( item ) { selectSim( item, 1); };
+      var unselectSim1 = function ( item ) { unselectSim( item, 1); };
+      var selectSim2 = function ( item ) { selectSim( item, 2); };
+      var unselectSim2 = function ( item ) { unselectSim( item, 2); };
+
+      var simRequest = '<%= miss_index_path( format: :json ) %>';
+      var stopRequest = function( selector ) {
+        var url = '<%= stops_path( format: :json ) %>';
+        if ( $( selector).tokenInput( "get")[0]==undefined) {
+          return url;
+        }
+        var misId = $( selector).tokenInput( "get")[0].id;
+        return url+'?q[mis_id_eq]='+misId;
+      }
+      var stopRequest1 = function() { return stopRequest('#q_mis_id_search1'); };
+      var stopRequest2 = function() { return stopRequest('#q_mis_id_search2'); };
+
+      $([ { selector: '#q_mis_id_search1', onDelete: unselectSim1, request: simRequest},
+          { selector: '#q_mis_id_search2', onDelete: unselectSim2, request: simRequest},
+          { selector: '#q_stop_id_search1', request: stopRequest1},
+          { selector: '#q_stop_id_search2', request: stopRequest2},
+          ]).each( function(){
+
+          $( this.selector ).tokenInput( this.request,
+              { queryParam: 'q[name_cont]',
+                tokenLimit: 1,
+                onDelete: this.onDelete,
+              } );
       });
-    };
 
-    var filtering_stop1 = function(list) {
-      return $.map( list, function( d) {
-          return { id: d.id,
-                   mis_id: d.mis_id,
-                   the_stop1_key: d.name + ' ( ' + d.code + ')'
-          };
-      });
-    };
-
-    var filtering_mis2 = function(list) {
-      return $.map( list, function( d) {
-          return { id: d.id,
-                   the_mis2_key: d.name
-          };
-      });
-    };
-
-    var filtering_stop2 = function(list) {
-      return $.map( list, function( d) {
-          return { id: d.id,
-                   mis_id: d.mis_id,
-                   the_stop2_key: d.name + ' ( ' + d.code + ')'
-          };
-      });
-    };
-
-    var miss1Engine = new Bloodhound({
-      datumTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
-      },
-      queryTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
-      },
-      limit: 10,
-      remote: {
-        url: '<%= miss_index_path %>?q[name_cont]=%QUERY&format=json',
-        filter: filtering_mis1,
-      }
-    });
-
-    var stops1Engine = new Bloodhound({
-      datumTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
-      },
-      queryTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
-      },
-      limit: 10,
-      remote: {
-        url: '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search1]"]').val() + '&q[name_cont]=%QUERY&format=json',
-        filter: filtering_stop1,
-      }
-    });
-
-    var miss2Engine = new Bloodhound({
-      datumTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
-      },
-      queryTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
-      },
-      limit: 10,
-      remote: {
-        url: '<%= miss_index_path %>?q[name_cont]=%QUERY&format=json',
-        filter: filtering_mis2,
-      }
-    });
-
-    var stops2Engine = new Bloodhound({
-      datumTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
-      },
-      queryTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
-      },
-      limit: 10,
-      remote: {
-        url: '<%= stops_path %>?q[name_cont]=%QUERY&q[mis_id_eq]=' + $('input[name="q[mis_id_search2]"]').val() + '&format=json',
-        filter: filtering_stop2,
-      }
-    });
-
-    // kicks off the loading/processing of `local` and `prefetch`
-    miss1Engine.initialize();
-    stops1Engine.initialize();
-    miss2Engine.initialize();
-    stops2Engine.initialize();
-
-    // passing in `null` for the `options` arguments will result in the default
-    // options being used
-    $('.typeahead_ms1').typeahead(
-      {
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'miss',
-        displayKey: 'the_mis1_key',
-        source: miss1Engine.ttAdapter(),
-      }
-    );
-
-    $('.typeahead_ss1').typeahead(
-      {
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'stops',
-        displayKey: 'the_stop1_key',
-        source: stops1Engine.ttAdapter(),
-      }
-    );
-
-    $('.typeahead_ms2').typeahead(
-      {
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'miss',
-        displayKey: 'the_mis2_key',
-        source: miss2Engine.ttAdapter(),
-      }
-    );
-
-    $('.typeahead_ss2').typeahead(
-      {
-        hint: true,
-        highlight: true,
-        minLength: 1
-      },
-      {
-        name: 'stops',
-        displayKey: 'the_stop2_key',
-        source: stops2Engine.ttAdapter(),
-      }
-    );
-
-    $('.typeahead_ms1').on('typeahead:selected', function($e, datum) {
-      $('input[name="q[mis_id_search1]"]').val(datum.id);
-      $('.typeahead_ss1').show();
-      $('.typeahead_ms2').show();
-      stops1Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search1]"]').val() + '&q[name_cont]=%QUERY&format=json',
-      stops1Engine.initialize(true);
-    })
-
-    $('.typeahead_ss1').on('typeahead:selected', function($e, datum) {
-      $('input[name="q[mis_id_search1]"]').val(datum.mis_id);
-      $('input[name="q[stop_id_search1]"]').val(datum.id);
-      //miss1Engine.initialize(true);
-    })
-
-    $('.typeahead_ms2').on('typeahead:selected', function($e, datum) {
-      $('input[name="q[mis_id_search2]"]').val(datum.id);
-      $('.typeahead_ss2').show();
-      stops2Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search2]"]').val() + '&q[name_cont]=%QUERY&format=json',
-      stops2Engine.initialize(true);
-    })
-
-    $('.typeahead_ss2').on('typeahead:selected', function($e, datum) {
-      $('input[name="q[mis_id_search2]"]').val(datum.mis_id);
-      $('input[name="q[stop_id_search2]"]').val(datum.id);
-      //miss2Engine.initialize(true);
-    })
-
-    $('.typeahead_ss1').keypress(function() {
-      $('.typeahead_ss1').attr("placeholder", "");
-    });
-
-    $('.typeahead_ms1').keypress(function() {
-      $('.typeahead_ss1').val("");
-      $('.typeahead_ms2').val("");
-      $('.typeahead_ss2').val("");
-      $('.typeahead_ss1').attr("placeholder", "Enter Stop...");
-      $('.typeahead_ms2').attr("placeholder", "Enter MIS...");
-      $('.typeahead_ss2').attr("placeholder", "Enter Stop...");
-      $('.typeahead_ss1').hide();
-      $('.typeahead_ms2').hide();
-      $('.typeahead_ss2').hide();
-      $('input[name="q[mis_id_search1]"]').val("");
-      $('input[name="q[stop_id_search1]"]').val("");
-      $('input[name="q[mis_id_search2]"]').val("");
-      $('input[name="q[stop_id_search2]"]').val("");
-    });
-
-    $('.typeahead_ss2').keypress(function() {
-      $('.typeahead_ss2').attr("placeholder", "");
-    });
-
-    $('.typeahead_ms2').keypress(function() {
-      $('.typeahead_ss2').val("");
-      $('.typeahead_ms2').attr("placeholder", "");
-      $('.typeahead_ss2').attr("placeholder", "Enter Stop...");
-      $('.typeahead_ss2').hide();
-      $('input[name="q[mis_id_search2]"]').val("");
-      $('input[name="q[stop_id_search2]"]').val("");
-    });
   });
 </script>
 
