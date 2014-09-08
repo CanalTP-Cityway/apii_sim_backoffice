@@ -1,5 +1,7 @@
 ApiiSimBackoffice::Application.routes.draw do
 
+  resources :imports, only: [:index]
+  
   resources :connections
 
   resources :stops, only: [:index, :show] do

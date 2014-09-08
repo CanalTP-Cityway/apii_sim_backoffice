@@ -12,6 +12,16 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
+-- Name: import_result_enum; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE import_result_enum AS ENUM (
+    'success',
+    'fail'
+);
+
+
+--
 -- Name: modification_state_enum; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -61,6 +71,48 @@ CREATE TYPE transport_mode_enum AS ENUM (
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: back_office_import; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE back_office_import (
+    id integer NOT NULL,
+    start_date date,
+    end_date date,
+    result import_result_enum,
+    nb_stops integer,
+    nb_new_stops integer,
+    nb_updated_stops integer,
+    nb_deleted_stops integer,
+    nb_transfers integer,
+    nb_new_transfers integer,
+    nb_updated_transfers integer,
+    nb_deleted_transfers integer,
+    nb_mis_connections integer,
+    nb_new_mis_connections integer,
+    nb_deleted_mis_connections integer
+);
+
+
+--
+-- Name: back_office_import_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE back_office_import_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: back_office_import_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE back_office_import_id_seq OWNED BY back_office_import.id;
+
 
 --
 -- Name: mis; Type: TABLE; Schema: public; Owner: -; Tablespace: 
@@ -190,7 +242,7 @@ CREATE TABLE stop (
     geog geography(Point,4326),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    geom geometry(Point,4326)
+    geom geometry
 );
 
 
@@ -254,6 +306,13 @@ ALTER SEQUENCE transfer_id_seq OWNED BY transfer.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY back_office_import ALTER COLUMN id SET DEFAULT nextval('back_office_import_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY mis ALTER COLUMN id SET DEFAULT nextval('mis_id_seq'::regclass);
 
 
@@ -283,6 +342,14 @@ ALTER TABLE ONLY stop ALTER COLUMN id SET DEFAULT nextval('stop_id_seq'::regclas
 --
 
 ALTER TABLE ONLY transfer ALTER COLUMN id SET DEFAULT nextval('transfer_id_seq'::regclass);
+
+
+--
+-- Name: back_office_import_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY back_office_import
+    ADD CONSTRAINT back_office_import_pkey PRIMARY KEY (id);
 
 
 --
@@ -389,3 +456,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140422114138');
 INSERT INTO schema_migrations (version) VALUES ('20140422115407');
 
 INSERT INTO schema_migrations (version) VALUES ('20140422124631');
+
+INSERT INTO schema_migrations (version) VALUES ('20140905113956');

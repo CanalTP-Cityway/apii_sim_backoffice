@@ -1,0 +1,48 @@
+<p><%= "#{@imports.count} imports affichées sur #{@imports_count} au total"%></p>
+<div class="lines paginated_content">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+	<th><%= t("simple_form.labels.imports.start_date") %></th>
+        <th><%= t("simple_form.labels.imports.end_date") %></th>
+        <th><%= t("simple_form.labels.imports.result") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_stops") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_new_stops") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_updated_stops") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_deleted_stops") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_transfers") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_new_transfers") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_updated_transfers") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_deleted_transfers") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_mis_connections") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_new_mis_connections") %></th>
+        <th><%= t("simple_form.labels.imports.number_of_deleted_mis_connections") %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @imports.each do |import| %>
+      <tr>
+        <td><%= import.id %></td>
+	<td><%= import.start_date %></td>
+	<td><%= import.end_date %></td>
+	<td><%= import.result %></td>
+	<td><%= import.nb_stops %></td>
+	<td><%= import.nb_new_stops %></td>
+	<td><%= import.nb_updated_stops %></td>
+	<td><%= import.nb_deleted_stops %></td>
+	<td><%= import.nb_transfers %></td>
+	<td><%= import.nb_new_transfers %></td>
+	<td><%= import.nb_updated_transfers %></td>
+	<td><%= import.nb_deleted_transfers %></td>
+	<td><%= import.nb_mis_connections %></td>
+	<td><%= import.nb_new_mis_connections %></td>
+	<td><%= import.nb_deleted_mis_connections %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

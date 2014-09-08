@@ -7,8 +7,8 @@ class Connection < ActiveRecord::Base
   
   before_save :update_state
   
-  MODIFICATION_STATES = %w( auto manual recalculate validation_needed )
-  validates_inclusion_of :modification_state, :in => MODIFICATION_STATES
+  #MODIFICATION_STATES = %w( auto manual recalculate validation_needed )
+  #validates_inclusion_of :modification_state, :in => MODIFICATION_STATES
 
   # TODO
   #def initialize

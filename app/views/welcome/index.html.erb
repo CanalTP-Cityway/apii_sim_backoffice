@@ -60,25 +60,27 @@
         <table class="table table-hover table-striped">
           <thead>
             <tr>
-              <th><%= t("simple_form.labels.imports.date") %></th>
+              <th><%= t("simple_form.labels.imports.start_date") %></th>
               <th><%= t("simple_form.labels.imports.result") %></th>
-              <th><%= t("simple_form.labels.imports.duration") %></th>
-              <th><%= t("simple_form.labels.imports.number_of_connections") %></th>
+              <th><%= t("simple_form.labels.imports.number_of_stops") %></th>
+              <th><%= t("simple_form.labels.imports.number_of_transfers") %></th>
+              <th><%= t("simple_form.labels.imports.number_of_mis_connections") %></th>
             </tr>
           </thead>
 
           <tbody>
             <% @imports.limit(10).each do |import| %>
             <tr>
-              <td><%= import.code %></td>
-              <td><%= import.mis.name %></td>
-              <td><%= import.name %></td>
-              <td><%= import.mis.connections.size %></td>           
+              <td><%= import.start_date %></td>
+              <td><%= import.result %></td>
+              <td><%= import.number_of_stops %></td>
+              <td><%= import.number_of_transfers %></td>
+              <td><%= import.number_of_mis_connections %></td>
             </tr>
             <% end %>
           </tbody>
         </table>
-        <p><%= link_to t("simple_form.labels.imports.see_details").html_safe, stops_path, :class => "btn btn-default" %></p>
+        <p><%= link_to t("simple_form.labels.imports.see_details").html_safe, imports_path, :class => "btn btn-default" %></p>
       </div>
     </div>      
   </div>
