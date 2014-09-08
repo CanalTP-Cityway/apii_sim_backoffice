@@ -1,9 +1,54 @@
 <%= simple_form_for [@connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
   <div class ="form-inputs">
-    <%= form.association :stop1, prompt: t("simple_form.labels.connection.select_a_first_stop") %>
-    <%= form.association :stop2, prompt: t("simple_form.labels.connection.select_a_last_stop")%>
-    <%= form.input :distance %>
-    <%= form.input :duration %>
+    <% if @connection.stop1 %>
+      <%= form.association :stop1, disabled: true, required: true %>
+      <%= form.input :stop1_id, :as => :hidden, :value => @connection.stop1.id %>
+    <% else %>
+      <div class="form-group select required connection_mis1">
+        <label class="select required col-sm-3 control-label" for="connection_mis1">
+	  <abbr title="required">*</abbr>
+	  Premier MIS
+	</label>
+        <div class="col-sm-9">
+	  <input class="select required form-control" id="connection_mis1" placeholder="Choisir le SIM de départ" required >
+        </div>
+      </div>
+      <div class="form-group select required connection_stop1">
+        <label class="select required col-sm-3 control-label" for="connection_stop1">
+	  <abbr title="required">*</abbr>
+	  Premier arrêt
+	</label>
+        <div class="col-sm-9">
+	  <input class="select required form-control" id="connection_stop1" placeholder="Choisir un arrêt de départ" required disabled >
+        </div>
+      </div>
+      <%= form.input :stop1_id, :as => :hidden %>
+    <% end %>
+    <% if @connection.stop2 %>
+      <%= form.association :stop2, disabled: true, required: true %>
+    <% else %>
+      <div class="form-group select required connection_mis2">
+        <label class="select required col-sm-3 control-label" for="connection_mis2">
+	  <abbr title="required">*</abbr>
+	  Deuxième MIS
+	</label>
+        <div class="col-sm-9">
+	  <input class="select required form-control" id="connection_mis2" placeholder="Choisir le SIM d'arrivé" required >
+        </div>
+      </div>
+      <div class="form-group select required connection_stop2">
+        <label class="select required col-sm-3 control-label" for="connection_stop2">
+	  <abbr title="required">*</abbr>
+	  Deuxième arrêt
+	</label>
+        <div class="col-sm-9">
+	  <input class="select required form-control" id="connection_stop2" placeholder="Choisir un arrêt d'arrivé" required disabled >
+        </div>
+      </div>
+      <%= form.input :stop2_id, :as => :hidden %>
+    <% end %>
+    <%= form.input :distance, required: true %>
+    <%= form.input :duration, required: true %>
     <%= form.input :prm_duration %>
     <%= form.input :active %>
   </div>
@@ -12,3 +57,177 @@
     <%= link_to 'Retour', @connection %>
   </div>
 <% end %>
+
+
+<script>
+  $(document).ready( function() {
+    var filtering_mis1 = function(list) {
+      return $.map( list, function( d) {
+          return { id: d.id,
+                   the_mis1_key: d.name
+          };
+      });
+    };
+
+    var filtering_stop1 = function(list) {
+      return $.map( list, function( d) {
+          return { id: d.id,
+                   mis_id: d.mis_id,
+                   the_stop1_key: d.name + ' ( ' + d.code + ')'
+          };
+      });
+    };
+
+    var miss1Engine = new Bloodhound({
+      datumTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
+      },
+      queryTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
+      },
+      limit: 10,
+      remote: {
+        url: '<%= miss_index_path %>?q[name_cont]=%QUERY&format=json',
+        filter: filtering_mis1,
+      }
+    });
+
+    var stops1Engine = new Bloodhound({
+      datumTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
+      },
+      queryTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
+      },
+      limit: 10,
+      remote: {
+        url: '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search1]"]').val() + '&q[name_cont]=%QUERY&format=json',
+        filter: filtering_stop1,
+      }
+    });
+
+    miss1Engine.initialize();
+    stops1Engine.initialize();
+
+    $('#connection_mis1').typeahead(
+      {
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'miss',
+        displayKey: 'the_mis1_key',
+        source: miss1Engine.ttAdapter(),
+      }
+    );
+  
+    $('#connection_stop1').typeahead(
+      {
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'stops',
+        displayKey: 'the_stop1_key',
+        source: stops1Engine.ttAdapter(),
+      }
+    );
+
+    $('#connection_mis1').on('typeahead:selected', function($e, datum) {
+      $('#connection_stop1').prop('disabled', false);
+      stops1Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + datum.id + '&q[name_cont]=%QUERY&format=json',
+      stops1Engine.initialize(true);
+    });
+    
+    $('#connection_stop1').on('typeahead:selected', function($e, datum) {
+      $('#connection_stop1_id').val(datum.id);
+    });
+
+    var filtering_mis2 = function(list) {
+      return $.map( list, function( d) {
+          return { id: d.id,
+                   the_mis2_key: d.name
+          };
+      });
+    };
+
+    var filtering_stop2 = function(list) {
+      return $.map( list, function( d) {
+          return { id: d.id,
+                   mis_id: d.mis_id,
+                   the_stop2_key: d.name + ' ( ' + d.code + ')'
+          };
+      });
+    };
+
+    var miss2Engine = new Bloodhound({
+      datumTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
+      },
+      queryTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
+      },
+      limit: 10,
+      remote: {
+        url: '<%= miss_index_path %>?q[name_cont]=%QUERY&format=json',
+        filter: filtering_mis2,
+      }
+    });
+
+    var stops2Engine = new Bloodhound({
+      datumTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" : "+d.name);
+      },
+      queryTokenizer: function(d) {
+        return Bloodhound.tokenizers.whitespace(d.id+" :: "+d.name);
+      },
+      limit: 10,
+      remote: {
+        url: '<%= stops_path %>?q[mis_id_eq]=' + $('input[name="q[mis_id_search2]"]').val() + '&q[name_cont]=%QUERY&format=json',
+        filter: filtering_stop2,
+      }
+    });
+
+    miss2Engine.initialize();
+    stops2Engine.initialize();
+
+    $('#connection_mis2').typeahead(
+      {
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'miss',
+        displayKey: 'the_mis2_key',
+        source: miss2Engine.ttAdapter(),
+      }
+    );
+  
+    $('#connection_stop2').typeahead(
+      {
+        hint: true,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'stops',
+        displayKey: 'the_stop2_key',
+        source: stops2Engine.ttAdapter(),
+      }
+    );
+
+    $('#connection_mis2').on('typeahead:selected', function($e, datum) {
+      $('#connection_stop2').prop('disabled', false);
+      stops2Engine.remote.url = '<%= stops_path %>?q[mis_id_eq]=' + datum.id + '&q[name_cont]=%QUERY&format=json',
+      stops2Engine.initialize(true);
+    });
+    
+    $('#connection_stop2').on('typeahead:selected', function($e, datum) {
+      $('#connection_stop2_id').val(datum.id);
+    });
+
+  });
+</script>  

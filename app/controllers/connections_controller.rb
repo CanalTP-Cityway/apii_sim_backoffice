@@ -8,6 +8,15 @@ class ConnectionsController < InheritedResources::Base
   respond_to :kml, :only => :index
   respond_to :js, :only => :index
 
+  def new
+    @connection = Connection.new
+    if parent_class == Stop
+      @stop = parent
+      @connection.stop1 = @stop
+    end
+    new!
+  end
+
   #def destroy
   #  destroy! { @stop }
   #end
