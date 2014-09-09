@@ -13,8 +13,6 @@ class CreateStop < ActiveRecord::Migration
       t.string :code, limit: 50, null: false
       t.references :mis, index: true, null: false
       t.string :name, limit: 255, null: false
-      t.decimal :lat, precision: 19, scale: 16, null: false
-      t.decimal :lon, precision: 19, scale: 16, null: false
       t.column :stop_type, :stop_type_enum
       t.string :administrative_code, limit: 255
       t.integer :parent_id

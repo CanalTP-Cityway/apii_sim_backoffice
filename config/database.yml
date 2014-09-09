@@ -18,21 +18,22 @@ development:
   adapter: postgis
   encoding: unicode
   schema_search_path: public
-  database: apii_sim_backoffice_development
+  database: afimb_db_cway_new
   pool: 5
-  username: apii_sim_backoffice
-  password: apii_sim_backoffice
-  su_username: apii_sim_backoffice
-  su_password: apii_sim_backoffice
+  username: cityway
+  password: c17yW4Y13
+  su_username: cityway
+  su_password: c17yW4Y13
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: localhost
+  host: 82.226.26.241
+  #host: localhost
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: 5434
+  port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public

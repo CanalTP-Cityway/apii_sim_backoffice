@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140422124631) do
     t.date     "start_date",                               null: false
     t.date     "end_date",                                 null: false
     t.boolean  "geographic_position_compliant"
-    t.integer  "multiple_start_and_arrivals"
+    t.integer  "multiple_starts_and_arrivals"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

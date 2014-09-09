@@ -52,7 +52,7 @@ fr:
         period_to: "au"
         start_date: "Date début"
         end_date: "Date fin"
-        multiple_start_and_arrivals: "Multiple départs et arrivées"
+        multiple_starts_and_arrivals: "Multiple départs et arrivées"
         number_of_stops: "# Arrêts"
         number_of_connections: "# Connections"
         see_details: "Voir détails &raquo;"

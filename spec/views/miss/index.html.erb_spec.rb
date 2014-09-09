@@ -10,14 +10,14 @@ describe "miss/index", :type => :view do
       #  :comment => "MyText",
       #  :api_url => "MyText",
       #  :api_key => "MyText",
-      #  :multiple_start_and_arrivals => 1
+      #  :multiple_starts_and_arrivals => 1
       #),
       #stub_model(Mis,
       #  :name => "Name",
       #  :comment => "MyText",
       #  :api_url => "MyText",
       #  :api_key => "MyText",
-      #  :multiple_start_and_arrivals => 1
+      #  :multiple_starts_and_arrivals => 1
       #)
     ])
   end

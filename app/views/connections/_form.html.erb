@@ -1,7 +1,7 @@
 <%= simple_form_for [@connection], :html => {:class => 'form-horizontal', :role => 'form' } do |form| %>
   <div class ="form-inputs">
     <% if @connection.stop1 %>
-      <%= form.association :stop1, disabled: true, required: true %>
+      <%= form.association :stop1, collection: [@connection.stop1], disabled: true, required: true %>
       <%= form.input :stop1_id, :as => :hidden, :value => @connection.stop1.id %>
     <% else %>
       <div class="form-group select required connection_mis1">
@@ -25,7 +25,7 @@
       <%= form.input :stop1_id, :as => :hidden %>
     <% end %>
     <% if @connection.stop2 %>
-      <%= form.association :stop2, disabled: true, required: true %>
+      <%= form.association :stop2, collection: [@connection.stop2], disabled: true, required: true %>
     <% else %>
       <div class="form-group select required connection_mis2">
         <label class="select required col-sm-3 control-label" for="connection_mis2">

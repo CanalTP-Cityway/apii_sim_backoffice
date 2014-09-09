@@ -15,7 +15,7 @@ namespace :demo do
                       api_key: 'key1',
                       modes: Mode.where( id:  modes_array.uniq),
                       start_date: Time.now, end_date: Time.new('2030/12/31 23:59:59'),
-                      multiple_start_and_arrivals: 1, geographic_position_compliant: true}
+                      multiple_starts_and_arrivals: 1, geographic_position_compliant: true}
       end
       Mis.create mis_array
     end

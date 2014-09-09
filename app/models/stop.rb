@@ -54,4 +54,11 @@ class Stop < ActiveRecord::Base
     [:has_connection ]
   end
 
+  def lon
+    geom.x if geom
+  end
+
+  def lat
+    geom.y if geom
+  end
 end

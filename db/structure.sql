@@ -127,7 +127,7 @@ CREATE TABLE mis (
     start_date date NOT NULL,
     end_date date NOT NULL,
     geographic_position_compliant boolean,
-    multiple_start_and_arrivals integer,
+    multiple_starts_and_arrivals integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -232,8 +232,6 @@ CREATE TABLE stop (
     code character varying(50) NOT NULL,
     mis_id integer NOT NULL,
     name character varying(255) NOT NULL,
-    lat numeric(19,16) NOT NULL,
-    lon numeric(19,16) NOT NULL,
     stop_type stop_type_enum,
     administrative_code character varying(255),
     parent_id integer,

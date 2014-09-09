@@ -8,7 +8,7 @@ class CreateMis < ActiveRecord::Migration
       t.date :start_date, null: false
       t.date :end_date, null: false
       t.boolean :geographic_position_compliant
-      t.integer :multiple_start_and_arrivals
+      t.integer :multiple_starts_and_arrivals
 
       t.timestamps
     end
