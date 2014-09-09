@@ -29,7 +29,7 @@
               <li><%= link_to "#{t('application.data_stops')} <span class='badge pull-right'>#{Stop.all.size}</span>".html_safe, stops_path %></li>
             </ul>
           </li>
-          <li><a href="#"><%= t("application.import") %></a></li>
+	  <li><%= link_to "#{t('application.import')}", imports_path %>
         </ul>
       </div>
     </div>
