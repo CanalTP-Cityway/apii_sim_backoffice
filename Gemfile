@@ -58,7 +58,7 @@ gem 'compass-rails'
 # Use twitter bootstrap resources
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootswatch-rails'
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.2.0'
 gem 'bootstrap-datepicker-rails'
 gem 'will_paginate-bootstrap'
 gem 'typeahead-rails', '~> 0.10.5'
@@ -89,5 +89,5 @@ group :test do
   gem 'capybara'
 end
 
-gem 'capistrano',  '~> 3.1'
-gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano',  '~> 3.2.0'
+#gem 'capistrano-rails', '~> 1.1'
