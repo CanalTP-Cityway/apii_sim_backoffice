@@ -30,6 +30,70 @@ class Stop < ActiveRecord::Base
     "#{name} (#{code})"
   end
 
+
+  def self.mis_stop_in_transfer( mis1_id, mis2_id)
+    sql = <<EOF
+SELECT * FROM stop WHERE id in (
+SELECT d.id
+FROM transfer t, stop d, stop a
+WHERE d.id=t.stop1_id
+AND a.id=t.stop2_id
+AND a.mis_id= #{mis1_id}
+AND d.mis_id= #{mis2_id}
+UNION
+SELECT a.id
+FROM transfer t, stop d, stop a
+WHERE d.id=t.stop1_id
+AND a.id=t.stop2_id
+AND d.mis_id= #{mis1_id}
+AND a.mis_id= #{mis2_id}
+)
+EOF
+    Stop.find_by_sql sql
+
+  end
+  def self.mis_stop_id_in_transfer_sql( mis1_id, mis2_id)
+    sql = <<EOF
+SELECT d.id
+FROM transfer t, stop d, stop a
+WHERE d.id=t.stop1_id
+AND a.id=t.stop2_id
+AND a.mis_id= #{mis1_id}
+AND d.mis_id= #{mis2_id}
+UNION
+SELECT a.id
+FROM transfer t, stop d, stop a
+WHERE d.id=t.stop1_id
+AND a.id=t.stop2_id
+AND d.mis_id= #{mis1_id}
+AND a.mis_id= #{mis2_id}
+EOF
+  end
+
+  def self.couple_of_mis_stops( mis1_id, mis2_id )
+    stop_ids_in_transition = Stop.connection.execute( Stop.mis_stop_id_in_transfer_sql( mis1_id, mis2_id ) ).map{ |r| r["id"] }
+    stops = Stop.where( :mis_id => [ mis1_id, mis2_id ] )
+    stops.each do |s|
+      s.in_transition = stop_ids_in_transition.include?( s.id.to_s)
+      s.origin_mis = ( s.mis_id == mis1_id)
+    end
+    stops
+  end
+
+  def in_transition=( val )
+    @in_transition = val
+  end
+  def in_transition?
+    @in_transition.nil? || @in_transition
+  end
+
+  def origin_mis=( val )
+    @origin_mis = val
+  end
+  def origin_mis?
+    @origin_mis.nil? || @origin_mis
+  end
+
   def connections
     Connection.where("stop1_id = ? OR stop2_id = ?", id, id).order(:id)
   end

@@ -3,24 +3,29 @@ class StopsController < InheritedResources::Base
   actions :index, :show
 
   belongs_to :mis, :param => :miss_id, :parent_class => Mis, :optional => true
-  
+
   respond_to :html
   respond_to :kml, :only => [:index, :show]
   respond_to :js, :only => :index
   respond_to :json
 
   def index
-    super do |format|      
+    if params["mis1_id"] && params["mis2_id"]
+      @stops = Stop.couple_of_mis_stops( params["mis1_id"], params["mis2_id"])
+      @map = map("/stops.kml?mis1_id=#{params["mis1_id"]}&mis2_id=#{params["mis2_id"]}")
+    end
+    super do |format|
       # add this line to respond to format kml using your renderer
       format.kml {
         render 'map_layers/stops'
       }
+      format.json { render @stops.to_json }
     end
   end
-  
-  
-  def show    
-    super do |format|      
+
+
+  def show
+    super do |format|
       @map = map("/stops/#{resource.id}.kml")
       format.kml { render 'map_layers/stop' }
     end
@@ -30,47 +35,47 @@ class StopsController < InheritedResources::Base
 
   alias_method :stop, :resource
   alias_method :stops, :collection
-  
+
   def collection
     ransack_params = params[:q]
     puts ransack_params.inspect
-    
+
     # Hack to delete params can't be used by ransack
     if ransack_params.present?
       if ransack_params["origin"].present? && ransack_params["distance"].present?
         origin = Stop.geos_factory.parse_wkt( "POINT(#{ransack_params["origin"].gsub(",", " ")})" )
-        distance = ransack_params["distance"].to_i * ( 0.001 / 111 )       
+        distance = ransack_params["distance"].to_i * ( 0.001 / 111 )
       end
-      
+
       having_connection = ransack_params["having_connection"]
 
-      ransack_params.delete_if {|key, value| ["origin", "distance", "having_connection"].include?(key) } 
+      ransack_params.delete_if {|key, value| ["origin", "distance", "having_connection"].include?(key) }
     end
-    
+
     selected_stops = if origin && distance && having_connection
                        Stop.near_from(origin, distance)
                      elsif having_connection
                        Stop.all
                      elsif origin && distance
-                       Stop.near_from(origin, distance)                       
+                       Stop.near_from(origin, distance)
                      else
-                       parent.present? ? parent.stops : Stop.all    
+                       parent.present? ? parent.stops : Stop.all
                      end
     @q = selected_stops.search(params[:q])
     @stops ||= @q.result(:distinct => true).order(:name).limit(20)
   end
-  
+
   private
-  
+
   def permitted_params
     params.permit(:stop => [:code, :mis_id, :name, :administrative_code, :site_ref, :quay_type, :geometry])
   end
-  
+
   def map(url)
     @map = MapLayers::JsExtension::MapBuilder.new("map") do |builder, page|
       # OpenStreetMap layer
       page << builder.map.add_layer(MapLayers::OpenLayers::OSM_MAPNIK)
-      
+
       # Add a button to hide/show layers
       page << builder.map.add_control(MapLayers::OpenLayers::Control::LayerSwitcher.new)
 
@@ -79,8 +84,9 @@ class StopsController < InheritedResources::Base
 
       # Add a vector layer to read from kml url
       page << builder.add_vector_layer('stop', url, :format => :kml)
-      page << builder.add_vector_layer('stop', "/stops/#{resource.id}/connections.kml", :format => :kml)
-      
+
+      page << builder.add_vector_layer('stop', "/stops/#{resource.id}/connections.kml", :format => :kml) if @stop
+
       # Initialize select, point, path, polygon and drag control for features
       # you may want to handle event on only one layer
       #page << builder.map_handler.initialize_controls('map_controls', 'pikts')

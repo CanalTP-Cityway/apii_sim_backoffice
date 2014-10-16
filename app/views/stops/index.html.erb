@@ -29,5 +29,13 @@
   </div>
 </div>
 <% end %>
+<% if @map %>
+  <div class="col-md-8">
+    <!-- html map container -->
+    <%= map_layers_container(@map, :class => 'small_size', :include_loading => true) %>
+    <!-- map_layers js scripts and if necessary its dependencies -->
+    <%= map_layers_includes(@map, :onload => true) %>
+  </div>
+<% end %>
 
 <div id="stops"><%= render 'stops' %></div>

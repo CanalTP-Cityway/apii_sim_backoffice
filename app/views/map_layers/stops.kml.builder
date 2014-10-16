@@ -5,18 +5,56 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
     xml.name "#{@stops.class.to_s}_collection"
 
     # styles examples
-    xml.StyleMap :id => "stop_icon_pair" do
+    xml.StyleMap :id => "mis_destination" do
       xml.Pair do
         xml.key "normal"
-        xml.styleUrl "#stop_icon_normal"
+        xml.styleUrl "#mis_destination_normal"
       end
       xml.Pair do
         xml.key "highlight"
-        xml.styleUrl "#stop_icon_highlight"
+        xml.styleUrl "#mis_destination_highlight"
       end
     end
 
-    xml.Style :id => "stop_icon_normal" do
+    xml.Style :id => "mis_destination_normal" do
+      xml.IconStyle do
+        xml.scale "1.2"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    xml.Style :id => "mis_destination_highlight" do
+      xml.IconStyle do
+        xml.scale "1.4"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/paddle/red-circle.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    # styles examples
+    xml.StyleMap :id => "mis_origin" do
+      xml.Pair do
+        xml.key "normal"
+        xml.styleUrl "#mis_origin_normal"
+      end
+      xml.Pair do
+        xml.key "highlight"
+        xml.styleUrl "#mis_origin_highlight"
+      end
+    end
+
+    xml.Style :id => "mis_origin_normal" do
       xml.IconStyle do
         xml.scale "1.2"
         xml.Icon do
@@ -29,11 +67,87 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
       end
     end
 
-    xml.Style :id => "stop_icon_highlight" do
+    xml.Style :id => "mis_origin_highlight" do
       xml.IconStyle do
         xml.scale "1.4"
         xml.Icon do
           xml.href "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    # styles examples
+    xml.StyleMap :id => "transition_origin" do
+      xml.Pair do
+        xml.key "normal"
+        xml.styleUrl "#transition_origin_normal"
+      end
+      xml.Pair do
+        xml.key "highlight"
+        xml.styleUrl "#transition_origin_highlight"
+      end
+    end
+
+    xml.Style :id => "transition_origin_normal" do
+      xml.IconStyle do
+        xml.scale "1.2"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    xml.Style :id => "transition_origin_highlight" do
+      xml.IconStyle do
+        xml.scale "1.4"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    # styles examples
+    xml.StyleMap :id => "transition_destination" do
+      xml.Pair do
+        xml.key "normal"
+        xml.styleUrl "#transition_destination_normal"
+      end
+      xml.Pair do
+        xml.key "highlight"
+        xml.styleUrl "#transition_destination_highlight"
+      end
+    end
+
+    xml.Style :id => "transition_destination_normal" do
+      xml.IconStyle do
+        xml.scale "1.2"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
+        end
+        xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
+      end
+      xml.LabelStyle do
+        xml.color "ff00aaff"
+      end
+    end
+
+    xml.Style :id => "transition_destination_highlight" do
+      xml.IconStyle do
+        xml.scale "1.4"
+        xml.Icon do
+          xml.href "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png"
         end
         xml.hotSpot :x => "0.5", :y => "0.5", :xunits => "fraction", :yunits => "fraction"
       end
@@ -65,7 +179,9 @@ xml.kml(:xmlns=>"http://earth.google.com/kml/2.2") do
             # popup url
             xml.popup_content_url polymorphic_path([:popup_content, stop]) rescue nil
 
-            xml.styleUrl "#stop_icon_pair"
+            style_prefix = (stop.in_transition? ? "transition" : "mis")
+            style_suffix = (stop.origin_mis? ? "origin" : "destination")
+            xml.styleUrl "##{style_prefix}_#{style_suffix}"
             #xml.styleUrl "##{stop.map_layers_marker}" if stop.respond_to?('map_layers_marker')
 
             # place link
