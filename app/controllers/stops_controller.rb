@@ -12,7 +12,7 @@ class StopsController < InheritedResources::Base
   def index
     if params["mis1_id"] && params["mis2_id"]
       @stops = Stop.couple_of_mis_stops( params["mis1_id"], params["mis2_id"])
-      @map = map("/stops.kml?mis1_id=#{params["mis1_id"]}&mis2_id=#{params["mis2_id"]}")
+      @map = map( stops_path( format: :kml ) + "?mis1_id=#{params["mis1_id"]}&mis2_id=#{params["mis2_id"]}")
     end
     super do |format|
       # add this line to respond to format kml using your renderer
@@ -26,7 +26,7 @@ class StopsController < InheritedResources::Base
 
   def show
     super do |format|
-      @map = map("/stops/#{resource.id}.kml")
+      @map = map( stop_path( resource, format: :kml ))
       format.kml { render 'map_layers/stop' }
     end
   end

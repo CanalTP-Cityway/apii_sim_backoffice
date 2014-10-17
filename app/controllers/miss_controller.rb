@@ -3,40 +3,40 @@ class MissController < InheritedResources::Base
   respond_to :kml, :only => :show
   respond_to :json
   defaults :resource_class => Mis, :collection_name => 'miss', :instance_name => 'mis'
-  
-  def show    
+
+  def show
     super do |format|
-      @map = map("/miss/#{resource.id}/stops.kml")
+      @map = map( miss_stops_path( resource, format: :kml ))
       format.kml { render 'map_layers/stops' }
     end
-  end 
-  
+  end
+
   def connections
     @mis = Mis.find(params[:id])
     @connections = @mis.connections
   end
-  
+
   def stops
     @mis = Mis.find(params[:id])
     @stops = @mis.stops.page(params[:page])
   end
 
   protected
-  
+
   alias_method :mis, :resource
   alias_method :miss, :collection
-  
+
   def collection
     @q = params[:q].present? ? Mis.search(params[:q]) : Mis.all
     @miss ||= params[:q].present? ? @q.result(:distinct => true).first(20) : @q.first(20)
   end
-  
+
   private
-  
+
   def permitted_params
     params.permit(mis: [:name, :comment, :api_url, :api_key, :start_date, :end_date, :multiple_starts_and_arrivals])
   end
-  
+
   def map(url)
     MapLayers::JsExtension::MapBuilder.new("map") do |builder, page|
       # OpenStreetMap layer
@@ -50,10 +50,10 @@ class MissController < InheritedResources::Base
 
       # Add a vector layer to read from kml url
       page << builder.add_vector_layer('stops', url, :format => :kml)
-      
+
       # Add an empty vector layer
-      #page << builder.add_vector_layer('connections', '/miss/#{mis.id}/connections.kml', :format => :kml)              
-      
+      #page << builder.add_vector_layer('connections', '/miss/#{mis.id}/connections.kml', :format => :kml)
+
       # Initialize select, point, path, polygon and drag control for features
       # you may want to handle event on only one layer
       #page << builder.map_handler.initialize_controls('map_controls', 'pikts')
