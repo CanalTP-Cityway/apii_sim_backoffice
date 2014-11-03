@@ -72,7 +72,13 @@ EOF
 
   def self.couple_of_mis_stops( mis1_id, mis2_id )
     stop_ids_in_transition = Stop.connection.execute( Stop.mis_stop_id_in_transfer_sql( mis1_id, mis2_id ) ).map{ |r| r["id"] }
-    stops = Stop.where( :mis_id => [ mis1_id, mis2_id ] )
+    stop_ids_out_transition = Stop.connection.execute( Stop.mis_stop_id_in_transfer_sql( mis2_id, mis1_id ) ).map{ |r| r["id"] }
+    stop_ids_transition = []
+    stop_ids_transition << stop_ids_in_transition
+    stop_ids_transition << stop_ids_out_transition
+    stop_ids_transition = stop_ids_transition.flatten
+    #stops = Stop.where( :mis_id => [ mis1_id, mis2_id ] )
+    stops = Stop.where( :id => stop_ids_transition )
     stops.each do |s|
       s.in_transition = stop_ids_in_transition.include?( s.id.to_s)
       s.origin_mis = ( s.mis_id == mis1_id)
