@@ -240,7 +240,7 @@ CREATE TABLE stop (
     geog geography(Point,4326),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    geom geometry
+    geom geometry(Point,4326)
 );
 
 
@@ -456,3 +456,4 @@ INSERT INTO schema_migrations (version) VALUES ('20140422115407');
 INSERT INTO schema_migrations (version) VALUES ('20140422124631');
 
 INSERT INTO schema_migrations (version) VALUES ('20140905113956');
+

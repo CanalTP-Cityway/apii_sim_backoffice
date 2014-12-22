@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Miss", :type => :request do
   describe "GET /miss" do

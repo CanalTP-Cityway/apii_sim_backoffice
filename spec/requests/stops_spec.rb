@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Stops", :type => :request do
   describe "GET /stops" do

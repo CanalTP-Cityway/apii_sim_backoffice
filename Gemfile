@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.5'
+gem 'rails', '~> 4.1.1'
 
 # Fix to delete unused warn
 gem 'thin'
@@ -56,9 +57,9 @@ gem "ransack"
 gem 'compass-rails'
 
 # Use twitter bootstrap resources
-gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootswatch-rails'
+gem 'rails-assets-bootstrap-sass-official', '~> 3.3.0'
 gem 'font-awesome-sass', '~> 4.2.0'
+gem 'bootswatch-rails'
 gem 'bootstrap-datepicker-rails'
 gem 'will_paginate-bootstrap'
 gem 'typeahead-rails', '~> 0.10.5'
@@ -78,7 +79,7 @@ gem 'activerecord-postgis-adapter'
 gem 'ffi-geos'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'rspec-activemodel-mocks'
   gem 'guard'
   gem 'guard-rspec'
