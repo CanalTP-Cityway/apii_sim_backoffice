@@ -44,7 +44,7 @@ class StopsController < InheritedResources::Base
     if ransack_params.present?
       if ransack_params["origin"].present? && ransack_params["distance"].present?
         str = ransack_params["origin"].gsub(',' , ' ').scan(/[\w\.]+/)
-        if str.length == 0
+        if str.length == 2
           origin = Stop.geos_factory.parse_wkt( "POINT(#{str[1]} #{str[0]})" )
           distance = ransack_params["distance"].to_i * ( 0.001 / 111 )
         end
