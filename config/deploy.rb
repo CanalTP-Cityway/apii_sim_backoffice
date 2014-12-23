@@ -71,7 +71,7 @@ namespace :deploy do
     desc "Compile the assets named in config.assets.precompile"
     task :precompile do
       on roles(:app) do
-        execute "cd #{release_path} && bundle exec rake assets:clobber assets:precompile  RAILS_RELATIVE_URL_ROOT=/apii_sim_backoffice"
+        execute "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:clobber assets:precompile"
       end
     end
   end
