@@ -71,7 +71,21 @@ class MissController < InheritedResources::Base
       #   - none, to disable all controls
       page << builder.map_handler.toggle_control('map_controls', 'select')
 
-      page << builder.map.zoom_to_max_extent()
+      minLat = stops.map(&:lat).min
+      maxLat = stops.map(&:lat).max
+      minLon = stops.map(&:long).min
+      maxLon = stops.map(&:long).max
+
+      page << <<EOF
+var fromProj = new OpenLayers.Projection("EPSG:4326");
+var toProj = new OpenLayers.Projection("EPSG:900913");
+var minPosition = new OpenLayers.LonLat("#{stops.map(&:long).min}" , "#{stops.map(&:lat).min}").transform(fromProj, toProj);
+var maxPosition = new OpenLayers.LonLat("#{stops.map(&:long).max}" , "#{stops.map(&:lat).max}").transform(fromProj, toProj);
+var bounds = new OpenLayers.Bounds([minPosition.lon, minPosition.lat, maxPosition.lon, maxPosition.lat]);
+ 
+map.zoomToExtent(bounds)
+EOF
+
     end
   end
 end

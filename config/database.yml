@@ -28,8 +28,8 @@ development:
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: 82.226.26.241
-  #host: localhost
+  #host: 178.132.27.46
+  host: localhost
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
@@ -70,5 +70,5 @@ production:
   password: c17yW4Y13
   su_username: cityway
   su_password: c17yW4Y13
-  host: 82.226.26.241
+  host: 178.132.27.46
   port: 5432

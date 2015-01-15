@@ -106,8 +106,13 @@ class StopsController < InheritedResources::Base
       #   - drag, to move features
       #   - none, to disable all controls
       page << builder.map_handler.toggle_control('map_controls', 'select')
-
-      page << builder.map.zoom_to_max_extent()
+      
+      page << <<EOF
+var fromProj = new OpenLayers.Projection("EPSG:4326");
+var toProj = new OpenLayers.Projection("EPSG:900913");
+var position = new OpenLayers.LonLat("#{stop.long}" , "#{stop.lat}").transform(fromProj, toProj);
+map.setCenter(position, 16);
+EOF
     end
 
   end
